@@ -1,0 +1,21 @@
+{ config, pkgs, inputs, username, ... }:
+{
+imports = [
+    ./aerospace.nix
+    ../shared/fish.nix
+    ../shared/nvim.nix
+    ../shared/sioyek.nix
+    ./firefox.nix
+    ./ghostty.nix
+    ../shared/rmpc.nix
+    ./mpd.nix
+    ../shared/tmux.nix
+    ./neru.nix
+    ../shared/yazi.nix
+    ./sketchybar.nix
+    ../shared/mpv.nix
+];
+home.username = "elaine";
+home.homeDirectory = "/Users/elaine";
+home.stateVersion = "24.11";
+}

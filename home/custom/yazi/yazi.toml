@@ -1,0 +1,65 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[mgr]
+ratio = [1, 4, 3]
+sort_by = "natural"
+sort_dir_first = true
+
+
+[opener]
+nolder = [
+  { run = '''zsh -c "nvim "$1""''', block = true, desc = "neovim", for = "macos" },
+  { run = 'ghostty --detach nvim "$@"', orphan = true, desc = "neovim (detached)", for = "macos" },
+  { run = '''zsh -c "lazygit -p "$1""''', block = true, desc = "lazygit", for = "macos" },
+  { run = 'ghostty "$@"', orphan = true, desc = "ghostty", for = "macos" },
+]
+
+text = [
+  { run = 'nvim "$@"', block = true, desc = 'neovim', for = "macos" },
+  { run = 'ghostty --detach nvim "$@"', block = true, desc = "neovim (detached)", for = "macos" },
+]
+
+document = [
+  { run = 'sioyek "$@"', orphan = true, desc = "sioyek", for = "macos" },
+  { run = 'libreoffice "$@"', orphan = true, desc = "libreoffice", for = "linux" },
+]
+
+image = [
+  { run = 'gimp "$@"', orphan = true, desc = 'gimp', for = "macos" },
+  { run = 'satty --filename "$@"', orphan = true, desc = "satty", for = "linux" },
+]
+video = [
+  { run = 'mpv "$@"', orphan = true, desc = "mpv", for = "macos" },
+]
+audio = [
+  { run = 'mpv "$@"', orphan = true, desc = "mpv", for = "macos" },
+]
+fallback = [
+  { run = 'xdg-open "$@"', orphan = true, desc = "xdg-open", for = "macos" },
+]
+
+[open]
+rules = [
+  { name = "*/", use = "folder" },
+
+  { mime = "text/*", use = "text" },
+  { mime = "image/*", use = "image" },
+  { mime = "video/*", use = "video" },
+  { mime = "application/octet-stream", use = "video" },
+  { mime = "audio/*", use = "audio" },
+  { mime = "inode/x-empty", use = "text" },
+  { mime = "application/json", use = "text" },
+
+  { mime = "application/zip", use = "archive" },
+  { mime = "application/gzip", use = "archive" },
+  { mime = "application/x-bzip", use = "archive" },
+  { mime = "application/x-bzip2", use = "archive" },
+  { mime = "application/x-tar", use = "archive" },
+  { mime = "application/x-7z-compressed", use = "archive" },
+  { mime = "application/x-rar", use = "archive" },
+  { mime = "application/pdf", use = "document" },
+  { mime = "application/epub+zip", use = "document" },
+  { mime = "application/x-mobipocket-ebook", use = "document" },
+
+  { mime = "*", use = "fallback" },
+]

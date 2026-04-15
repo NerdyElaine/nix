@@ -1,0 +1,109 @@
+;;
+;; Colemak Mod-DH keyboard layout for Kanata (ANSI keyboards)
+;;
+;; The Colemak Mod-DH layout is an improved version of Colemak that addresses 
+;; the D and H key positions for better comfort on row-staggered keyboards.
+;; 
+;; Visit https://colemakmods.github.io/mod-dh/ for more information.
+;;
+;; This configuration includes:
+;; - Standard Colemak-DH layout 
+;; - Colemak-DHk variant (k and m swapped)
+;; - Optional Extend layer for navigation and function keys
+;; - Layer switching via Caps Lock + number keys
+;;
+
+(defcfg
+
+  process-unmapped-keys   yes
+  concurrent-tap-hold     yes
+  allow-hardware-repeat   no
+)
+
+;; Source layer - defines which keys are intercepted
+(defsrc
+esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  grv     1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab     q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps    a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl   lmet lalt           spc            ralt rmet menu rctl
+)
+
+;; Colemak Mod-DH main layer
+(deflayer colemak-dh
+esc   🔅    🔆    f3    f4    f5    f6    f7    f8    f9    🔇    🔉    🔊
+  grv      1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab      q    w    f    p    b    j    l    u    y    ;    [    ]    \
+  lctl     a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft        x    c    d    v    z    k    h    ,    .    /    rsft
+  @ext		 lmet lalt           spc            @lm rmet _    _
+)
+
+;; QWERTY layer for comparison/fallback
+(deflayer qwerty
+esc   🔅    🔆   f3    f4    f5    f6    f7    f8    f9    🔇    🔉    🔊
+  grv      1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab      q    w    e    r    t    y    u    i    o    p    [    ]    \
+  lctl     a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft        z    x    c    v    b    n    m    ,    .    /    rsft
+  @ext    lmet lalt           spc            @lm  rmet _    _
+	
+)
+
+;; Extend layer for navigation, function keys, and layer switching
+;; Inspired by DreymaR's BigBag extend layer
+(deflayer extend
+esc   🔅    🔆   f3    f4    f5    f6    f7    f8    f9    🔇    🔉    🔊
+  _       @lq  @lh  _    _    _    _    _    _    _    _    _    _    _
+  _       esc  @bk  @fnd @fw  ins  pgup home pgdn end  menu _    slck _
+  _       lalt lmet lsft lctl ralt lft	down  up rght del  caps _
+  _          @cut @cpy tab  @pst @udo pgdn bspc lsft lctl menu rsft
+  _       _    _              ret            @lm    _    _    _
+)
+
+;; Layer mouse
+(deflayer mouse
+esc   🔅    🔆   f3    f4    f5    f6    f7    f8    f9    🔇    🔉    🔊
+	_       _    -  _    _    _    _    _    _    _    _    _    _    _
+  _       _    @mwd    _    _    _    _    _    _    _    _    _    _    _
+  _       _    @mwu    _    _    _    @msl    @msd    @msu    @msr    _    _    _
+  _       _    mlft    mrgt    _    _    _    _    _    _    _    _
+  _       _    _              _              _    _    _    _
+)
+
+;; Aliases for cleaner layer definitions
+(defalias
+  ;; Extend layer toggle on Caps Lock (tap for Caps, hold for Extend)
+  ext  (tap-hold 50 50 lctl (layer-toggle extend))
+  al (tap-hold 200 300 a lalt)
+	rc (tap-hold 200 300 r lmet)
+	ol (tap-hold 200 300 o ralt)
+	ic (tap-hold 200 200 i rmet)
+
+  ;; Layer switching aliases
+  lq   (layer-switch qwerty)    ;; Switch to QWERTY
+  lh   (layer-switch colemak-dh) ;; Switch to Colemak-DH
+	lm 	 (layer-while-held mouse) ;; switch to mouse
+	
+	hyperkey (tap-hold-press 50 50 esc (multi lctl lsft))
+
+ 	;; mouse keys
+  msl	(movemouse-left 1 1)
+	msd (movemouse-down 1 1)
+	msu (movemouse-up 1 1)
+	msr (movemouse-right 1 1)
+	mwu (mwheel-up 1 1)
+  mwd (mwheel-down 1 1)
+  mwl (mwheel-left 5 10)
+  mwr (mwheel-right 50 120)	
+  ;; Common shortcuts for Extend layer
+  cpy  C-c   ;; Copy
+  pst  C-v   ;; Paste
+  cut  C-x   ;; Cut
+  udo  C-z   ;; Undo
+  all  C-a   ;; Select All
+  fnd  C-f   ;; Find
+  bk   A-lft ;; Browser back
+  fw   A-rght ;; Browser forward
+)

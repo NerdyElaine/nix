@@ -6,9 +6,9 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = { url = "github:nix-community/home-manager"; inputs.nixpkgs.follows = "nixpkgs";};
-    niri = { url = "github:sodiboo/niri-flake"; inputs.nixpkgs.follows = "nixpkgs";};
     nix-homebrew = { url = "github:zhaofengli/nix-homebrew"; inputs.nixpkgs.follows = "nixpkgs";};
     homebrew-core = { url = "github:homebrew/homebrew-core"; flake = false; };
+    mango = { url = "github:mangowm/mango"; inputs.nixpkgs.follows = "nixpkgs"; };
     homebrew-cask = { url = "github:homebrew/homebrew-cask"; flake = false; };
     homebrew-bundle = { url = "github:homebrew/homebrew-bundle"; flake = false; };
     homebrew-formulae = { url = "github:FelixKratz/homebrew-formulae"; flake = false;};
@@ -18,7 +18,7 @@
     neru = { url = "github:y3owk1n/neru"; inputs.nixpkgs.follows = "nixpkgs";};
   };
 
-  outputs = { self, nix-darwin, nixpkgs, home-manager, niri, neru, nix-homebrew, homebrew-cask, homebrew-core, homebrew-bundle, homebrew-formulae, ...}@inputs:
+  outputs = { self, nix-darwin, nixpkgs, home-manager, neru, mango, nix-homebrew, homebrew-cask, homebrew-core, homebrew-bundle, homebrew-formulae, ...}@inputs:
     let
     lib = nixpkgs.lib;
     username = "elaine";
@@ -28,13 +28,17 @@
       system = "x86_64-linux";
       specialArgs = { inherit inputs username; };
       modules = [
-        niri.nixosModules.niri
+        mango.nixosModules.mango
         ./hosts/nixos/default.nix
         home-manager.nixosModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit inputs username; };
-          home-manager.users.${username} = import ./home/nixos;
+          home-manager.users.${username} = {
+          imports = [
+              ./home/nixos
+              mango.hmModules.mango
+          ];};
         }
       ];
     };

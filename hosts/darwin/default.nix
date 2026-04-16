@@ -24,6 +24,8 @@
     shell = pkgs.fish;
   };
 
+  time.timeZone = "Asia/Phnom_Penh";
+
   environment.systemPackages = with pkgs; [ 
   git 
   curl 
@@ -34,7 +36,7 @@
   gcc
   lazygit
   tmux
-  fd
+  mpv
   yt-dlp
   ghostty-bin
   kanata
@@ -60,7 +62,8 @@
   system.keyboard = {
           enableKeyMapping = true; 
           remapCapsLockToControl = true;
-      };
+          swapLeftCommandAndLeftAlt = true; 
+     };
   homebrew = {
     enable = true;
     onActivation = {
@@ -75,7 +78,10 @@
       "meson"
       "mpd"
       "mpc"
+      "sk"
+      "cava"
       "bob"
+      "fd"
       "felixkratz/formulae/borders"
       "rust"
       "felixkratz/formulae/sketchybar"
@@ -88,10 +94,14 @@
       "hot"
       "simpletex"
       "sf-symbols"
+      "keycastr"
       "vesktop"
       "protonvpn"
       "anki"
       "docker-desktop"
+      "element"
+      "beeper"
+      "telegram"
       "karabiner-elements"
       "raycast"
     ];

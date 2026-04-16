@@ -88,6 +88,30 @@ let
   sketchybar -m --set "$NAME" label="$(df -H | grep -E '^(/dev/disk3s5).' | awk '{ printf ("%s\n", $5) }')"
   '';
 
+#mpd plugin
+mpdPlugin = pkgs.writeShellScript "mpd.sh" ''
+if [ $(mpc status | wc -l | tr -d ' ') == "1" ]; then
+  output=""
+  icon="  "
+else
+  artist=$(mpc current -f %artist%)
+  song=$(mpc current -f %title%)
+  status=$(mpc status %state%)
+
+  if [ $status = "playing" ]; then
+    icon=""
+  else
+    icon=""
+  fi
+
+  output="$artist - $song"
+fi
+
+echo $output
+sketchybar -m --set mpd icon="$icon" \
+              --set mpd label="$output"
+'';
+
  # Battery plugin script
   batteryPlugin = pkgs.writeShellScript "power.sh" ''
         PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
@@ -271,7 +295,7 @@ sketchybar --add item clock right \
 	\
   --add item mpd right \
   --set mpd update_freq=2 \
-  --set mpd script="~/nix/home/custom/sketchybar/plugins/mpd.sh" \
+  --set mpd script="${mpdPlugin}" \
   label.font="$MONOSPACE_FONT:Regular:14.0" \
   --set mpd click_script="mpc toggle" \
   \

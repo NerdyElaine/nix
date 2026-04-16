@@ -11,10 +11,9 @@ center_cursor_position = true
 
 [hotkeys]
 "Option+Return" = "action left_click"
-"Option+Escape" = "recursive_grid --action left_click"
 "Option+Tab" = "scroll"
-"Option+Space" = "action move_mouse --center"
-"Cmd+Escape" = "recursive_grid"
+"Cmd+Space" = "action move_mouse --center"
+"Option+Escape" = "recursive_grid"
 
 [recursive_grid.hotkeys]
 "Escape" = "idle"

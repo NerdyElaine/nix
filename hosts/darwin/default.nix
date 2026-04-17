@@ -34,6 +34,8 @@
   btop
   rmpc
   gcc
+  texliveFull
+  nicotine-plus
   lazygit
   tmux
   mpv

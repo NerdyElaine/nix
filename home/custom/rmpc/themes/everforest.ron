@@ -34,6 +34,7 @@
         playlist_style: None,
     ),
     cava: (
+    bar_width: 2, 
     bar_color: Single("#A7C080"),
     ),
     level_styles: (

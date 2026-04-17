@@ -22,7 +22,7 @@
     cava: (
         framerate: 60,
         autosens: true,
-        sensitivity: 130,
+        sensitivity: 100,
         // lower_cutoff_freq: 50,
         // higher_cutoff_freq: 20000,
         input: (
@@ -157,11 +157,6 @@
                                 (
                                     size: "100%",
                                     pane: Pane(Queue),
-                                ),
-                                (
-                                    borders: "TOP",
-                                    size: "20",
-                                    pane: Pane(Cava)
                                 ),
                             ],
                         ),

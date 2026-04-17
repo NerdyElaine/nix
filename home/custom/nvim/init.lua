@@ -256,7 +256,7 @@ require "mason".setup()
 
 vim.lsp.enable({
     "lua_ls", "css_ls", "ts_ls", "rust_analyzer", "clangd", "haskell-language-server", "tailwind_css", "basedpyright",
-    "ltex_plus", "bashls", "svelte", "org", "nil"
+    "ltex_plus", "bashls", "svelte", "org", "nixd"
 })
 
 vim.api.nvim_create_autocmd('FileType', {

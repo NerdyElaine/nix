@@ -21,6 +21,7 @@
       set -x PATH $HOME/.local/share/bob/nvim-bin $PATH
       set -x PATH $HOME/.local/bin $PATH
       set -gx PATH /run/current-system/sw/bin $PATH
+      set -x LIBRARY_PATH (brew --prefix libiconv)/lib $LIBRARY_PATH
 
       fzf --fish | source
 

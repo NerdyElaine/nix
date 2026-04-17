@@ -43,8 +43,8 @@
             bind R source-file ~/.tmux.conf
 
 # easy-to-remember split pane commands
-            bind | split-window -h -c "#{pane_current_path}"
-            bind - split-window -v -c "#{pane_current_path}"
+            bind v split-window -h -c "#{pane_current_path}"
+            bind h split-window -v -c "#{pane_current_path}"
             unbind '"'
             unbind %
 
@@ -55,14 +55,25 @@
             bind -r i resize-pane -R 5
 
 #Sessionizer scripts
-            bind f run "tmux neww ~/nix/custom/scripts/tmux-session-dispensary.sh"
-            bind t run "tmux nnew ~/nix/custom/scripts/time.sh"
             bind B run "~/nix/home/custom/scripts/tmux-session-dispensary.sh ~/Library/Mobile\ Documents/com~apple~CloudDocs"
             bind P run "~/nix/home/custom/scripts/tmux-session-dispensary.sh ~/documents/projects"
             bind N run "~/nix/home/custom/scripts/tmux-session-dispensary.sh ~/nix"
             bind H run "~/nix/home/custom/scripts/tmux-session-dispensary.sh ~"
-            bind W run "~/nix/home/custom/scripts/tmux-session-dispensary.sh ~/dev/personalwebsite"
             bind O run "~/nix/home/custom/scripts/tmux-session-dispensary.sh ~/orgfiles"
+            bind W run "~/nix/home/custom/scripts/tmux-session-dispensary.sh ~/dev/personalwebsite"
+            bind f display-popup \
+                -T "#[align=centre]Sessionizer" -x C -y C \
+                -d "#{pane_current_path}" \
+                -w 75% \
+                -h 75% \
+                -E "~/nix/home/custom/scripts/tmux-session-dispensary.sh"
+
+#Lazygit integration
+            bind g display-popup \
+                -d "#{pane_current_path}" \
+                -w 80% \
+                -h 80% \
+                -E "lazygit"
 
 #tmux nvim
 

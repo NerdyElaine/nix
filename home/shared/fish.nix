@@ -67,8 +67,6 @@
       l      = "eza -lh --icons --group-directories-first";
       tree   = "eza -T --icons -D --group-directories-first";
       treeall = "eza --tree --icons --group-directories-first";
-      # Cargo
-      cargo  = "RUSTC_WRAPPER=sccache cargo";
 
       # File shortcuts
       icloud = "yazi ~/Library/Mobile\\ Documents/com~apple~CloudDocs/";

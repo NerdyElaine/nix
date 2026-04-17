@@ -20,6 +20,7 @@
 
           "custom_background_color" = "0.153 0.180 0.200"; # #FAF4ED
           "custom_text_color" = "0.827 0.776 0.667";       # #434C5E
+          "status_bar_color" = "0.153 0.180 0.200";
 
           "ui_text_color" = "0.827 0.776 0.667";           # #434C5E
           "ui_background_color" = "0.153 0.180 0.200";      # #ECEFF4

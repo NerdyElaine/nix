@@ -17,5 +17,5 @@ imports = [
 ];
 home.username = "elaine";
 home.homeDirectory = "/Users/elaine";
-home.stateVersion = "24.11";
+home.stateVersion = "26.05";
 }

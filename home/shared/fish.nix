@@ -17,11 +17,10 @@
       bind \ch _atuin_search
       bind -M insert \ch _atuin_search
 
-      set -x PATH $HOME/.cargo/bin $PATH
-      set -x PATH $HOME/.local/share/bob/nvim-bin $PATH
-      set -x PATH $HOME/.local/bin $PATH
-      set -gx PATH /run/current-system/sw/bin $PATH
-      set -x LIBRARY_PATH (brew --prefix libiconv)/lib $LIBRARY_PATH
+      fish_add_path $HOME/.cargo/bin
+      fish_add_path $HOME/.local/bin 
+      fish_add_path /run/current-system/sw/bin 
+      set -gx LIBRARY_PATH /opt/homebrew/opt/libiconv/lib $LIBRARY_PATH
 
       fzf --fish | source
 

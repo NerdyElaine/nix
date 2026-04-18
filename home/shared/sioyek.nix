@@ -3,7 +3,7 @@
   programs.sioyek = {
         enable = true;
         config = {
-          "background_color" = "0.180 0.220 0.235";        # #F3EAD3
+          "background_color" = "0.110 0.130 0.150";        # #F3EAD3
           "text_highlight_color" = "0.655 0.753 0.502";    # #A7C080
           "visual_mark_color" = "0.882 0.894 0.741";       # #E1E4BD
           "search_highlight_color" = "0.655 0.753 0.502";  # #A7C080

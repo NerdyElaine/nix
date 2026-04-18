@@ -31,7 +31,10 @@
   curl 
   fish
   wget 
+  imagemagick
   btop
+  pandoc
+  ghostscript
   rmpc
   gcc
   texliveFull

@@ -3,6 +3,8 @@
 imports = [
     ./aerospace.nix
     ../shared/fish.nix
+    ../shared/newsboat.nix
+    ../shared/git.nix
     ../shared/nvim.nix
     ../shared/sioyek.nix
     ./firefox.nix

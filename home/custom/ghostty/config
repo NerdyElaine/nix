@@ -1,4 +1,5 @@
 font-family = Iosevka Nerd Font Mono
+font-feature = -liga, -clig, -calt
 background-opacity = 0.96
 background-image-opacity = 0.96
 macos-titlebar-style = hidden

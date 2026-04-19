@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   programs.fish = {
     enable = true;
 
@@ -18,8 +17,8 @@
       bind -M insert \ch _atuin_search
 
       fish_add_path $HOME/.cargo/bin
-      fish_add_path $HOME/.local/bin 
-      fish_add_path /run/current-system/sw/bin 
+      fish_add_path $HOME/.local/bin
+      fish_add_path /run/current-system/sw/bin
       set -gx LIBRARY_PATH /opt/homebrew/opt/libiconv/lib $LIBRARY_PATH
 
       fzf --fish | source
@@ -34,38 +33,38 @@
     '';
 
     shellAliases = {
-      v      = "vim";
-      vi     = "nvim";
-      inv    = ''nvim $(fzf -m --preview="bat --color=always {}")'';
-      o      = "open";
-      owd    = "open ./";
-      fm     = ". yazi";
+      v = "vim";
+      vi = "nvim";
+      inv = ''nvim $(fzf -m --preview="bat --color=always {}")'';
+      o = "open";
+      owd = "open ./";
+      fm = ". yazi";
       fhistory = "history | rg";
-      dis3d  = "$HOME/.cargo/bin/display3d";
-      ff     = "hyfetch -b fastfetch";
-      fzf    = ''fzf --preview="bat -f {}"'';
+      dis3d = "$HOME/.cargo/bin/display3d";
+      ff = "hyfetch -b fastfetch";
+      fzf = ''fzf --preview="bat -f {}"'';
 
       # Kanata
-      kbd    = "sudo kanata --cfg ~/nix/home/custom/kanata/colemak-dh-ansi.kbd";
+      kbd = "sudo kanata --cfg ~/nix/home/custom/kanata/colemak-dh-ansi.kbd";
 
       # Git
-      gl     = "git log --graph --abbrev-commit --decorate --date=relative --all";
-      glo    = "git log --oneline --graph --abbrev-commit --decorate --date=relative --all";
-      gst    = "git status --short --find-renames --branch";
-      gstu   = "git status --short --find-renames --branch --untracked-files";
-      ga     = "git add";
-      gaa    = "git add -A";
-      gcm    = "git commit -m";
-      gcam   = "git commit -am";
-      gd     = "git diff";
+      gl = "git log --graph --abbrev-commit --decorate --date=relative --all";
+      glo = "git log --oneline --graph --abbrev-commit --decorate --date=relative --all";
+      gst = "git status --short --find-renames --branch";
+      gstu = "git status --short --find-renames --branch --untracked-files";
+      ga = "git add";
+      gaa = "git add -A";
+      gcm = "git commit -m";
+      gcam = "git commit -am";
+      gd = "git diff";
 
       # Eza
-      ls     = "eza --icons --group-directories-first";
-      la     = "eza -a --icons --group-directories-first";
-      lsa    = "eza -a --icons --group-directories-first";
-      ll     = "eza -lah --icons --group-directories-first";
-      l      = "eza -lh --icons --group-directories-first";
-      tree   = "eza -T --icons -D --group-directories-first";
+      ls = "eza --icons --group-directories-first";
+      la = "eza -a --icons --group-directories-first";
+      lsa = "eza -a --icons --group-directories-first";
+      ll = "eza -lah --icons --group-directories-first";
+      l = "eza -lh --icons --group-directories-first";
+      tree = "eza -T --icons -D --group-directories-first";
       treeall = "eza --tree --icons --group-directories-first";
 
       # File shortcuts
@@ -95,7 +94,7 @@
         bind --erase \cm
       '';
     };
-};
+  };
 
   programs.fzf = {
     enable = true;
@@ -118,11 +117,11 @@
     };
   };
 
-   programs.starship = {
-     enable = true;
-     enableFishIntegration = true;
-   };
-  home.packages = with pkgs; [   
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+  home.packages = with pkgs; [
     eza
     bat
     ripgrep
@@ -135,5 +134,3 @@
     fzf
   ];
 }
-
-

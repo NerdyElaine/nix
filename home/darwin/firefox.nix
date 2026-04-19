@@ -1,5 +1,9 @@
-{ inputs, config, pkgs, ... }:
 {
+  inputs,
+  config,
+  pkgs,
+  ...
+}: {
   imports = [
     inputs.textfox.homeManagerModules.default
     inputs.arkenfox.hmModules.arkenfox
@@ -9,7 +13,7 @@
     enable = true;
     profiles.elaine = {
       isDefault = true;
-        extraConfig = ''
+      extraConfig = ''
         user_pref("_user.js.parrot", "START: Oh yes, the Norwegian Blue... what's wrong with it?");
 
         user_pref("browser.aboutConfig.showWarning", false);
@@ -499,59 +503,77 @@
             user_pref("network.trr.mode", 3);
             user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
             user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
-        '';
+      '';
 
       extensions = with inputs.firefox-addons.packages."aarch64-darwin"; [
-          ublock-origin
-          bitwarden
-          sponsorblock
-          darkreader
-          sidebery
-          stylus
-          vimium-c
-          multi-account-containers
-          mtab
-          violentmonkey
-          zotero-connector
-          dearrow
-          skip-redirect
-          firefox-color
-        ];
+        ublock-origin
+        bitwarden
+        sponsorblock
+        darkreader
+        sidebery
+        stylus
+        vimium-c
+        multi-account-containers
+        mtab
+        violentmonkey
+        zotero-connector
+        dearrow
+        skip-redirect
+        firefox-color
+      ];
 
       search = {
         force = true;
         default = "SearXNG";
         engines = {
           "SearXNG" = {
-              urls = [{
+            urls = [
+              {
                 template = "http://localhost:8080/search";
                 params = [
-                  { name = "q"; value = "{searchTerms}"; }
+                  {
+                    name = "q";
+                    value = "{searchTerms}";
+                  }
                 ];
-              }];
-              updateInterval = 24 * 60 * 60 * 1000; # update icon every 24h
-              definedAliases = [ "@s" ];
-            };
+              }
+            ];
+            updateInterval = 24 * 60 * 60 * 1000; # update icon every 24h
+            definedAliases = ["@s"];
+          };
           "Nix Packages" = {
-            urls = [{
-              template = "https://search.nixos.org/packages";
-              params = [
-                { name = "type";  value = "packages"; }
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "https://nixos.org/favicon.png";
-            definedAliases = [ "@np" ];
+            definedAliases = ["@np"];
           };
           "NixOS Options" = {
-            urls = [{
-              template = "https://search.nixos.org/options";
-              params = [
-                { name = "query"; value = "{searchTerms}"; }
-              ];
-            }];
+            urls = [
+              {
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
+            ];
             icon = "https://nixos.org/favicon.png";
-            definedAliases = [ "@no" ];
+            definedAliases = ["@no"];
           };
         };
       };
@@ -559,16 +581,16 @@
   };
   textfox = {
     enable = true;
-    profiles = [ "elaine" ];
+    profiles = ["elaine"];
     config = {
       displayWindowControls = false;
       displayNavButtons = false;
       displayUrlbarIcons = false;
       displaySidebarTools = false;
       font = {
-          family = "Iosevka Nerd Font Mono";
-          size = "14px";
-        };
+        family = "Iosevka Nerd Font Mono";
+        size = "14px";
+      };
       tabs = {
         horizontal.enable = false;
         vertical.enable = true;

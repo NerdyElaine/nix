@@ -132,6 +132,8 @@ require("nvim-treesitter").setup({
     }
 })
 
+require('nvim-treesitter').install { 'rust', 'javascript', 'typescript', 'svelte', 'python', 'c', 'cpp', 'lua' }
+
 require "render-markdown".setup({
     completion = {
         lsp = {
@@ -257,6 +259,19 @@ require "mason".setup()
 vim.lsp.enable({
     "lua_ls", "css_ls", "ts_ls", "rust_analyzer", "clangd", "haskell-language-server", "tailwind_css", "basedpyright",
     "ltex_plus", "bashls", "svelte", "org", "nixd"
+})
+
+vim.lsp.config('nixd', {
+  cmd = { 'nixd' },
+  filetypes = { 'nix' },
+  root_markers = { 'flake.nix', '.git' },
+  settings = {
+    nixd = {
+      formatting = {
+        command = { "alejandra" },
+      },
+    },
+  },
 })
 
 vim.api.nvim_create_autocmd('FileType', {

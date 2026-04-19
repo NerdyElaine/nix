@@ -1,14 +1,19 @@
-{ config, pkgs, inputs, username, ... }:
 {
-  imports = [ 
-  ./package/aerospace.nix
+  config,
+  pkgs,
+  inputs,
+  username,
+  ...
+}: {
+  imports = [
+    ./package/aerospace.nix
   ];
 
   networking.hostName = "transbook";
 
   # Nix daemon settings
   nix.enable = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -26,55 +31,59 @@
 
   time.timeZone = "Asia/Phnom_Penh";
 
-  environment.systemPackages = with pkgs; [ 
-  git 
-  curl 
-  fish
-  wget 
-  imagemagick
-  btop
-  pandoc
-  ghostscript
-  rmpc
-  gcc
-  texliveFull
-  nicotine-plus
-  lazygit
-  tmux
-  mpv
-  yt-dlp
-  ghostty-bin
-  kanata
-  neovim
-  yazi
+  environment.systemPackages = with pkgs; [
+    git
+    curl
+    fish
+    wget
+    imagemagick
+    btop
+    pandoc
+    ghostscript
+    rmpc
+    gcc
+    zotero
+    texliveFull
+    nicotine-plus
+    lazygit
+    nixd
+    tmux
+    mpv
+    yt-dlp
+    ghostty-bin
+    kanata
+    neovim
+    yazi
   ];
 
   fonts.packages = with pkgs; [
-  nerd-fonts.iosevka
-  nerd-fonts.jetbrains-mono
-];
+    nerd-fonts.iosevka
+    nerd-fonts.jetbrains-mono
+  ];
 
   # macOS system defaults
   system.defaults = {
     dock.autohide = true;
     dock.mru-spaces = false;
     finder.AppleShowAllExtensions = true;
+    finder.CreateDesktop = false;
+    finder.FXPreferredViewStyle = "clmv";
     universalaccess.reduceMotion = true;
     NSGlobalDomain.AppleInterfaceStyle = "Dark";
     NSGlobalDomain._HIHideMenuBar = true;
     NSGlobalDomain.ApplePressAndHoldEnabled = false;
   };
   system.keyboard = {
-          enableKeyMapping = true; 
-          remapCapsLockToControl = true;
-          swapLeftCommandAndLeftAlt = true; 
-     };
+    enableKeyMapping = true;
+    remapCapsLockToControl = true;
+    swapLeftCommandAndLeftAlt = true;
+  };
   homebrew = {
     enable = true;
     onActivation = {
       autoUpdate = true;
-      upgrade    = true;
-      cleanup    = "zap";
+      upgrade = true;
+      cleanup = "zap";
     };
 
     brews = [
@@ -104,6 +113,7 @@
       "keycastr"
       "vesktop"
       "protonvpn"
+      "helium-browser"
       "anki"
       "docker-desktop"
       "element"

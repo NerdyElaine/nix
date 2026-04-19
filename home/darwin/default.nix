@@ -1,6 +1,11 @@
-{ config, pkgs, inputs, username, ... }:
 {
-imports = [
+  config,
+  pkgs,
+  inputs,
+  username,
+  ...
+}: {
+  imports = [
     ./aerospace.nix
     ../shared/fish.nix
     ../shared/newsboat.nix
@@ -16,8 +21,8 @@ imports = [
     ../shared/yazi.nix
     ./sketchybar.nix
     ../shared/mpv.nix
-];
-home.username = "elaine";
-home.homeDirectory = "/Users/elaine";
-home.stateVersion = "26.05";
+  ];
+  home.username = "elaine";
+  home.homeDirectory = "/Users/elaine";
+  home.stateVersion = "26.05";
 }

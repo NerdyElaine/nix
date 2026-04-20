@@ -41,8 +41,14 @@
     pandoc
     ghostscript
     rmpc
+    mpd
     gcc
     zotero
+    mpd
+    uutils-coreutils-noprefix
+    cinny-desktop
+    yams
+    mpdscribble
     texliveFull
     nicotine-plus
     lazygit
@@ -76,7 +82,6 @@
   system.keyboard = {
     enableKeyMapping = true;
     remapCapsLockToControl = true;
-    swapLeftCommandAndLeftAlt = true;
   };
   homebrew = {
     enable = true;
@@ -90,7 +95,6 @@
       "mas"
       "ninja"
       "meson"
-      "mpd"
       "mpc"
       "libiconv"
       "rust"

@@ -31,7 +31,6 @@
 
       startup_commands = [
         "toggle_custom_color"
-        "toggle_titlebar"
       ];
     };
     bindings = {

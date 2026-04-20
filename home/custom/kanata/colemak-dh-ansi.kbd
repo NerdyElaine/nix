@@ -91,8 +91,8 @@ esc   🔅    🔆   f3    f4    f5    f6    f7    f8    f9    🔇    🔉    �
     ;; hold e or i for hyper key
       ext  (tap-hold 50 50 lctl (layer-toggle extend))
   a (switch ((key-timing 1 less-than $tt)) a break () (tap-hold $tt $ht a @ext) break)
-  r (switch ((key-timing 1 less-than $tt)) r break () (tap-hold $tt $ht r lalt) break)
-  s (switch ((key-timing 1 less-than $tt)) s break () (tap-hold $tt $ht s lmet) break)
+  r (switch ((key-timing 1 less-than $tt)) r break () (tap-hold $tt $ht r lmet) break)
+  s (switch ((key-timing 1 less-than $tt)) s break () (tap-hold $tt $ht s lalt) break)
   t (switch ((key-timing 1 less-than $tt)) t break () (tap-hold $tt $ht t lctl) break)
   n (switch ((key-timing 1 less-than $tt)) n break () (tap-hold $tt $ht n rctl ) break)
   e (switch ((key-timing 1 less-than $tt)) e break () (tap-hold $tt $ht e ralt ) break)

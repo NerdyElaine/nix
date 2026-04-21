@@ -7,15 +7,15 @@
     ./hardware-configuration.nix
   ];
 
-  # ── Bootloader ────────────────────────────────────────────────
+  #  Bootloader 
   boot.loader.systemd-boot.enable      = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
 
-  # ── Kernel ────────────────────────────────────────────────────
+  # Kernel 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # ── NVIDIA ────────────────────────────────────────────────────
+  # NVIDIA
   hardware.nvidia = {
     modesetting.enable    = true;
     powerManagement.enable = false;
@@ -43,14 +43,14 @@
     NIXOS_OZONE_WL       = "1";        # Electron / Chromium Wayland
   };
 
-  # ── Mango compositor ──────────────────────────────────────────
+  # Mangowc 
   programs.mango.enable = true;
 
-  # ── Networking ────────────────────────────────────────────────
+  # Networking 
   networking.hostName = "transnix";
   networking.networkmanager.enable = true;
 
-  # ── Locale & time ─────────────────────────────────────────────
+  # Locale & time 
   time.timeZone = "Asia/Phnom_Penh";
 
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -66,13 +66,12 @@
     LC_TIME           = "en_GB.UTF-8";
   };
 
-  # ── Console ───────────────────────────────────────────────────
+  # Console 
   console = {
     earlySetup = true;
-    keyMap     = "uk";
   };
 
-  # ── Pipewire audio ────────────────────────────────────────────
+  # Pipewire audio 
   services.pulseaudio.enable = false;   # must be off when using Pipewire
   security.rtkit.enable      = true;    # realtime scheduling for Pipewire
 
@@ -84,14 +83,14 @@
     jack.enable       = true;
   };
 
-  # ── Bluetooth ─────────────────────────────────────────────────
+  # Bluetooth 
   hardware.bluetooth = {
     enable      = true;
     powerOnBoot = true;
   };
   services.blueman.enable = true;
 
-  # ── XDG desktop portal ────────────────────────────────────────
+  # XDG desktop portal 
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
@@ -99,15 +98,15 @@
 
   programs.fish.enable = true;
 
-  # ── User ──────────────────────────────────────────────────────
+  # User 
   users.users.elaine = {
     isNormalUser = true;
-    description  = elaine;
+    description  = "elaine";
     extraGroups  = [ "wheel" "networkmanager" "audio" "video" "input" ];
     shell        = pkgs.fish;
   };
 
-  # ── System packages ───────────────────────────────────────────
+  # System packages 
   environment.systemPackages = with pkgs; [
     # Wayland essentials
     wayland
@@ -128,9 +127,6 @@
     # Wallpaper
     swaybg
 
-    # Bar
-    waybar
-
     # Networking
     networkmanagerapplet
 
@@ -142,7 +138,7 @@
     unzip
   ];
 
-  # ── Fonts ─────────────────────────────────────────────────────
+  # Fonts 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
     nerd-fonts.noto
@@ -151,10 +147,10 @@
     noto-fonts-emoji
   ];
 
-  # ── Security ──────────────────────────────────────────────────
+  # Security 
   security.polkit.enable = true;
 
-  # ── Nix settings ──────────────────────────────────────────────
+  # Nix settings 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store   = true;

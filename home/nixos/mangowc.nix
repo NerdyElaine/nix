@@ -8,7 +8,7 @@
   wayland.windowManager.mango = {
     enable = true;
     settings = ''
-      # ── Appearance ──────────────────────────────────────────────
+      # Appearance 
       border_width        = 2
       border_color        = 0xff89b4fa   # Catppuccin blue
       border_color_focus  = 0xffcba6f7   # Catppuccin mauve
@@ -18,18 +18,18 @@
       blur                = true
       shadow              = true
 
-      # ── Layouts ─────────────────────────────────────────────────
+      # Layouts 
       # Available: master-stack | scroller | monocle | grid | deck
       default_layout = master-stack
       master_ratio   = 0.55
 
-      # ── Input ───────────────────────────────────────────────────
+      # Input 
       repeat_rate  = 25
       repeat_delay = 300
       tap_to_click = true
       natural_scroll = true
 
-      # ── Key bindings ────────────────────────────────────────────
+      # Key bindings 
       # Modifier key (Mod4 = Super)
       mod = Mod4
 
@@ -85,7 +85,7 @@
       bind = mod+Shift+p       exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%F_%T).png
     '';
 
-    # autostart.sh — runs once when the compositor starts
+    # autostart.sh 
     autostart_sh = ''
       swaybg -i ~/nix/home/custom/Wallpaper/flower.jpg -m fill &
       mango-wc &

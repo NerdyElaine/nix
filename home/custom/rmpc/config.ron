@@ -156,11 +156,6 @@
                                     size: "100%",
                                     pane: Pane(Queue),
                                 ),
-                                (
-                                    borders: "TOP",
-                                    size: "20",
-                                    pane: Pane(Cava)
-                                ),
                             ],
                         ),
                     )

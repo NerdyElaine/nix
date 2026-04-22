@@ -76,6 +76,8 @@
     finder.FXPreferredViewStyle = "clmv";
     universalaccess.reduceMotion = true;
     NSGlobalDomain.AppleInterfaceStyle = "Dark";
+    NSGlobalDomain.InitialKeyRepeat = 2;
+    NSGlobalDomain.KeyRepeat = 15;
     NSGlobalDomain._HIHideMenuBar = true;
     NSGlobalDomain.ApplePressAndHoldEnabled = false;
   };

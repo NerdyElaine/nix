@@ -8,8 +8,8 @@
     settings = {
       main = {
         term                      = "xterm-256color";
-        font                      = "monospace:size=11";
-        dpi-aware                 = "auto";
+        font                      = "Iosevka Nerd Font Mono:size=13";
+        dpi-aware                 = "yes";
         pad                       = "8x8 center";
         initial-window-size-chars = "100x30";
       };
@@ -17,7 +17,7 @@
       mouse.hide-when-typing = "yes";
       scrollback.lines       = 10000;
 
-      colors = {
+      colors-dark = {
         background = "1e1e2e";
         foreground = "cdd6f4";
         regular0   = "45475a";
@@ -49,11 +49,6 @@
         primary-paste        = "Shift+Insert";
         scrollback-up-page   = "Shift+Page_Up";
         scrollback-down-page = "Shift+Page_Down";
-      };
-
-      url = {
-        launch       = "xdg-open \${url}";
-        osc8-privacy = "always";
       };
     };
   };

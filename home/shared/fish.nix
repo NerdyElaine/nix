@@ -121,6 +121,7 @@
     enable = true;
     enableFishIntegration = true;
   };
+   
   home.packages = with pkgs; [
     eza
     bat

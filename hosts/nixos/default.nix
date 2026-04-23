@@ -66,9 +66,18 @@
     LC_TIME           = "en_GB.UTF-8";
   };
 
-  # Console 
+
+
   console = {
     earlySetup = true;
+    keyMap     = "colemak";          
+    packages   = [ pkgs.kbd ];
+  };
+
+  
+  services.xserver = {
+    xkb.layout  = "us";
+    xkb.variant = "colemak_dh";
   };
 
   # Pipewire audio 

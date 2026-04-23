@@ -1,94 +1,192 @@
-# Mango Wayland compositor — home-manager config
-# Requires mango.hmModules.mango imported in home-manager.users.<name>.imports
 { config, pkgs, lib, ... }:
 
 {
-  programs.mango.enable = true;
-
   wayland.windowManager.mango = {
     enable = true;
     settings = ''
-      # Appearance 
-      border_width        = 2
-      border_color        = 0xff89b4fa   # Catppuccin blue
-      border_color_focus  = 0xffcba6f7   # Catppuccin mauve
-      gap_inner           = 8
-      gap_outer           = 10
-      corner_radius       = 6
-      blur                = true
-      shadow              = true
+	blur=0
 
-      # Layouts 
-      # Available: master-stack | scroller | monocle | grid | deck
-      default_layout = master-stack
-      master_ratio   = 0.55
+	shadows = 0
 
-      # Input 
-      repeat_rate  = 25
-      repeat_delay = 300
-      tap_to_click = true
-      natural_scroll = true
+	border_radius=0
+	no_radius_when_single=0
+	focused_opacity=1.0
+	unfocused_opacity=1.0
 
-      # Key bindings 
-      # Modifier key (Mod4 = Super)
-      mod = Mod4
+	animations=0
+	layer_animations=0
 
-      # Spawn terminal (foot)
-      bind = mod+Return        exec foot
+	scroller_structs=20
+	scroller_default_proportion=0.8
+	scroller_focus_center=0
+	scroller_prefer_center=0
+	edge_scroller_pointer_focus=1
+	scroller_default_proportion_single=1.0
+	scroller_proportion_preset=0.5,0.8,1.0
 
-      # Launcher (wmenu)
-      bind = mod+d             exec wmenu-run-styled
+	new_is_master=1
+	default_mfact=0.55
+	default_nmaster=1
+	smartgaps=0
 
-      # Close focused window
-      bind = mod+q             killclient
+	hotarea_size=10
+	enable_hotarea=1
+	ov_tab_mode=0
+	overviewgappi=5
+	overviewgappo=30
 
-      # Reload config
-      bind = mod+Shift+r       reload
+	no_border_when_single=0
+	axis_bind_apply_timeout=100
+	focus_on_activate=1
+	idleinhibit_ignore_visible=0
+	sloppyfocus=1
+	warpcursor=1
+	focus_cross_monitor=0
+	focus_cross_tag=0
+	enable_floating_snap=0
+	snap_distance=30
+	cursor_size=24
+	drag_tile_to_tile=1
 
-      # Quit compositor
-      bind = mod+Shift+q       quit
+	repeat_rate=25
+	repeat_delay=600
+	numlockon=0
+	xkb_rules_layout=us
+    xkb_rules_variant=colemak_dh
 
-      # Layout cycling
-      bind = mod+space         next_layout
-      bind = mod+Shift+space   prev_layout
+	disable_trackpad=0
+	tap_to_click=1
+	tap_and_drag=1
+	drag_lock=1
+	trackpad_natural_scrolling=1
+	disable_while_typing=1
+	left_handed=0
+	middle_button_emulation=0
+	swipe_min_threshold=1
 
-      # Focus movement
-      bind = mod+h             focusleft
-      bind = mod+l             focusright
-      bind = mod+j             focusdown
-      bind = mod+k             focusup
+	mouse_natural_scrolling=0
 
-      # Window movement
-      bind = mod+Shift+h       moveleft
-      bind = mod+Shift+l       moveright
-      bind = mod+Shift+j       movedown
-      bind = mod+Shift+k       moveup
+	gappih=5
+	gappiv=5
+	gappoh=10
+	gappov=10
+	scratchpad_width_ratio=0.8
+	scratchpad_height_ratio=0.9
+	borderpx=4
+	rootcolor=0x201b14ff
+	bordercolor=0x444444ff
+	focuscolor=0xc9b890ff
+	maximizescreencolor=0x89aa61ff
+	urgentcolor=0xad401fff
+	scratchpadcolor=0x516c93ff
+	globalcolor=0xb153a7ff
+	overlaycolor=0x14a57cff
 
-      # Master ratio
-      bind = mod+equal         incmaster
-      bind = mod+minus         decmaster
+	tagrule=id:1,layout_name:tile
+	tagrule=id:2,layout_name:tile
+	tagrule=id:3,layout_name:tile
+	tagrule=id:4,layout_name:tile
+	tagrule=id:5,layout_name:tile
+	tagrule=id:6,layout_name:tile
+	tagrule=id:7,layout_name:tile
+	tagrule=id:8,layout_name:tile
+	tagrule=id:9,layout_name:tile
 
-      # Tags 1–9
-      bind = mod+1             viewtag 1
-      bind = mod+2             viewtag 2
-      bind = mod+3             viewtag 3
-      bind = mod+4             viewtag 4
-      bind = mod+5             viewtag 5
-      bind = mod+Shift+1       tagtag 1
-      bind = mod+Shift+2       tagtag 2
-      bind = mod+Shift+3       tagtag 3
-      bind = mod+Shift+4       tagtag 4
-      bind = mod+Shift+5       tagtag 5
+	bind=SUPER,r,reload_config
 
-      # Screenshots (grim + slurp)
-      bind = mod+p             exec grim ~/Pictures/screenshot-$(date +%F_%T).png
-      bind = mod+Shift+p       exec grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%F_%T).png
+	bind=Alt,space,spawn,wmenu-run-styled
+	bind=Alt,Return,spawn,foot
+
+    bind=SUPER,m,quit
+	bind=ALT,q,killclient,
+
+	bind=SUPER,Tab,focusstack,next
+	bind=ALT,Left,focusdir,left
+	bind=ALT,Right,focusdir,right
+	bind=ALT,Up,focusdir,up
+	bind=ALT,Down,focusdir,down
+
+	bind=SUPER+SHIFT,Up,exchange_client,up
+	bind=SUPER+SHIFT,Down,exchange_client,down
+	bind=SUPER+SHIFT,Left,exchange_client,left
+	bind=SUPER+SHIFT,Right,exchange_client,right
+
+	bind=SUPER,g,toggleglobal,
+	bind=ALT,Tab,toggleoverview,
+	bind=ALT,backslash,togglefloating,
+	bind=ALT,a,togglemaximizescreen,
+	bind=ALT,f,togglefullscreen,
+	bind=ALT+SHIFT,f,togglefakefullscreen,
+	bind=SUPER,i,minimized,
+	bind=SUPER,o,toggleoverlay,
+	bind=SUPER+SHIFT,I,restore_minimized
+	bind=ALT,z,toggle_scratchpad
+
+	bind=ALT,e,set_proportion,1.0
+	bind=ALT,x,switch_proportion_preset,
+
+	bind=SUPER,n,switch_layout
+
+	bind=SUPER,Left,viewtoleft,0
+	bind=CTRL,Left,viewtoleft_have_client,0
+	bind=SUPER,Right,viewtoright,0
+	bind=CTRL,Right,viewtoright_have_client,0
+	bind=CTRL+SUPER,Left,tagtoleft,0
+	bind=CTRL+SUPER,Right,tagtoright,0
+
+	bind=Ctrl,1,view,1,0
+	bind=Ctrl,2,view,2,0
+	bind=Ctrl,3,view,3,0
+	bind=Ctrl,4,view,4,0
+	bind=Ctrl,5,view,5,0
+	bind=Ctrl,6,view,6,0
+	bind=Ctrl,7,view,7,0
+	bind=Ctrl,8,view,8,0
+	bind=Ctrl,9,view,9,0
+
+	bind=Alt,1,tag,1,0
+	bind=Alt,2,tag,2,0
+	bind=Alt,3,tag,3,0
+	bind=Alt,4,tag,4,0
+	bind=Alt,5,tag,5,0
+	bind=Alt,6,tag,6,0
+	bind=Alt,7,tag,7,0
+	bind=Alt,8,tag,8,0
+	bind=Alt,9,tag,9,0
+
+	bind=alt+shift,Left,focusmon,left
+	bind=alt+shift,Right,focusmon,right
+	bind=SUPER+Alt,Left,tagmon,left
+	bind=SUPER+Alt,Right,tagmon,right
+
+	bind=ALT+SHIFT,X,incgaps,1
+	bind=ALT+SHIFT,Z,incgaps,-1
+	bind=ALT+SHIFT,R,togglegaps
+
+	bind=CTRL+SHIFT,Up,movewin,+0,-50
+	bind=CTRL+SHIFT,Down,movewin,+0,+50
+	bind=CTRL+SHIFT,Left,movewin,-50,+0
+	bind=CTRL+SHIFT,Right,movewin,+50,+0
+
+	bind=CTRL+ALT,Up,resizewin,+0,-50
+	bind=CTRL+ALT,Down,resizewin,+0,+50
+	bind=CTRL+ALT,Left,resizewin,-50,+0
+	bind=CTRL+ALT,Right,resizewin,+50,+0
+
+	mousebind=SUPER,btn_left,moveresize,curmove
+	mousebind=NONE,btn_middle,togglemaximizescreen,0
+	mousebind=SUPER,btn_right,moveresize,curresize
+
+
+	axisbind=SUPER,UP,viewtoleft_have_client
+	axisbind=SUPER,DOWN,viewtoright_have_client
     '';
 
     # autostart.sh 
     autostart_sh = ''
       swaybg -i ~/nix/home/custom/Wallpaper/flower.jpg -m fill &
       mango-wc &
+      waybar &
     '';
   };
 }

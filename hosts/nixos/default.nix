@@ -15,6 +15,8 @@
   # Kernel 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  nixpkgs.config.allowUnfree = true;
+
   # NVIDIA
   hardware.nvidia = {
     modesetting.enable    = true;
@@ -107,6 +109,11 @@
 
   programs.fish.enable = true;
 
+  security.sudo.enable = false;
+  security.sudo.configFile = ''
+   %wheel ALL=(ALL) ALL
+  '';
+
   # User 
   users.users.elaine = {
     isNormalUser = true;
@@ -126,7 +133,7 @@
     # Display / GPU utils
     libva-utils
     nvidia-vaapi-driver
-    glxinfo
+    mesa-demos
     vulkan-tools
 
     # Screenshot
@@ -143,6 +150,7 @@
     wget
     curl
     git
+    lazygit
     htop
     unzip
   ];
@@ -153,7 +161,7 @@
     nerd-fonts.noto
     noto-fonts
     nerd-fonts.iosevka
-    noto-fonts-emoji
+    noto-fonts-color-emoji
   ];
 
   # Security 

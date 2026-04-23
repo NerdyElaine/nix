@@ -70,14 +70,17 @@
   # macOS system defaults
   system.defaults = {
     dock.autohide = true;
+    dock.autohide-delay = "0";
+    dock.autohide-time-modifier = "0";
+    menuExtraClock.Show24Hour = true;
     dock.mru-spaces = false;
     finder.AppleShowAllExtensions = true;
     finder.CreateDesktop = false;
     finder.FXPreferredViewStyle = "clmv";
     universalaccess.reduceMotion = true;
     NSGlobalDomain.AppleInterfaceStyle = "Dark";
-    NSGlobalDomain.InitialKeyRepeat = 2;
-    NSGlobalDomain.KeyRepeat = 15;
+    NSGlobalDomain.InitialKeyRepeat = 15;
+    NSGlobalDomain.KeyRepeat = 2;
     NSGlobalDomain._HIHideMenuBar = true;
     NSGlobalDomain.ApplePressAndHoldEnabled = false;
   };

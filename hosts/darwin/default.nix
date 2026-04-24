@@ -52,6 +52,7 @@
     mpdscribble
     texliveFull
     nicotine-plus
+    gh
     gnupg
     lazygit
     nixd

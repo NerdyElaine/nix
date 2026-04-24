@@ -4,38 +4,33 @@
     shell = "${pkgs.fish}/bin/fish";
     keyMode = "vi";
     terminal = "tmux-256color";
+    clock24 = true;
+    mouse = true;
+    historyLimit = 10000;
+    escapeTime = 1;
+    prefix = "`";
+    baseIndex = 1;
     plugins = with pkgs.tmuxPlugins; [
       vim-tmux-navigator
     ];
     extraConfig = ''
                 # term
                   set -ga terminal-overrides ",*:RGB"
-
-      # prefix is `
-                  set -g prefix `
-                  bind C-q send-prefix
                   unbind C-b
 
       #stuff
                   set -gq allow-passthrough on
-
                   set -ga update-environment TERM
                   set -ga update-environment TERM_PROGRAM
 
 
       # so vim and co is not hell
-                  set -sg escape-time 1
-                  set -g base-index 1
                   setw -g pane-base-index 1
 
       # mouse works as expected
-                  set -g mouse on
-
                   setw -g monitor-activity on
                   set -g visual-activity on
 
-                  set -g mode-keys vi
-                  set -g history-limit 10000
                   set -g set-clipboard on
 
                   bind c new-window -c "#{pane_current_path}"

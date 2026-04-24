@@ -46,11 +46,13 @@
     zotero
     mpd
     uutils-coreutils-noprefix
+    keepassxc
     cinny-desktop
     yams
     mpdscribble
     texliveFull
     nicotine-plus
+    gnupg
     lazygit
     nixd
     tmux
@@ -70,8 +72,8 @@
   # macOS system defaults
   system.defaults = {
     dock.autohide = true;
-    dock.autohide-delay = "0";
-    dock.autohide-time-modifier = "0";
+    dock.autohide-delay = 0.0;
+    dock.autohide-time-modifier = 0.0;
     menuExtraClock.Show24Hour = true;
     dock.mru-spaces = false;
     finder.AppleShowAllExtensions = true;
@@ -126,6 +128,7 @@
       "anki"
       "docker-desktop"
       "element"
+      "vesktop"
       "beeper"
       "telegram"
       "karabiner-elements"

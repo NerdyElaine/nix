@@ -76,5 +76,46 @@
     ctrl-shift-h = "move-workspace-to-monitor --wrap-around next"
 
     alt-shift-space = "layout floating tiling"
+
+
+    [[on-window-detected]]
+    if.app-id = 'com.mitchellh.ghostty'
+    run = 'move-node-to-workspace 1'
+
+    [[on-window-detected]]
+    if.app-id = 'net.ankiweb.launcher'
+    run = 'move-node-to-workspace 2'
+
+    [[on-window-detected]]
+    if.app-id = 'org.nixos.firefox'
+    run = 'move-node-to-workspace 3'
+
+    [[on-window-detected]]
+    if.app-id = 'in.cinny.app'
+    run = 'move-node-to-workspace 4'
+
+    [[on-window-detected]]
+    if.app-id = 'dev.vencord.vesktop'
+    run = 'move-node-to-workspace 4'
+
+    [[on-window-detected]]
+    if.app-id = 'ru.keepcoder.Telegram'
+    run = 'move-node-to-workspace 5'
+
+    [[on-window-detected]]
+    if.app-id = 'com.automattic.beeper.desktop'
+    run = 'move-node-to-workspace 5'
+
+    [[on-window-detected]]
+    if.app-id = 'com.apple.Notes'
+    run = 'move-node-to-workspace 7'
+
+    [[on-window-detected]]
+    if.app-id = 'ch.protonvpn.mac'
+    run = 'move-node-to-workspace 10'
+
+    [[on-window-detected]]
+    if.app-id = 'com.apple.Terminal'
+    run = 'move-node-to-workspace 11'
   '';
 }

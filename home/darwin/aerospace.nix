@@ -107,8 +107,13 @@
     run = 'move-node-to-workspace 5'
 
     [[on-window-detected]]
-    if.app-id = 'com.apple.Notes'
+    if.app-id = 'org.zotero-zotero-source'
+    run = 'move-node-to-workspace 6'
+
+    [[on-window-detected]]
+    if.app-id = 'org.keepassxc.keepassxc'
     run = 'move-node-to-workspace 7'
+
 
     [[on-window-detected]]
     if.app-id = 'ch.protonvpn.mac'

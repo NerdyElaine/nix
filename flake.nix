@@ -65,7 +65,7 @@
     lib = nixpkgs.lib;
     username = "elaine";
   in {
-    nixosConfigurations.nixbox = lib.nixosSystem {
+    nixosConfigurations.transnix = lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs username;};
       modules = [
@@ -87,7 +87,7 @@
     };
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#simple
-    darwinConfigurations.macbook = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.transbook = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       specialArgs = {inherit inputs username;};
       modules = [

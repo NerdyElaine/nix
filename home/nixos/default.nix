@@ -12,6 +12,7 @@ imports = [
     ./waybar.nix
     ./wmenu.nix
     ../shared/tmux.nix
+    ../shared/gh-dash.nix
     ../shared/yazi.nix
     ../shared/mpv.nix
 ];

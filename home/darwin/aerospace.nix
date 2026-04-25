@@ -114,7 +114,6 @@
     if.app-id = 'org.keepassxc.keepassxc'
     run = 'move-node-to-workspace 7'
 
-
     [[on-window-detected]]
     if.app-id = 'ch.protonvpn.mac'
     run = 'move-node-to-workspace 10'

@@ -507,7 +507,7 @@
 
       extensions = with inputs.firefox-addons.packages."aarch64-darwin"; [
         ublock-origin
-        bitwarden
+        keepassxc-browser
         sponsorblock
         darkreader
         sidebery
@@ -520,6 +520,7 @@
         dearrow
         skip-redirect
         firefox-color
+        h264ify
       ];
 
       search = {

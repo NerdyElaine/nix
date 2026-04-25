@@ -7,7 +7,7 @@
 - Music Player: [rmpc](https://github.com/mierak/rmpc)
 - Browser: [Firefox with Arkenfox](https://github.com/arkenfox/user.js) and with [Textfox](https://github.com/adriankarlen/textfox)
 
-## nix-darwin
+## Transbook (nix-darwin)
 - Nix: [NixOS](https://nixos.org/)
 - Key remaps: [Kanata](https://github.com/jtroo/kanata)
 - Window Tiling: [Aerospace](https://github.com/nikitabobko/AeroSpace)
@@ -15,7 +15,7 @@
 - Launcher: [Raycast](https://www.raycast.com/)
 - Terminal: [Ghostty](https://ghostty.org/)
 
-## NixOS (Not yet set up)
+## Transnix (NixOS) 
 - Nix: [NixOS](https://nixos.org/)
 - Window Tiling: [Mangowc](https://github.com/mangowm/mango) ?
 - Terminal: [foot](https://codeberg.org/dnkl/foot) ?

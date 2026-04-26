@@ -505,23 +505,25 @@
             user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
       '';
 
-      extensions = with inputs.firefox-addons.packages."aarch64-darwin"; [
-        ublock-origin
-        keepassxc-browser
-        sponsorblock
-        darkreader
-        sidebery
-        stylus
-        vimium-c
-        multi-account-containers
-        mtab
-        violentmonkey
-        zotero-connector
-        dearrow
-        skip-redirect
-        firefox-color
-        h264ify
-      ];
+        extensions = {
+          packages = with inputs.firefox-addons.packages."aarch64-darwin"; [
+            ublock-origin
+            keepassxc-browser
+            sponsorblock
+            darkreader
+            sidebery
+            stylus
+            vimium-c
+            multi-account-containers
+            mtab
+            violentmonkey
+            zotero-connector
+            dearrow
+            skip-redirect
+            firefox-color
+            h264ify
+          ];
+        };
 
       search = {
         force = true;

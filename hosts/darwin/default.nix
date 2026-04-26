@@ -47,12 +47,15 @@
     mpd
     uutils-coreutils-noprefix
     keepassxc
+    pass
+    passExtensions.pass-otp
     cinny-desktop
     yams
     mpdscribble
     texliveFull
     nicotine-plus
     gh
+    iosevka
     gnupg
     lazygit
     nixd

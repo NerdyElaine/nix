@@ -13,6 +13,7 @@
     ../shared/nvim.nix
     ../shared/sioyek.nix
     ./firefox.nix
+    ../shared/emacs.nix
     ./ghostty.nix
     ../shared/rmpc.nix
     ./mpd.nix

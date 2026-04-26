@@ -1,0 +1,1 @@
+/Users/elaine/.emacs.d/straight/repos/everforest-emacs/everforest.el

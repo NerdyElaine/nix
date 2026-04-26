@@ -17,7 +17,7 @@
       bind -M insert \ch _atuin_search
 
       fish_add_path $HOME/.cargo/bin
-      fish_add_path $HOME/.local/bin
+      fish_add_path /Users/elaine/.local/bin
       fish_add_path /run/current-system/sw/bin
       set -gx LIBRARY_PATH /opt/homebrew/opt/libiconv/lib $LIBRARY_PATH
 

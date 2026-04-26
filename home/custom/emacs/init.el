@@ -44,8 +44,12 @@
   (tool-bar-mode -1)
   (scroll-bar-mode -1)
   (column-number-mode 1)
+  (setq display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode 1)
   (setq default-frame-alist '((undecorated . t)))
   (global-auto-revert-mode 1)
+  (setq whitespace-style '(face tabs tab-mark))
+  (global-whitespace-mode 1)
   (recentf-mode 1)
   (show-paren-mode 1)
   (electric-pair-mode 1)
@@ -55,8 +59,8 @@
   (add-to-list 'default-frame-alist '(alpha . (96 . 96)))
  
 (when (display-graphic-p)
-  (set-face-attribute 'default nil :family "Iosevka" :height 130)
-  (set-face-attribute 'variable-pitch nil :family "Iosevka" :height 140))
+  (set-face-attribute 'default nil :family "Iosevka Nerd Font Mono" :height 150)
+  (set-face-attribute 'variable-pitch nil :family "Iosevka Nerd Font Mono" :height 150))
  
 ;; Themes
 (straight-use-package

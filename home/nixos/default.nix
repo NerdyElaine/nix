@@ -11,6 +11,7 @@ imports = [
     ./mangowc.nix
     ./waybar.nix
     ./wmenu.nix
+    ../shared/nvim-old.nix
     ../shared/tmux.nix
     ../shared/gh-dash.nix
     ../shared/yazi.nix

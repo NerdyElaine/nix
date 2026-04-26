@@ -10,7 +10,7 @@
     ../shared/fish.nix
     ../shared/newsboat.nix
     ../shared/git.nix
-    ../shared/nvim.nix
+    ../shared/nvim-old.nix
     ../shared/sioyek.nix
     ./firefox.nix
     ../shared/emacs.nix

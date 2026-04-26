@@ -1,1 +1,0 @@
-/Users/elaine/.emacs.d/straight/repos/everforest-emacs/everforest-hard-oldlight-theme.el

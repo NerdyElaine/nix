@@ -56,8 +56,14 @@
     nicotine-plus
     gh
     iosevka
+    cmake
+    meson
+    libtool
     gnupg
     lazygit
+    enchant
+    aspell
+    pkg-config
     nixd
     tmux
     mpv
@@ -113,6 +119,7 @@
       "sk"
       "cava"
       "bob"
+      "libvterm"
       "fd"
       "felixkratz/formulae/borders"
       "felixkratz/formulae/sketchybar"

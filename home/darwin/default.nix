@@ -14,6 +14,7 @@
     ../shared/sioyek.nix
     ./firefox.nix
     ./ghostty.nix
+    ../shared/emacs.nix
     ../shared/rmpc.nix
     ./mpd.nix
     ../shared/tmux.nix

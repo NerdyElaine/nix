@@ -45,7 +45,7 @@
     gcc
     zotero
     mpd
-    uutils-coreutils-noprefix
+    coreutils-full
     keepassxc
     pass
     passExtensions.pass-otp
@@ -56,6 +56,7 @@
     nicotine-plus
     gh
     iosevka
+    python3
     cmake
     meson
     libtool

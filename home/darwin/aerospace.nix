@@ -83,6 +83,10 @@
     run = 'move-node-to-workspace 1'
 
     [[on-window-detected]]
+    if.app-id = 'org.gnu.Emacs'
+    run = 'move-node-to-workspace 1'
+
+    [[on-window-detected]]
     if.app-id = 'net.ankiweb.launcher'
     run = 'move-node-to-workspace 2'
 

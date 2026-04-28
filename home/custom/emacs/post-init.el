@@ -8,4 +8,5 @@
 (require 'tabs)
 (require 'emms-config)
 (require 'modeline)
+(require 'lsp)
 ;;; post-init.el ends here

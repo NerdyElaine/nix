@@ -20,6 +20,7 @@
       fish_add_path /Users/elaine/.local/bin
       fish_add_path /run/current-system/sw/bin
       set -gx LIBRARY_PATH /opt/homebrew/opt/libiconv/lib $LIBRARY_PATH
+      set -gx NSAppleSharpenerEnabled 0
 
       fzf --fish | source
 

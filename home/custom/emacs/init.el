@@ -570,6 +570,8 @@
   :config
   (load-theme 'base16-everforest-dark-hard t))
 
+(setq fringe-mode 0)
+
 (set-cursor-color "#D3C6AA")
 
 ;;; Load post init

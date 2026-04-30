@@ -565,6 +565,32 @@
                            dired-find-alternate-file set-goal-column))
   (put cmd 'disabled nil))
 
+;; Removes random noise
+
+(defun my-filter-applesharpener-region (start end)
+  (save-excursion
+    (goto-char start)
+    (while (re-search-forward "^.*\\[AppleSharpener\\].*\n?" end t)
+      (replace-match ""))))
+
+(defun my-global-applesharpener-filter (proc output)
+  (when (buffer-live-p (process-buffer proc))
+    (with-current-buffer (process-buffer proc)
+      (let ((inhibit-read-only t))
+        (save-excursion
+          (goto-char (point-max))
+          (insert output)
+          (my-filter-applesharpener-region
+           (line-beginning-position 0) (point-max)))))))
+
+(setq process-adaptive-read-buffering nil)
+
+(add-hook 'compilation-filter-hook
+  (lambda ()
+    (my-filter-applesharpener-region
+     compilation-filter-start (point-max))))
+
+;; Themes
 (use-package base16-theme
   :ensure t
   :config
@@ -573,6 +599,9 @@
 (setq fringe-mode 0)
 
 (set-cursor-color "#D3C6AA")
+
+;;Smart parens
+(electric-pair-mode 1)
 
 ;;; Load post init
 

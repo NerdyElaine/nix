@@ -1,7 +1,6 @@
 {pkgs, ...}: {
   programs.fish = {
     enable = true;
-
     interactiveShellInit = ''
       set fish_cursor_default     block
       set fish_cursor_insert      block
@@ -24,7 +23,7 @@
 
       fzf --fish | source
 
-      function starship_transient_prompt_func
+      function starship_transient_prompt_funr
         starship module character
       end
       starship init fish | source

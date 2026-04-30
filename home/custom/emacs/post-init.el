@@ -9,4 +9,6 @@
 (require 'emms-config)
 (require 'modeline)
 (require 'lsp)
+(require 'dired-config)
+(require 'magit-config)
 ;;; post-init.el ends here

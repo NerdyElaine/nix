@@ -44,16 +44,12 @@
     mpd
     gcc
     zotero
-    mpd
-    coreutils-full
+    coreutils-prefixed
+    glibtool
     keepassxc
-    pass
-    passExtensions.pass-otp
     cinny-desktop
     yams
-    mpdscribble
     texliveFull
-    nicotine-plus
     gh
     iosevka
     python3
@@ -67,6 +63,11 @@
     pkg-config
     nixd
     tmux
+    ffmpegthumbnailer
+    poppler-utils
+    mediainfo
+    gnutar
+    bat
     mpv
     yt-dlp
     ghostty-bin

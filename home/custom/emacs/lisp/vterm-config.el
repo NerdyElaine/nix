@@ -6,6 +6,7 @@
   :init
   (setq vterm-timer-delay 0.05
         vterm-kill-buffer-on-exit t
+        vterm-buffer-name-string "vterm %s"
         vterm-max-scrollback 5000)
 
   :config
@@ -83,6 +84,34 @@
                 (vterm-copy-mode -1)
                 (meow-insert-mode))))
 
+;; Fixes random noises in my mac
+
+(defun my/filter-apple-sharpener (string)
+  (replace-regexp-in-string
+   "^.*\\[AppleSharpener\\].*\n?"
+   ""
+   string))
+
+(defvar my/vterm--orig-filter nil)
+
+(defun my/vterm-wrap-filter (proc string)
+  (when my/vterm--orig-filter
+    (funcall my/vterm--orig-filter proc
+             (my/filter-apple-sharpener string))))
+
+(defun my/vterm-attach-filter ()
+  (when (and (boundp 'vterm--process)
+             vterm--process
+             (process-live-p vterm--process))
+    ;; save original filter once
+    (unless my/vterm--orig-filter
+      (setq my/vterm--orig-filter
+            (process-filter vterm--process)))
+    ;; replace with wrapper
+    (set-process-filter vterm--process
+                        #'my/vterm-wrap-filter)))
+
+(add-hook 'vterm-mode-hook #'my/vterm-attach-filter)
 ;; Frame behavior
 
 (defun my/vterm-in-new-frame (frame)

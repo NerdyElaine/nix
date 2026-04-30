@@ -56,7 +56,7 @@
  
   ;;  Nix : nixd 
   (add-to-list 'eglot-server-programs
-               '(nix-mode . ("nixd")))
+               '(nix-mode . ("/run/current-system/sw/bin/nixd")))
  
   ;; HTML : vscode-html-language-server 
   (add-to-list 'eglot-server-programs

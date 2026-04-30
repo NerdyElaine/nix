@@ -53,6 +53,7 @@
    ;; Magit
    '("g" . (lambda () (interactive) (require 'magit) (magit-status)))
 
+
    ;; Miscellaneous
    '("!" . jb/run-command)
    '("o t" . jb/vterm)

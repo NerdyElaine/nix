@@ -7,7 +7,8 @@
   :defer t
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
-        magit-bury-buffer-function #'magit-restore-window-configuration))
+        magit-bury-buffer-function #'magit-restore-window-configuration
+        setq magit-git-executable "/run/current-system/sw/bin/git"))
 
 (add-hook 'git-commit-mode-hook #'meow-insert)
 

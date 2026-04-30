@@ -4,7 +4,7 @@
   :straight nil
   :ensure nil
   :custom
-  (setq insert-directory-program "/run/current-system/sw/bin/gls")
+  (insert-directory-program "/run/current-system/sw/bin/gls")
   (dired-listing-switches "-lAh --group-directories-first --no-group")
   (dired-dwin-target t)
   (dired-recursive-copies 'always)

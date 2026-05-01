@@ -57,6 +57,7 @@
     meson
     gnupg
     lazygit
+    vesktop
     enchant
     aspell
     pkg-config
@@ -140,12 +141,11 @@
       "sf-symbols"
       "keycastr"
       "vesktop"
+      "tunnelblick"
       "protonvpn"
       "helium-browser"
       "anki"
       "docker-desktop"
-      "element"
-      "vesktop"
       "beeper"
       "telegram"
       "karabiner-elements"

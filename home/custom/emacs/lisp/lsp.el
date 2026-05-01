@@ -121,7 +121,11 @@
                  ;; (:nixos        (:expr "(builtins.getFlake \"/path/to/flake\").nixosConfigurations.hostname.options")
                  ;;  :home-manager (:expr "(builtins.getFlake \"/path/to/flake\").homeConfigurations.\"user\".options"))
                  ))))
- 
+(advice-add 'browse-url :around
+  (lambda (orig url &rest args)
+    (unless (string-match-p "nixos\\.org\\|search\\.nixos" url)
+      (apply orig url args))))
+
 (add-hook 'nix-mode-hook #'my/nix-eglot-config)
  
 ;; Haskell : HLS settings 

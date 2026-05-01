@@ -125,11 +125,16 @@
 
   (meow-motion-define-key
    ;; Navigation
+   '("m" . meow-left)
+   '("M" . dired-up-directory)
+   '("n" . meow-next)
+   '("i" . meow-right)
+   '("e" . meow-prev)
    '("W" . meow-next-word)
    '("^" . back-to-indentation)
    '("L" . (lambda () (interactive) (meow-line 1) (meow-reverse)))
    '("l" . meow-line)
-   '("M" . meow-mark-symbol)
+   '("h" . meow-mark-symbol)
    '("v" . meow-search)
    '("V" . meow-visit)
    '("%" . meow-block)

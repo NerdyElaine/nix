@@ -51,7 +51,7 @@
    '("n j" . org-roam-dailies-capture-today)
 
    ;; Magit
-   '("g" . (lambda () (interactive) (require 'magit) (magit-status)))
+   '("g" . magit-status)
 
 
    ;; Miscellaneous

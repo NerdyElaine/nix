@@ -55,7 +55,6 @@
     python3
     cmake
     meson
-    libtool
     gnupg
     lazygit
     enchant
@@ -70,10 +69,8 @@
     bat
     mpv
     yt-dlp
-    ghostty-bin
     kanata
     neovim
-    yazi
   ];
 
   fonts.packages = with pkgs; [
@@ -102,6 +99,13 @@
     enableKeyMapping = true;
     remapCapsLockToControl = true;
   };
+  
+  nix.gc = {
+    automatic = true;
+    interval = { Weekday = 0; Hour = 3; Minute = 15;};
+    options = "--delete-older-than 7d";
+  };
+  
   homebrew = {
     enable = true;
     onActivation = {

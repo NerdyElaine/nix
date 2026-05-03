@@ -131,6 +131,7 @@
    '("i" . meow-right)
    '("e" . meow-prev)
    '("W" . meow-next-word)
+   '("a" . meow-insert)
    '("^" . back-to-indentation)
    '("L" . (lambda () (interactive) (meow-line 1) (meow-reverse)))
    '("l" . meow-line)

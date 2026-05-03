@@ -575,6 +575,7 @@
 
 (add-to-list 'exec-path (expand-file-name "straight/build/pdf-tools" user-emacs-directory))
 ;; Removes random noise
+(setenv "MallocNanoZone" "0")
 
 (defun my-filter-applesharpener-region (start end)
   (save-excursion

@@ -12,4 +12,5 @@
 (require 'dired-config)
 (require 'magit-config)
 (require 'pdf)
+(require 'org-config)
 ;;; post-init.el ends here

@@ -1,31 +1,75 @@
-;;; eglot-config.el --- Comprehensive Eglot LSP configuration
- 
+;;; lsp.el --- Comprehensive Eglot LSP configuration
+
+;; Treesitter
+(use-package treesit
+  :straight nil
+  :ensure nil
+  :init
+  ;; Must be in :init — remap must exist before any buffer opens.
+  ;; :config is too late; treesit may already be loaded.
+  (setq major-mode-remap-alist
+        '((go-mode         . go-ts-mode)
+          (python-mode     . python-ts-mode)
+          (javascript-mode . js-ts-mode)
+          (css-mode        . css-ts-mode)
+          (html-mode       . html-ts-mode)
+          (nix-mode        . nix-ts-mode)
+          (c-mode          . c-ts-mode)))
+  (setq treesit-language-source-alist
+        '(
+          (nix        "https://github.com/nix-community/tree-sitter-nix")
+          (python     "https://github.com/tree-sitter/tree-sitter-python")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src") 
+          (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")        
+          (css        "https://github.com/tree-sitter/tree-sitter-css")
+          (c          "https://github.com/tree-sitter/tree-sitter-c")
+          (cpp        "https://github.com/tree-sitter/tree-sitter-cpp")      
+          (rust       "https://github.com/tree-sitter/tree-sitter-rust")
+          (haskell    "https://github.com/tree-sitter/tree-sitter-haskell") 
+          (python     "https://github.com/tree-sitter/tree-sitter-python")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
+          (css        "https://github.com/tree-sitter/tree-sitter-css")
+          (html       "https://github.com/tree-sitter/tree-sitter-html"))))
+
+(dolist (entry '(
+                 ("\\.ts\\'"  . typescript-ts-mode)
+                 ("\\.tsx\\'" . tsx-ts-mode)
+                 ("\\.c\\'"   . c-ts-mode)
+                 ("\\.h\\'"   . c-ts-mode)
+                 ("\\.cpp\\'" . c++-ts-mode)
+                 ("\\.cc\\'"  . c++-ts-mode)
+                 ("\\.hpp\\'" . c++-ts-mode)))  
+  (add-to-list 'auto-mode-alist entry))
+
+(defun my/treesit-install-all-grammars ()
+  (interactive)
+  (dolist (lang (mapcar #'car treesit-language-source-alist))
+    (unless (treesit-language-available-p lang)
+      (message "Installing tree-sitter grammar for %s..." lang)
+      (treesit-install-language-grammar lang))))
+
+(use-package nix-ts-mode
+  :mode "\\.nix\\'")
 
 ;;; Core Eglot settings
-
  
 (use-package eglot
   :ensure nil 
   :hook
-  ((c-mode             . eglot-ensure)
-   (c-ts-mode          . eglot-ensure)
-   (c++-mode           . eglot-ensure)
+   ((c-ts-mode          . eglot-ensure)
    (c++-ts-mode        . eglot-ensure)
-   (rust-mode          . eglot-ensure)
    (rust-ts-mode       . eglot-ensure)
-   (python-mode        . eglot-ensure)
    (python-ts-mode     . eglot-ensure)
-   (nix-mode           . eglot-ensure)
-   (html-mode          . eglot-ensure)
-   (css-mode           . eglot-ensure)
-   (js-mode            . eglot-ensure)
+   (nix-ts-mode        . eglot-ensure)
+   (html-ts-mode       . eglot-ensure)
+   (css-ts-mode        . eglot-ensure)
    (js-ts-mode         . eglot-ensure)
-   (typescript-mode    . eglot-ensure)
    (tsx-ts-mode        . eglot-ensure)
    (typescript-ts-mode . eglot-ensure)
-   (haskell-mode       . eglot-ensure)
+   (haskell-ts-mode    . eglot-ensure)
    (latex-mode         . eglot-ensure)
-   (LaTeX-mode         . eglot-ensure)) 
+   (LaTeX-mode         . eglot-ensure))
  
   :custom
   (eglot-autoshutdown t)
@@ -56,15 +100,15 @@
  
   ;;  Nix : nixd 
   (add-to-list 'eglot-server-programs
-               '(nix-mode . ("/run/current-system/sw/bin/nixd")))
+               '((nix-mode nix-ts-mode) . ("/run/current-system/sw/bin/nixd")))
  
   ;; HTML : vscode-html-language-server 
   (add-to-list 'eglot-server-programs
-               '(html-mode . ("vscode-html-language-server" "--stdio")))
+               '((html-mode html-ts-mode) . ("vscode-html-language-server" "--stdio")))
  
   ;; CSS : vscode-css-language-server 
   (add-to-list 'eglot-server-programs
-               '(css-mode . ("vscode-css-language-server" "--stdio")))
+               '((css-mode css-ts-mode) . ("vscode-css-language-server" "--stdio")))
  
   ;; JavaScript / TypeScript : tslsp 
   (add-to-list 'eglot-server-programs
@@ -74,7 +118,7 @@
  
   ;; Haskell : haskell-language-server 
   (add-to-list 'eglot-server-programs
-               '(haskell-mode . ("haskell-language-server-wrapper" "--lsp")))
+               '((haskell-mode haskell-ts-mode) . ("haskell-language-server-wrapper" "--lsp")))
  
   ;; LaTeX : texlab 
   (add-to-list 'eglot-server-programs
@@ -127,7 +171,8 @@
       (apply orig url args))))
 
 (add-hook 'nix-mode-hook #'my/nix-eglot-config)
- 
+(add-hook 'nix-ts-mode-hook #'my/nix-eglot-config)
+
 ;; Haskell : HLS settings 
 (defun my/haskell-eglot-config ()
   (setq-local eglot-workspace-configuration
@@ -272,12 +317,15 @@
 (use-package auctex
   :ensure t
   :defer t
+  :hook (LaTeX-mode . TeX-source-correlate-mode)
   :custom
   (TeX-auto-save t)
   (TeX-parse-self t)
+  (TeX-source-correlate-method 'synctex)
   (TeX-source-correlate-mode t)         
   (TeX-source-correlate-start-server t)
-  (TeX-engine 'luatex))                 
+  (TeX-engine 'luatex)
+  (TeX-command-extra-options "-synctex=1"))                 
  
 ;; eldoc-box 
 (use-package eldoc-box
@@ -285,4 +333,4 @@
   :hook (eglot-managed-mode . eldoc-box-hover-mode))
 
 (provide 'lsp)
-;;; eglot-config.el ends here
+;;; lsp.el ends here

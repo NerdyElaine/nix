@@ -11,4 +11,5 @@
 (require 'lsp)
 (require 'dired-config)
 (require 'magit-config)
+(require 'pdf)
 ;;; post-init.el ends here

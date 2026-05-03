@@ -52,6 +52,7 @@
     texliveFull
     gh
     iosevka
+    gnumake
     python3
     cmake
     meson
@@ -63,8 +64,11 @@
     pkg-config
     nixd
     tmux
+    autoconf
     ffmpegthumbnailer
     poppler-utils
+    poppler
+    automake
     mediainfo
     gnutar
     bat
@@ -123,6 +127,8 @@
       "libiconv"
       "rust"
       "rustup"
+      "libpng"
+      "zlib"
       "sk"
       "cava"
       "bob"

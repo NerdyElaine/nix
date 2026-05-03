@@ -360,7 +360,9 @@
 ;; deletion, disrupting the flow of editing.
 (setq delete-pair-blink-delay 0.03)
 
-(set-face-attribute 'default nil :family "Iosevka Nerd Font Mono" :height 140)
+(set-face-attribute 'default nil
+                    :family "Iosevka Nerd Font Mono"
+                    :height 140)
 
 ;; Continue wrapped lines at whitespace rather than breaking in the
 ;; middle of a word.
@@ -565,6 +567,13 @@
                            dired-find-alternate-file set-goal-column))
   (put cmd 'disabled nil))
 
+;; stuff
+(setenv "PKG_CONFIG_PATH"
+  (concat "/opt/homebrew/opt/libpng/lib/pkgconfig"
+          ":/opt/homebrew/lib/pkgconfig"
+          ":" (getenv "PKG_CONFIG_PATH")))
+
+(add-to-list 'exec-path (expand-file-name "straight/build/pdf-tools" user-emacs-directory))
 ;; Removes random noise
 
 (defun my-filter-applesharpener-region (start end)
@@ -599,6 +608,10 @@
 (setq fringe-mode 0)
 
 (set-cursor-color "#D3C6AA")
+
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize))
 
 ;;Smart parens
 (electric-pair-mode 1)

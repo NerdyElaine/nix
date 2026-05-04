@@ -478,6 +478,8 @@ this stage of initialization."
 (setq use-package-always-ensure (not noninteractive))
 (setq use-package-enable-imenu-support t)
 
+(setq package-enable-at-startup nil)
+
 ;; Straight bootstrap
 (defvar bootstrap-version)
 (let ((bootstrap-file

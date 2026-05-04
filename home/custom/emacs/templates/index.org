@@ -1,0 +1,5 @@
+#+date: %<%Y-%m-%d>
+#+filetags: :index:
+
+* Related
+- %?

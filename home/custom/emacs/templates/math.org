@@ -1,0 +1,19 @@
+#+date: %<%Y-%m-%d>
+#+filetags: :math:
+
+* Statement
+%?
+
+* Intuition
+
+
+* Key Idea
+
+
+* Connections
+
+
+* Examples
+
+
+* References

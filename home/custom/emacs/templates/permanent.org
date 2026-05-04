@@ -1,0 +1,10 @@
+#+date: %<%Y-%m-%d>
+#+filetags: :permanent:
+
+* Idea:
+ %?
+ 
+* Details:
+
+
+* Connections:

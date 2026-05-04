@@ -13,4 +13,5 @@
 (require 'magit-config)
 (require 'pdf)
 (require 'org-config)
+(require 'markdown)
 ;;; post-init.el ends here

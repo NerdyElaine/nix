@@ -1,5 +1,17 @@
 ;;; tabs.el --- Description -*- lexical-binding: t; -*-
 
+(defun my/centaur-tabs-group-by-project ()
+  "Group centaur-tabs tabs by project.el project root."
+  (let* ((buf (current-buffer))
+         (file (buffer-file-name buf)))
+    (if (and file (project-current nil (file-name-directory file)))
+        ;; Return project root name as the group
+        (file-name-nondirectory
+         (directory-file-name
+          (project-root (project-current nil (file-name-directory file)))))
+      ;; Fall back to "Other" for buffers not in a project
+      "Other")))
+
 (use-package centaur-tabs
   :ensure t
   :demand t
@@ -36,7 +48,11 @@
     (add-hook hook #'centaur-tabs-local-mode))
 
   (centaur-tabs-mode 1)
-  (centaur-tabs-group-by 'project))
+
+  (add-hook 'emacs-startup-hook
+            (lambda ()
+              (setq centaur-tabs-grouping-function
+                    #'my/centaur-tabs-group-by-project))))
 
 ;; Keybindings — match Doom's defaults
 (with-eval-after-load 'centaur-tabs

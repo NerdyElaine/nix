@@ -6,7 +6,7 @@
 - Browser: [Firefox with Arkenfox](https://github.com/arkenfox/user.js) and with [Textfox](https://github.com/adriankarlen/textfox)
 
 ## Transbook (nix-darwin)
-- Nix: [NixOS](https://nixos.org/)
+- Nix: [nix-darwin](https://github.com/nix-darwin/nix-darwin)
 - Key remaps: [Kanata](https://github.com/jtroo/kanata)
 - Window Tiling: [Aerospace](https://github.com/nikitabobko/AeroSpace)
 - Navigator: [neru](https://github.com/y3owk1n/neru)

@@ -71,18 +71,9 @@
    '("B" . my/scratch-popup)
 
    ;; Workspaces
-   '("<TAB> s" . easysession-save)
-   '("<TAB> l" . easysession-switch-to)
-   '("<TAB> R" . easysession-rename)
-   '("<TAB> D" . easysession-delete)
-   '("<TAB> <TAB>" . +workspace/display)
-   '("<TAB> n" . +workspace/new)
-   '("<TAB> d" . +workspace/delete)
-   '("<TAB> r" . +workspace/rename)
-   '("<TAB> ." . +workspace/switch-to)
-   '("<TAB> [" . tab-bar-switch-to-prev-tab)
-   '("<TAB> ]" . tab-bar-switch-to-next-tab)
-   '("p p" . +workspace/switch-to-project)
+   '("p s" . my/project-switch-with-tabs)
+   '("p a" . my/project-add)
+   '("p f" . my/project-find-file-fd)
 
    ;; Testing
    '("m t a" . my/test-all)

@@ -364,6 +364,9 @@
                     :family "Iosevka Nerd Font Mono"
                     :height 140)
 
+(set-face-attribute 'bold nil :family "Iosevka Nerd Font Mono" :weight 'extrabold)
+(set-face-attribute 'italic nil :family "Iosevka Nerd Font Mono" :slant 'italic)
+
 ;; Continue wrapped lines at whitespace rather than breaking in the
 ;; middle of a word.
 (setq-default word-wrap t)
@@ -601,14 +604,20 @@
      compilation-filter-start (point-max))))
 
 ;; Themes
-(use-package base16-theme
+(use-package doom-themes
+  :straight t
   :ensure t
+  :custom
+  ;; Global settings (defaults)
+  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
+  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
   :config
-  (load-theme 'base16-everforest-dark-hard t))
+  (load-theme 'doom-gruvbox t))
 
 (setq fringe-mode 0)
 
-(set-cursor-color "#D3C6AA")
+(setq-default left-margin-width 0)
+(setq-default right-margin-width 0)
 
 (use-package exec-path-from-shell
   :config

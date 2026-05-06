@@ -36,7 +36,7 @@
     (add-hook hook #'centaur-tabs-local-mode))
 
   (centaur-tabs-mode 1)
-  (centaur-tabs-group-by-projectile-project))
+  (centaur-tabs-group-by 'project))
 
 ;; Keybindings — match Doom's defaults
 (with-eval-after-load 'centaur-tabs

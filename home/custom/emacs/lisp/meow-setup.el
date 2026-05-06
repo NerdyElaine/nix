@@ -53,7 +53,6 @@
    ;; Magit
    '("g" . magit-status)
 
-
    ;; Miscellaneous
    '("!" . jb/run-command)
    '("o t" . jb/vterm)
@@ -115,14 +114,8 @@
    '("7" . meow-digit-argument)
    '("8" . meow-digit-argument)
    '("9" . meow-digit-argument)
-   '("0" . meow-digit-argument)
-   '("f p" . (lambda () (interactive)
-               (let ((default-directory "~/nix/home/custom/emacs/"))
-                 (call-interactively #'find-file))))
-   '("f s" . (lambda () (interactive)
-               (let ((default-directory "~/nix/home/custom/emacs/snippets/"))
-                 (call-interactively #'find-file)))))
-
+   '("0" . meow-digit-argument))
+   
   (meow-motion-define-key
    ;; Navigation
    '("m" . meow-left)

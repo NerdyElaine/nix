@@ -14,4 +14,5 @@
 (require 'pdf)
 (require 'org-config)
 (require 'markdown)
+(require 'projects)
 ;;; post-init.el ends here

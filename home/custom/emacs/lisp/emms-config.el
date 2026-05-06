@@ -222,13 +222,13 @@ Medium - less than 120000 bytes."
 (with-eval-after-load 'emms-browser
   (add-hook 'emms-browser-mode-hook
             (lambda ()
-              (face-remap-add-relative 'default '(:background "#2d353b"))
+              (face-remap-add-relative 'default '(:background "#282828"))
               (emms-center-buffer-in-frame))))
 
 (with-eval-after-load 'emms-playlist-mode
   (add-hook 'emms-playlist-mode-hook
             (lambda ()
-              (face-remap-add-relative 'default '(:background "#2d353b"))
+              (face-remap-add-relative 'default '(:background "#282828"))
               (emms-center-buffer-in-frame))))
 
 (with-eval-after-load 'emms

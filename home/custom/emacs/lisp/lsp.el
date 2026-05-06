@@ -209,7 +209,9 @@
   :init
   (vertico-mode 1)
   :custom
-  (vertico-cycle t))
+  (vertico-cycle t)
+  (vertico-count 20)
+  (vertico-preselect 'first))
 
 (use-package marginalia
   :straight t
@@ -223,7 +225,7 @@
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package consult
   :straight t
@@ -311,7 +313,8 @@
  
 ;; TypeScript 
 (use-package typescript-mode
-  :ensure t)
+  :ensure t
+  :after flyspell)
  
 ;; AUCTeX 
 (use-package auctex
@@ -325,7 +328,12 @@
   (TeX-source-correlate-mode t)         
   (TeX-source-correlate-start-server t)
   (TeX-engine 'luatex)
-  (TeX-command-extra-options "-synctex=1"))                 
+  (TeX-command-extra-options "-synctex=1")
+  :config
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+      TeX-source-correlate-start-server t)
+
+(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
  
 ;; eldoc-box 
 (use-package eldoc-box

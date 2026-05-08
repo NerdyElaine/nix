@@ -152,19 +152,23 @@
 
 (keymap-set project-prefix-map "C" #'my/project-compile)
 
-(when (executable-find "fd")
-  (defun my/project-find-file-fd ()
-    "Find project file using fd for speed."
-    (interactive)
-    (let* ((root (project-root (project-current t)))
-           (files (split-string
-                   (shell-command-to-string
-                    (format "fd --type f --strip-cwd-prefix . %s" (shell-quote-argument root)))
-                   "\n" t))
-           (file (completing-read "Find file: " files nil t)))
-      (find-file (expand-file-name file root))))
-
-  (keymap-set project-prefix-map "f" #'my/project-find-file-fd))
+(defun my/project-find-file-fd ()
+  "Find project file using fd for speed."
+  (interactive)
+  (let* ((root (project-root (project-current t)))
+         (fd-bin (or (executable-find "fd")
+                     (executable-find "fdfind")
+                     (error "Neither fd nor fdfind found in PATH")))
+         ;; cd into root first, then run fd without a path argument
+         ;; that way --strip-cwd-prefix works correctly
+         (default-directory root)
+         (cmd (format "%s --type f --color never --strip-cwd-prefix"
+                      fd-bin))
+         (files (split-string (shell-command-to-string cmd) "\n" t "[ \t]+")))
+    (if (null files)
+        (message "fd returned no files in %s" root)
+      (let ((file (completing-read "Find file: " files nil t)))
+        (find-file (expand-file-name file root))))))
 
 (defun my/project-kill-buffers ()
   "Kill all buffers belonging to current project, with confirmation."
@@ -175,16 +179,38 @@
 
 (keymap-set project-prefix-map "K" #'my/project-kill-buffers)
 
-(defun my-fd-filter-apple-sharpener ()
-  (when (and (buffer-live-p (current-buffer))
-             (string-match-p "\\*fd\\|\\*find\\|fd-dired" (buffer-name)))
-    (let ((inhibit-read-only t))
-      (save-excursion
-        (goto-char (point-min))
-        (while (re-search-forward "^.*AppleSharpener.*\n" nil t)
-          (replace-match ""))))))
+(defun my/filter-applesharpener (output)
+  "Filter AppleSharpener noise from process output."
+  (replace-regexp-in-string
+   ".*\\[AppleSharpener\\].*\n?" "" output))
 
-(add-hook 'fd-dired-mode-hook #'my-fd-filter-apple-sharpener)
-(add-hook 'dired-after-readin-hook #'my-fd-filter-apple-sharpener)
+;; Filter from shell command output
+(advice-add 'shell-command-to-string :filter-return
+            #'my/filter-applesharpener)
+
+;; Filter from *Messages* buffer
+(defun my/filter-messages-buffer (&rest _)
+  (with-current-buffer "*Messages*"
+    (let ((inhibit-read-only t))
+      (goto-char (point-min))
+      (flush-lines "\\[AppleSharpener\\]"))))
+
+(add-hook 'messages-buffer-mode-hook #'my/filter-messages-buffer)
+
+;; Filter from minibuffer messages
+(defvar my/original-message (symbol-function 'message))
+
+(defun my/filtered-message (format-string &rest args)
+  (when format-string
+    (let ((msg (apply #'format format-string args)))
+      (unless (string-match-p "\\[AppleSharpener\\]" msg)
+        (apply my/original-message format-string args)))))
+
+(advice-add 'message :around
+            (lambda (orig fmt &rest args)
+              (when fmt
+                (let ((msg (apply #'format fmt args)))
+                  (unless (string-match-p "\\[AppleSharpener\\]" msg)
+                    (apply orig fmt args))))))
 
 (provide 'projects)

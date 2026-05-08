@@ -20,7 +20,6 @@
    '("f y" . my/yank-buffer-path)
 
    ;; Projects
-   '("SPC" . project-find-file)
    '("p R" . project-query-replace-regexp)
 
    ;; Window bindings
@@ -51,29 +50,22 @@
    '("n j" . org-roam-dailies-capture-today)
 
    ;; Magit
-   '("g" . magit-status)
+   '("g" . (lambda () (interactive) (require 'magit) (magit-status)))
 
    ;; Miscellaneous
-   '("!" . jb/run-command)
    '("o t" . jb/vterm)
    '("o T" . vterm)
    '("o C" . jb/checks)
-   '("o D" . jb/download-media)
-   '("s T" . powerthesaurus-lookup-synonyms-dwim)
    '("s t" . dictionary-search)
-   '("y m" . mu4e-org-mode)
-   '("e w" . eww)
-   '("e l" . elpher)
    '("e e" . elfeed)
-   '("e g" . gptel)
-   '("e s" . gptel-send)
    '("s l" . link-hint-open-link)
    '("B" . my/scratch-popup)
 
    ;; Workspaces
    '("p s" . my/project-switch-with-tabs)
    '("p a" . my/project-add)
-   '("p f" . my/project-find-file-fd)
+   '("SPC" . my/project-find-file-fd)
+   
 
    ;; Testing
    '("m t a" . my/test-all)
@@ -160,7 +152,7 @@
    '("b" . meow-back-word)
    '("c" . meow-change)
    '("C" . (lambda () (interactive) (meow-kill) (meow-insert)))
-   '("d" . meow-kill)
+   '("d" . meow-clipboard-kill)
    '("e" . meow-prev)
    '("E" . meow-prev-expand)
    '("f" . flash-jump)
@@ -181,8 +173,8 @@
    '("N" . meow-next-expand)
    '("o" . meow-open-below)
    '("O" . meow-open-above)
-   '("p" . set/paste-below)
-   '("P" . set/paste-above)
+   '("p" . my/meow-paste-below)
+   '("P" . my/meow-paste-above)
    ;; '("C-v" . my/meow-paste)
    '("q" . meow-quit)
    '("Q" . kmacro-start-macro-or-insert-counter)
@@ -232,6 +224,7 @@
           (special-mode . motion))))
 
 (use-package meow
+  :straight t
   :demand t
   :config
   (meow-setup)
@@ -275,62 +268,18 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-(defun set/paste-below ()
-  "Vim p: paste after cursor (characterwise) or below current line (linewise)."
+(defun my/meow-paste-below ()
   (interactive)
-  (when (null kill-ring)
-    (user-error "Kill ring is empty"))
-  (let ((text (current-kill 0)))
-    (cond
-     ;; Active region: replace selection, old selection → kill-ring
-     ((use-region-p)
-      (let ((beg (region-beginning)))
-        (kill-region (region-beginning) (region-end))
-        (insert text)
-        (goto-char beg)))
-     ;; Linewise: paste below current line, cursor to first non-blank
-     ((string-suffix-p "\n" text)
-      (let* ((content (substring text 0 (1- (length text))))
-             (target nil))
-        (end-of-line)
-        (insert "\n")
-        (setq target (point))
-        (insert content)
-        (goto-char target)
-        (back-to-indentation)))
-     ;; Characterwise: paste after cursor, cursor on last pasted char
-     (t
-      (unless (or (eobp) (eolp))
-        (forward-char 1))
-      (insert text)
-      (backward-char 1)))))
+  (end-of-line)
+  (newline)
+  (meow-yank))
 
-(defun set/paste-above ()
-  "Vim P: paste before cursor (characterwise) or above current line (linewise)."
+(defun my/meow-paste-above ()
   (interactive)
-  (when (null kill-ring)
-    (user-error "Kill ring is empty"))
-  (let ((text (current-kill 0)))
-    (cond
-     ;; Active region: replace selection, old selection → kill-ring
-     ((use-region-p)
-      (let ((beg (region-beginning)))
-        (kill-region (region-beginning) (region-end))
-        (insert text)
-        (goto-char beg)))
-     ;; Linewise: paste above current line, cursor to first non-blank
-     ((string-suffix-p "\n" text)
-      (let* ((content (substring text 0 (1- (length text))))
-             (target nil))
-        (beginning-of-line)
-        (setq target (point))
-        (insert content "\n")
-        (goto-char target)
-        (back-to-indentation)))
-     ;; Characterwise: paste before cursor, cursor on last pasted char
-     (t
-      (insert text)
-      (backward-char 1)))))
+  (beginning-of-line)
+  (newline)
+  (forward-line -1)
+  (meow-yank))
 
 (defun my/indent-right ()
   "Indent region or line right."
@@ -405,6 +354,8 @@
 ;; Zoom
 (global-set-key (kbd "C-=") #'text-scale-increase)
 (global-set-key (kbd "C--") #'text-scale-decrease)
+
+
 
 ;; Save
 ;; (global-set-key (kbd "C-v") #'clipboard-yank)

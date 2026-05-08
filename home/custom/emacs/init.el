@@ -619,6 +619,8 @@
 (setq-default left-margin-width 0)
 (setq-default right-margin-width 0)
 
+(setq scroll-margin 8)
+
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize))

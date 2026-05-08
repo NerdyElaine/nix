@@ -16,7 +16,7 @@
   (setq emms-source-file-default-directory "~/Music"
         emms-playlist-buffer-name "*Music*"
         emms-info-asynchronously t
-        emms-browser-default-browse-type 'info-album)
+        emms-browser-default-browse-type 'info-artist)
 
   :config
   (emms-all)

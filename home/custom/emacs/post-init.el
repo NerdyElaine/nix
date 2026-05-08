@@ -11,7 +11,6 @@
 (require 'lsp)
 (require 'dired-config)
 (require 'magit-config)
-(require 'pdf)
 (require 'org-config)
 (require 'markdown)
 (require 'projects)

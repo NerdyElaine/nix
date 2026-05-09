@@ -40,8 +40,8 @@
 (defun my/project-switch-with-tabs (project)
   "Switch to PROJECT, showing only its tabs in centaur-tabs."
   (interactive (list (project-prompt-project-dir)))
-  (project-switch-project project)
-  ;; hook fires automatically, but also handle the empty project case
+  (let ((project-switch-project-action #'project-dired))  ; go straight to dired
+    (project-switch-project project))
   (let* ((root (project-root (project-current t)))
          (project-bufs (cl-remove-if-not
                         (lambda (buf)

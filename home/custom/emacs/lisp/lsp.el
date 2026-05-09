@@ -1,4 +1,5 @@
 ;;; lsp.el --- Comprehensive Eglot LSP configuration
+(server-start)
 
 ;; Treesitter
 (use-package treesit
@@ -327,14 +328,16 @@
   :hook (LaTeX-mode . TeX-source-correlate-mode)
   :custom
   (TeX-auto-save t)
+  (TeX-master nil) 
   (TeX-parse-self t)
   (TeX-source-correlate-method 'synctex)
   (TeX-source-correlate-mode t)         
   (TeX-source-correlate-start-server t)
   (TeX-engine 'luatex)
-  (TeX-command-extra-options "-synctex=1")
+  (LaTeX-command "latex -synctex=1")
   :config
-  (setq TeX-view-program-selection '((output-pdf "Sioyek"))
+  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
+  (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
       TeX-source-correlate-start-server t)
 
 (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))

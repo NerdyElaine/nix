@@ -15,4 +15,5 @@
 (require 'markdown)
 (require 'projects)
 (require 'elfeed)
+(require 'pdf)
 ;;; post-init.el ends here

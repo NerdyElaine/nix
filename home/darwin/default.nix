@@ -8,18 +8,14 @@
   imports = [
     ./aerospace.nix
     ../shared/fish.nix
-    ../shared/newsboat.nix
     ../shared/git.nix
     ../shared/nvim-bak.nix
-    ../shared/sioyek.nix
     ./firefox.nix
-    ./ghostty.nix
     ../shared/emacs.nix
     ../shared/rmpc.nix
     ./mpd.nix
     ../shared/tmux.nix
     ./neru.nix
-    ../shared/yazi.nix
     ./sketchybar.nix
     ../shared/mpv.nix
   ];

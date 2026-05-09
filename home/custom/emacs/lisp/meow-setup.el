@@ -21,7 +21,10 @@
 
    ;; Projects
    '("p R" . project-query-replace-regexp)
-
+   '("p s" . my/project-switch-with-tabs)
+   '("p a" . my/project-add)
+   '("SPC" . my/project-find-file)
+   
    ;; Window bindings
    '("w v" . split-window-right)
    '("w s" . split-window-below)
@@ -62,9 +65,7 @@
    '("B" . my/scratch-popup)
 
    ;; Workspaces
-   '("p s" . my/project-switch-with-tabs)
-   '("p a" . my/project-add)
-   '("SPC" . my/project-find-file-fd)
+
    
 
    ;; Testing

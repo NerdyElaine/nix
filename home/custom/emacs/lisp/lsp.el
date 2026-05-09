@@ -227,6 +227,8 @@
   (completion-category-defaults nil)
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
+(setq consult-async-min-input 0)
+
 (use-package consult
   :straight t
   :ensure t
@@ -246,6 +248,8 @@
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
+   consult-fd :initial "" 
+   consult-fd :async-min-input 0
    :preview-key '(:debounce 0.4 any)))
 
 (use-package embark

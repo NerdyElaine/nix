@@ -15,6 +15,7 @@
                type            "osx"
                name            "CoreAudio"
                mixer_type      "software"
+               device          "default"
         }
 
 

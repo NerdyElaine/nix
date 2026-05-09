@@ -14,4 +14,5 @@
 (require 'org-config)
 (require 'markdown)
 (require 'projects)
+(require 'elfeed)
 ;;; post-init.el ends here

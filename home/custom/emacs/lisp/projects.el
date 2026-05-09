@@ -124,14 +124,6 @@
   (project-forget-project project)
   (message "Removed project: %s" project))
 
-(use-package consult
-  :ensure t
-  :bind (:map project-prefix-map
-         ("s" . my/project-ripgrep)   ; C-x p s → rg
-         ("f" . consult-project-buffer))
-  :config
-  (setq consult-project-function (lambda (_may-prompt) (project-root (project-current)))))
-
 (defun my/project-ripgrep ()
   "Run ripgrep in the current project root."
   (interactive)
@@ -152,23 +144,21 @@
 
 (keymap-set project-prefix-map "C" #'my/project-compile)
 
-(defun my/project-find-file-fd ()
-  "Find project file using fd for speed."
+(defun my/project-find-file (&optional depth)
   (interactive)
-  (let* ((root (project-root (project-current t)))
-         (fd-bin (or (executable-find "fd")
-                     (executable-find "fdfind")
-                     (error "Neither fd nor fdfind found in PATH")))
-         ;; cd into root first, then run fd without a path argument
-         ;; that way --strip-cwd-prefix works correctly
-         (default-directory root)
-         (cmd (format "%s --type f --color never --strip-cwd-prefix"
-                      fd-bin))
-         (files (split-string (shell-command-to-string cmd) "\n" t "[ \t]+")))
-    (if (null files)
-        (message "fd returned no files in %s" root)
-      (let ((file (completing-read "Find file: " files nil t)))
-        (find-file (expand-file-name file root))))))
+  (let* ((depth (or depth 3))
+         (root (project-root (project-current t)))
+         (cmd (if (executable-find "fd")
+                  (format "fd --type f --max-depth %d" depth)  ; no root = relative output
+                (format "find . -maxdepth %d -type f" depth)))
+         (default-directory root)  ; run the command from the root
+         (files (split-string (shell-command-to-string cmd) "\n" t))
+         (table (lambda (str pred action)
+                  (if (eq action 'metadata)
+                      '(metadata (category . file))
+                    (complete-with-action action files str pred))))
+         (selected (completing-read "Find file: " table nil t)))
+    (find-file (expand-file-name selected root)))) 
 
 (defun my/project-kill-buffers ()
   "Kill all buffers belonging to current project, with confirmation."

@@ -51,21 +51,6 @@
            "\\'"))
   :hook (dired-mode . dired-preview-mode))
 
-(use-package peep-dired
-  :ensure t
-  :after dired
-  :custom
-  (peep-dired-cleanup-on-disable t)
-  (peep-dired-cleanup-eagerly nil)
-  (peep-dired-enable-on-directories nil)
-  (peep-dired-ignored-extensions
-   '("mkv" "iso" "avi"))        
-  :bind (:map dired-mode-map
-         ("P" . peep-dired)
-         :map peep-dired-mode-map
-         ("j" . peep-dired-next-file)
-         ("k" . peep-dired-prev-file)))
-
 (use-package doc-view
   :ensure nil
   :custom

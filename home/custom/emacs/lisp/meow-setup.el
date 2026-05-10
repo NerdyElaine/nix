@@ -56,9 +56,8 @@
    '("g" . (lambda () (interactive) (require 'magit) (magit-status)))
 
    ;; Miscellaneous
-   '("o t" . jb/vterm)
+   '("o t" . my/vterm)
    '("o T" . vterm)
-   '("o C" . jb/checks)
    '("s t" . dictionary-search)
    '("e e" . elfeed)
    '("s l" . link-hint-open-link)

@@ -249,8 +249,6 @@
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
-   consult-fd :initial "" 
-   consult-fd :async-min-input 0
    :preview-key '(:debounce 0.4 any)))
 
 (use-package embark
@@ -276,6 +274,7 @@
   (corfu-auto-prefix 2)       
   (corfu-cycle t)             
   (corfu-quit-no-match t)
+  (corfu-confirm-commit nil) 
   :config
   (require 'corfu-popupinfo)
   (add-hook 'corfu-mode-hook #'corfu-popupinfo-mode)

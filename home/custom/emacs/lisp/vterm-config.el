@@ -141,7 +141,7 @@
 
 ;; Popup terminal
 
-(defun jb/vterm ()
+(defun my/vterm ()
   (interactive)
   (if (require 'vterm nil t)
       (let ((buf (get-buffer-create "*vterm*")))
@@ -153,7 +153,7 @@
           buf
           '((display-buffer-reuse-window
              display-buffer-in-side-window)
-            (side . bottom)
+            (side . right)
             (window-height . 0.3)))))
     (message "vterm not available (build module?)")))
 

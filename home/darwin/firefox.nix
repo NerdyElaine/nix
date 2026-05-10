@@ -598,6 +598,11 @@
         horizontal.enable = false;
         vertical.enable = true;
       };
+      extraCSS = ''
+    .buttons-wrapper::before {
+      content: "sidebar" !important;
+    }
+  '';
     };
   };
 }

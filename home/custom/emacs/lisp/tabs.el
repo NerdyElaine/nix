@@ -48,16 +48,12 @@
     (add-hook hook #'centaur-tabs-local-mode))
 
   (centaur-tabs-mode 1)
-
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (setq centaur-tabs-grouping-function
-                    #'my/centaur-tabs-group-by-project))))
+  (centaur-tabs-group-by-projectile-project))
 
 ;; Keybindings — match Doom's defaults
 (with-eval-after-load 'centaur-tabs
   (define-key centaur-tabs-mode-map (kbd "<C-tab>")         #'centaur-tabs-forward)
-  (define-key centaur-tabs-mode-map (kbd "<C-iso-lefttab>") #'centaur-tabs-backward))
+  (define-key centaur-tabs-mode-map (kbd "<C-S-tab>") #'centaur-tabs-backward))
 
 (provide 'tabs)
 ;;; tabs.el ends here

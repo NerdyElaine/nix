@@ -220,6 +220,28 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start nil))
 
+;; Make ALL org-roam & org links open in the same window
+(setq display-buffer-alist
+      '(("\\*org-roam\\*"
+         (display-buffer-same-window))))
+
+(setq org-link-frame-setup
+      '((vm . vm-visit-folder-other-frame)
+        (vm-imap . vm-visit-imap-folder-other-frame)
+        (gnus . org-gnus-no-new-frames)
+        (file . find-file)          ;; <-- this is the key one
+        (wl . wl-other-frame)))
+
+;; For org-roam node find / insert / capture
+(setq org-roam-node-display-template
+      (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+
+(defun my/org-roam-open-same-window (orig-fn &rest args)
+  (let ((display-buffer-overriding-action '(display-buffer-same-window . nil)))
+    (apply orig-fn args)))
+
+(advice-add 'org-roam-node-visit :around #'my/org-roam-open-same-window)
+(advice-add 'org-roam-capture--get-buffer :around #'my/org-roam-open-same-window)
 
 (provide 'org-config)
  ;;; end of org-config.el

@@ -13,7 +13,8 @@
 (require 'magit-config)
 (require 'org-config)
 (require 'markdown)
-(require 'projects)
+(require 'workspaces)
 (require 'elfeed)
 (require 'pdf)
+(require 'snippet)
 ;;; post-init.el ends here

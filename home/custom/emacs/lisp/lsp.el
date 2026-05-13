@@ -1,6 +1,14 @@
 ;;; lsp.el --- Comprehensive Eglot LSP configuration
 (server-start)
 
+;; Mason.el for installing needed lsps
+(use-package mason
+  :straight t
+  :ensure t
+  :config
+  (mason-setup)
+ )
+
 ;; Treesitter
 (use-package treesit
   :straight nil
@@ -237,14 +245,6 @@
   :init
   (setq xref-show-xrefs-function    #'consult-xref
         xref-show-definitions-function #'consult-xref)
-  :bind
-  (("C-x b"   . consult-buffer)
-   ("C-x C-f" . consult-find)
-   ("M-g g"   . consult-goto-line)
-   ("M-s r"   . consult-ripgrep)
-   ("M-s l"   . consult-line)
-   ("M-s f"   . consult-fd)
-   ("M-y"     . consult-yank-pop))
   :config
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
@@ -274,14 +274,48 @@
   (corfu-auto-prefix 2)       
   (corfu-cycle t)             
   (corfu-quit-no-match t)
-  (corfu-confirm-commit nil) 
+  (corfu-confirm-commit nil)
   :config
   (require 'corfu-popupinfo)
   (add-hook 'corfu-mode-hook #'corfu-popupinfo-mode)
   (setq corfu-popupinfo-delay '(0.5 . 0.3))
+  (setq corfu-confirm-completion nil) 
+(with-eval-after-load 'corfu
+  (keymap-unset corfu-map "RET"))
   :init
   (global-corfu-mode))
- 
+
+;; Editing convenience
+(use-package undo-tree
+  :straight t
+  :ensure t
+  :demand t
+  :config
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist
+        `(("." . ,(expand-file-name "undo-tree-history" user-emacs-directory))))
+  (global-undo-tree-mode 1))
+
+
+(defvar highlight-codetags-keywords
+  '(("\\<\\(TODO\\|FIXME\\|BUG\\|XXX\\)\\>" 1 font-lock-warning-face prepend)
+    ("\\<\\(NOTE\\|HACK\\)\\>" 1 font-lock-doc-face prepend)))
+
+(define-minor-mode highlight-codetags-local-mode
+  "Highlight codetags like TODO, FIXME..."
+  :global nil
+  (if highlight-codetags-local-mode
+      (font-lock-add-keywords nil highlight-codetags-keywords)
+    (font-lock-remove-keywords nil highlight-codetags-keywords))
+
+  ;; Fontify the current buffer
+  (when (bound-and-true-p font-lock-mode)
+    (if (fboundp 'font-lock-flush)
+        (font-lock-flush)
+      (with-no-warnings (font-lock-fontify-buffer)))))
+
+(add-hook 'prog-mode-hook #'highlight-codetags-local-mode)
+
 ;;; Keymaps
  
 (with-eval-after-load 'eglot

@@ -12,7 +12,6 @@
     ../shared/nvim-bak.nix
     ./firefox.nix
     ../shared/emacs.nix
-    ../shared/rmpc.nix
     ./mpd.nix
     ../shared/tmux.nix
     ./neru.nix

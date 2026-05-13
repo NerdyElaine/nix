@@ -15,15 +15,26 @@
 
    ;; Files and Consult
    '("." . find-file)
+   '("SPC" . my/project-find-file)
+   '("p a" . my/project-add)
+   '("p R" . project-query-replace-regexp)
    '("/" . consult-ripgrep)
    '("f r" . consult-recent-file)
    '("f y" . my/yank-buffer-path)
-
-   ;; Projects
-   '("p R" . project-query-replace-regexp)
-   '("p s" . my/project-switch-with-tabs)
-   '("p a" . my/project-add)
-   '("SPC" . my/project-find-file)
+   
+      ;; Workspaces
+   '("<TAB> s" . easysession-save)
+   '("<TAB> l" . easysession-switch-to)
+   '("<TAB> R" . easysession-rename)
+   '("<TAB> D" . easysession-delete)
+   '("<TAB> <TAB>" . +workspace/display)
+   '("<TAB> n" . +workspace/new)
+   '("<TAB> d" . +workspace/delete)
+   '("<TAB> r" . +workspace/rename)
+   '("<TAB> ." . +workspace/switch-to)
+   '("<TAB> [" . tab-bar-switch-to-prev-tab)
+   '("<TAB> ]" . tab-bar-switch-to-next-tab)
+   '("p p" . +workspace/switch-to-project)
    
    ;; Window bindings
    '("w v" . split-window-right)
@@ -179,8 +190,8 @@
    '("q" . meow-quit)
    '("Q" . kmacro-start-macro-or-insert-counter)
    '("@" . kmacro-end-or-call-macro)
-   '("r" . meow-replace)
-   '("k" . meow-change-char)
+   '("R" . meow-replace)
+   '("r" . meow-change-char)
    '("K" . meow-pop-selection)
    '("t" . meow-till)
    '("u" . undo-tree-undo)

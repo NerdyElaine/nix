@@ -147,6 +147,7 @@
       "sf-symbols"
       "keycastr"
       "vesktop"
+      "flux"
       "tunnelblick"
       "protonvpn"
       "helium-browser"

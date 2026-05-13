@@ -1,4 +1,5 @@
 ;; projects.el
+;; -*- lexical-binding: t -*-
 
 (require 'project)
 
@@ -36,23 +37,61 @@
 ;; Hook into project switching
 (add-hook 'project-switch-project-hook #'my/centaur-tabs-hide-non-project-tabs)
 
+;;Persisted window
+(defvar my/project-desktop-dir
+  (expand-file-name "project-desktops" user-emacs-directory)
+  "Directory where per-project desktop files are stored.")
+
+(defun my/project-desktop-file (root)
+  "Return the desktop file path for project ROOT."
+  (expand-file-name
+   (concat (file-name-nondirectory (directory-file-name root)) ".desktop")
+   my/project-desktop-dir))
+
+(defun my/project-save-desktop ()
+  "Save desktop for the current project."
+  (when-let* ((proj (project-current))
+              (root (project-root proj)))
+    (make-directory my/project-desktop-dir t)
+    (let ((desktop-dir (my/project-desktop-file root))
+          (desktop-base-file-name "emacs.desktop")
+          (desktop-base-lock-name "emacs.desktop.lock"))
+      (make-directory (file-name-directory desktop-dir) t)
+      (desktop-save (file-name-directory desktop-dir)))))
+
+(defun my/project-load-desktop (root)
+  "Load desktop for project ROOT if it exists."
+  (let* ((desktop-dir (file-name-directory (my/project-desktop-file root)))
+         (desktop-file (expand-file-name "emacs.desktop" desktop-dir)))
+    (if (file-exists-p desktop-file)
+        (desktop-read desktop-dir)
+      ;; No saved desktop, just open dired
+      (dired root))))
+
+
 ;; Update the project switch function to trigger the hook
+(defun my/project-switch-slot (n)
+  "Switch to the project in slot N."
+  (let ((root (aref my/project-slots n)))
+    (if (null root)
+        (message "No project in slot %d" n)
+      (my/project-save-desktop)
+      (let ((default-directory root))
+        (my/centaur-tabs-hide-non-project-tabs)
+        (my/project-load-desktop root)))))
+
 (defun my/project-switch-with-tabs (project)
-  "Switch to PROJECT, showing only its tabs in centaur-tabs."
+  "Switch to PROJECT, persisting buffers and window config."
   (interactive (list (project-prompt-project-dir)))
-  (let ((project-switch-project-action #'project-dired))  ; go straight to dired
-    (project-switch-project project))
-  (let* ((root (project-root (project-current t)))
-         (project-bufs (cl-remove-if-not
-                        (lambda (buf)
-                          (when-let (file (buffer-file-name buf))
-                            (string-prefix-p root (file-truename file))))
-                        (buffer-list))))
-    (unless project-bufs
-      (call-interactively
-       (if (executable-find "fd")
-           #'my/project-find-file-fd
-         #'project-find-file)))))
+  ;; Save current project state
+  (my/project-save-desktop)
+  ;; Switch project
+  (project-switch-project project)
+  (let ((root (project-root (project-current t))))
+    ;; Hide other project tabs
+    (my/centaur-tabs-hide-non-project-tabs)
+    ;; Restore new project state
+    (my/project-load-desktop root)))
 
 (keymap-set project-prefix-map "p" #'my/project-switch-with-tabs)
 
@@ -103,6 +142,38 @@
         (write-region "" nil (expand-file-name ".project" dir))))
     (project-remember-project (cons 'transient dir))
     (message "Registered project: %s" dir)))
+
+(defvar my/project-slots (make-vector 10 nil)
+  "Vector of project roots assigned to slots 0-9.")
+
+(defun my/project-assign-slot (n)
+  "Assign current project to slot N (0-9)."
+  (interactive "nAssign to slot (0-9): ")
+  (if-let (root (project-root (project-current t)))
+      (progn
+        (aset my/project-slots n root)
+        (message "Slot %d → %s" n root))
+    (message "Not in a project")))
+
+(defun my/project-switch-slot (n)
+  "Switch to the project in slot N."
+  (interactive "nSwitch to slot (0-9): ")
+  (if-let (root (aref my/project-slots n))
+      (my/project-switch-slot root)
+    (message "No project in slot %d" n)))
+
+;; Bind C-c 1 through C-c 9
+(defun my/make-project-switcher (n)
+  "Return a command that switches to project slot N."
+  (cons 'lambda `(() (interactive) (my/project-switch-slot ,n))))
+
+(dotimes (i 9)
+  (keymap-global-set
+   (format "C-c %d" (1+ i))
+   (my/make-project-switcher (1+ i))))
+
+;; Assign current project to a slot
+(keymap-global-set "C-c 0" #'my/project-assign-slot)
 
 ;; Bulk-add all subdirectories of a parent directory
 (defun my/project-add-all-under (parent)
@@ -202,5 +273,9 @@
                 (let ((msg (apply #'format fmt args)))
                   (unless (string-match-p "\\[AppleSharpener\\]" msg)
                     (apply orig fmt args))))))
+
+(add-hook 'kill-emacs-hook #'my/project-save-desktop)
+
+(run-with-timer 0 300 #'my/project-save-desktop)
 
 (provide 'projects)

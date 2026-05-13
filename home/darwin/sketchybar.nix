@@ -1,15 +1,15 @@
 {pkgs, ...}: let
   colors = {
     ## Everforest
-    "SK_BAR" = "0xff261c13";
-    "SK_TEXT" = "0xff7c7b61";
-    "SK_SPACE_HL_BG" = "0xff7d7e61";
+    "SK_BAR" = "0xffebdbb2";
+    "SK_TEXT" = "0xff3c3836";
+    "SK_SPACE_HL_BG" = "0xff83a598";
     "SK_SPACE_HL_FG" = "0xff261c13";
     "SK_SPACE_OCCUPIED_FG" = "0xff887d4f";
     "SK_ITEM_BG" = "0xff261c13";
-    "SK_BATTERY_CHARGING" = "0xffa6da95";
+    "SK_BATTERY_CHARGING" = "0xff79740e";
     "SK_SUBTEXT" = "0xffb8c0e0";
-    "SK_BATTERY_LOW" = "0xffed8796";
+    "SK_BATTERY_LOW" = "0xff9d0006";
   };
 
   aerospacePlugin = pkgs.writeShellScript "aerospace.sh" ''
@@ -25,8 +25,8 @@
 
     if [ "$SID" = "$FOCUSED" ]; then
       sketchybar --set "$NAME" \
-        background.color=${colors.SK_BATTERY_CHARGING} \
-        icon.color=${colors.SK_SPACE_HL_FG}
+        background.color=${colors.SK_SPACE_HL_BG} \
+        icon.color=${colors.SK_TEXT}
         background.height=50 \
         background.width=50
     else
@@ -260,7 +260,7 @@
 
     sketchybar --add item clock right \
       --set clock update_freq=5 \
-      background.color="$SK_ITEM_BG" \
+      background.color="$SK_BAR" \
       icon.drawing=off\
       label.padding_left=2 \
       label.padding_right=12 \

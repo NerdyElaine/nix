@@ -598,9 +598,9 @@
         horizontal.enable = false;
         vertical.enable = true;
       };
-      extraCSS = ''
+      extraConfig = ''
     .buttons-wrapper::before {
-      content: "sidebar" !important;
+      content: "tabs" !important;
     }
   '';
     };

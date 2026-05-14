@@ -6,7 +6,7 @@
   :demand t
   :init
     (setq pdf-info-epdfinfo-program
-        (expand-file-name "/Users/elaine/nix/home/custom/emacs/straight/build/pdf-tools/build/server/epdfinfo"
+        (expand-file-name "/Users/elaine/.emacs.d/straight/build/pdf-tools/build/server/epdfinfo"
                           user-emacs-directory))
   :config
   (pdf-tools-install)

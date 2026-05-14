@@ -56,6 +56,7 @@
     python3
     cmake
     meson
+    texlab
     gnupg
     lazygit
     vesktop

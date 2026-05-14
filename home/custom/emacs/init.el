@@ -603,6 +603,9 @@
     (my-filter-applesharpener-region
      compilation-filter-start (point-max))))
 
+(setq ls-lisp-use-insert-directory-program nil)
+(require 'ls-lisp)
+
 ;; Themes
 (use-package doom-themes
   :straight t

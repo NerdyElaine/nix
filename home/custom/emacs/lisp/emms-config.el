@@ -56,18 +56,17 @@
 
   (run-with-timer 0.1 nil #'my/safe-mpd-connect)
 
-  ;; Everforest faces
-  (set-face-attribute 'emms-browser-artist-face nil
-                      :foreground "#a7c080" :height 1.2 :weight 'bold)
-  (set-face-attribute 'emms-browser-album-face nil
-                      :foreground "#dbbc7f" :height 1.05)
-  (set-face-attribute 'emms-browser-track-face nil
-                      :foreground "#d3c6aa" :height 1.0)
-  (set-face-attribute 'emms-playlist-track-face nil
-                      :foreground "#d3c6aa" :height 1.0)
-  (set-face-attribute 'emms-playlist-selected-face nil
-                      :foreground "#a7c080" :weight 'bold)
-
+  ;; Gruvbox light faces
+    (set-face-attribute 'emms-browser-artist-face nil
+                        :foreground "#79740e" :height 1.2 :weight 'bold)
+    (set-face-attribute 'emms-browser-album-face nil
+                        :foreground "#b57614" :height 1.05)
+    (set-face-attribute 'emms-browser-track-face nil
+                        :foreground "#3c3836" :height 1.0)
+    (set-face-attribute 'emms-playlist-track-face nil
+                        :foreground "#3c3836" :height 1.0)
+    (set-face-attribute 'emms-playlist-selected-face nil
+                        :foreground "#79740e" :weight 'bold)
   ;; Browser keybindings
   (define-key emms-browser-mode-map (kbd "RET") #'emms-browser-add-tracks-and-play)
   (define-key emms-browser-mode-map (kbd "SPC") #'emms-pause)
@@ -222,13 +221,13 @@ Medium - less than 120000 bytes."
 (with-eval-after-load 'emms-browser
   (add-hook 'emms-browser-mode-hook
             (lambda ()
-              (face-remap-add-relative 'default '(:background "#282828"))
+              (face-remap-add-relative 'default '(:background "#ebdbb2"))
               (emms-center-buffer-in-frame))))
 
 (with-eval-after-load 'emms-playlist-mode
   (add-hook 'emms-playlist-mode-hook
             (lambda ()
-              (face-remap-add-relative 'default '(:background "#282828"))
+              (face-remap-add-relative 'default '(:background "#ebdbb2"))
               (emms-center-buffer-in-frame))))
 
 (with-eval-after-load 'emms

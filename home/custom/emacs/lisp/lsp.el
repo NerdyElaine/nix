@@ -87,8 +87,9 @@
   (eglot-send-changes-idle-time 0.1)
  
   :config
- 
-  ;; C / C++ : clangd 
+   (add-to-list 'exec-path "/run/current-system/sw/bin")
+   (setenv "PATH" (concat "/run/current-system/sw/bin:" (getenv "PATH")))           
+  ;; C / C++ : clangd
   (add-to-list 'eglot-server-programs
                '((c-mode c-ts-mode c++-mode c++-ts-mode)
                  . ("clangd"
@@ -282,8 +283,54 @@
   (setq corfu-confirm-completion nil) 
 (with-eval-after-load 'corfu
   (keymap-unset corfu-map "RET"))
+ (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (setq-local corfu-auto t)
+              ;; Make sure AUCTeX's own capf is present
+              (add-to-list 'completion-at-point-functions
+                           #'TeX--completion-at-point)))
+ :bind
+ (:map corfu-map
+        ("RET"   . nil)        ; disable enter globally in corfu
+        ("<ret>" . nil)
+        ("TAB"   . corfu-insert)
+        ("<tab>" . corfu-insert))
   :init
-  (global-corfu-mode))
+(global-corfu-mode))
+
+(use-package cape
+  :init
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (setq-local corfu-auto-prefix 1)
+              (setq-local completion-at-point-functions
+                          (list
+                           #'yasnippet-capf              ; first, always checked
+                           #'eglot-completion-at-point   ; then LSP
+                           (cape-capf-super
+                            #'yasnippet-capf
+                            #'TeX--completion-at-point
+                            #'cape-tex
+                            #'cape-dabbrev
+                            #'cape-file))))))
+
+    (use-package yasnippet-capf
+      :after (yasnippet corfu)
+      :config
+      (setq yasnippet-capf-lookup-by 'key)
+      ;; Make TAB expand the selected snippet candidate
+      (advice-add 'corfu-insert :after
+                  (lambda (&rest _)
+                    (when (and (bound-and-true-p yas-minor-mode)
+                               (looking-back "\\w" 1))
+                      (yas-expand)))))
+
+(use-package kind-icon
+  :after corfu
+  :custom
+  (kind-icon-default-face 'corfu-default)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
 
 ;; Editing convenience
 (use-package undo-tree
@@ -356,25 +403,73 @@
  
 ;; AUCTeX 
 (use-package auctex
-  :ensure t
   :defer t
-  :hook (LaTeX-mode . TeX-source-correlate-mode)
+  :hook
+  (LaTeX-mode . LaTeX-math-mode)
+  (LaTeX-mode . flyspell-mode)
+  (LaTeX-mode . auto-fill-mode)
+  (LaTeX-mode . visual-line-mode)
   :custom
+  (TeX-save-query nil)
   (TeX-auto-save t)
-  (TeX-master nil) 
   (TeX-parse-self t)
+  (TeX-master nil)
+  (TeX-command-default "LatexMk")
+  (TeX-source-correlate-mode t)
   (TeX-source-correlate-method 'synctex)
-  (TeX-source-correlate-mode t)         
   (TeX-source-correlate-start-server t)
-  (TeX-engine 'luatex)
-  (LaTeX-command "latex -synctex=1")
+  (TeX-view-program-selection '((output-pdf "PDF Tools")))
+  (TeX-PDF-mode t)
   :config
-  (setq TeX-view-program-selection '((output-pdf "PDF Tools"))
-  (setq TeX-view-program-list '(("PDF Tools" TeX-pdf-tools-sync-view)))
-      TeX-source-correlate-start-server t)
+  ;; This must be in :config, not :custom — it's not a simple value
+  (setq TeX-view-program-list
+        '(("PDF Tools" TeX-pdf-tools-sync-view)))
+  (setq revert-without-query '(".*\\.pdf"))
+  (add-hook 'TeX-after-compilation-finished-functions
+            (lambda (file)
+              (run-with-timer 1 nil #'TeX-revert-document-buffer file)))
+  (add-hook 'after-save-hook
+          (lambda ()
+            (when (eq major-mode 'LaTeX-mode)
+              (let ((TeX-save-query nil))
+                (TeX-command-run-all nil))))))
 
-(add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer))
- 
+(use-package auctex-latexmk
+  :after auctex
+  :custom
+  (auctex-latexmk-inherit-TeX-PDF-mode t)
+  (auctex-latexmk-options "-pdf -pvc -interaction=nonstopmode")
+  :config
+  (auctex-latexmk-setup)
+ )
+
+(use-package reftex
+  :after auctex
+  :hook (LaTeX-mode . reftex-mode)
+  :custom
+  (reftex-plug-into-AUCTeX t)
+  (reftex-save-parse-info t)
+  (reftex-use-multiple-selection-buffers t))
+
+(use-package company
+  :hook (LaTeX-mode . company-mode)
+  :custom
+  (company-idle-delay 0.2)
+  (company-minimum-prefix-length 2))
+
+(use-package company-auctex
+  :after (company auctex)
+  :config (company-auctex-init))
+
+(use-package company-reftex
+  :after (company reftex)
+  :config
+  (add-to-list 'company-backends
+               '(company-reftex-labels company-reftex-citations)))
+
+(use-package cdlatex
+  :hook (LaTeX-mode . cdlatex-mode))
+
 ;; eldoc-box 
 (use-package eldoc-box
   :ensure t

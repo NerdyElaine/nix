@@ -615,7 +615,7 @@
   (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
   (doom-themes-enable-italic t) ; if nil, italics is universally disabled
   :config
-  (load-theme 'doom-gruvbox-light t))
+  (load-theme 'doom-earl-grey t))
 
 (setq fringe-mode 0)
 

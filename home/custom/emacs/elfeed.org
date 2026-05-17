@@ -1,0 +1,24 @@
+* Feeds                                                     :elfeed:
+** Tech
+*** https://news.ycombinator.com/rss                        :tech:
+*** https://lobste.rs/rss                                   :tech:
+*** https://www.technologyreview.com/feed/                   :tech:
+** Emacs
+*** https://planet.emacslife.com/atom.xml                   :emacs:
+*** https://sachachua.com/blog/category/emacs/feed/atom/     :schua:emacs:
+*** https://protesilaos.com/codelog/index.xml                 :prot:emacs:
+** RMS
+*** https://stallman.org/rss/rss.xml                        :rms:politics:
+** Programming
+*** https://gustedt.wordpress.com/feed                       :gustedt:c:
+*** https://lemire.me/blog/feed                               :lemire:c:cperf:
+*** https://jvns.ca/atom.xml                                  :jvns:c:kernal:
+*** https://mycplus.com/feed                                  :c:ctut:
+** Math
+*** https://terrytao.wordpress.com/feed/                     :terrytao:math:
+*** https://mathwithbaddrawings.com/feed                      :mathwithbaddrawings:math:
+*** https://www.ams.org/cgi-bin/content/news_items.cgi?rss=1  :ams:math:news:
+*** https://www.ams.org/rss/conm.rss                           :ams:contmath:math:
+*** https://johncarlosbaez.wordpress.com/feed/                :jbaez:math:
+*** https://gowers.wordpress.com/feed/                        :gowers:math:
+*** https://qchu.wordpress.com/feed/                           :qchu:math:

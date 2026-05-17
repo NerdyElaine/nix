@@ -153,6 +153,7 @@
       "protonvpn"
       "helium-browser"
       "anki"
+      "syncthing-app"
       "docker-desktop"
       "beeper"
       "telegram"

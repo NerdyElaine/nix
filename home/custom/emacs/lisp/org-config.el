@@ -31,7 +31,19 @@
   (setq org-refile-use-outline-path 'file
         org-outline-path-complete-in-steps nil)
   (setq org-agenda-files (list org-directory))
- 
+
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((C . t)          ;; covers C and C++
+     (python . t)
+     (rust . t)
+     (js . t)         ;; JavaScript
+     (haskell . t)))
+
+  (setq org-babel-python-command "python3"
+      org-babel-js-command "node"
+      org-babel-typescript-command "ts-node")
+  
   ;; Archive
   (add-hook 'org-mode-hook
           (lambda ()
@@ -242,6 +254,17 @@
 
 (advice-add 'org-roam-node-visit :around #'my/org-roam-open-same-window)
 (advice-add 'org-roam-capture--get-buffer :around #'my/org-roam-open-same-window)
+
+(use-package ob-typescript
+  :after org
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   (append org-babel-load-languages
+           '((typescript . t)))))
+
+(use-package ob-rust
+  :after org)
 
 (provide 'org-config)
  ;;; end of org-config.el

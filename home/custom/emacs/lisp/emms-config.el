@@ -58,15 +58,15 @@
 
   ;; Gruvbox light faces
     (set-face-attribute 'emms-browser-artist-face nil
-                        :foreground "#79740e" :height 1.2 :weight 'bold)
+                        :foreground "#747b4d" :height 1.2 :weight 'bold)
     (set-face-attribute 'emms-browser-album-face nil
-                        :foreground "#b57614" :height 1.05)
+                        :foreground "#ab967a" :height 1.05)
     (set-face-attribute 'emms-browser-track-face nil
-                        :foreground "#3c3836" :height 1.0)
+                        :foreground "#706a63" :height 1.0)
     (set-face-attribute 'emms-playlist-track-face nil
-                        :foreground "#3c3836" :height 1.0)
+                        :foreground "#706a63" :height 1.0)
     (set-face-attribute 'emms-playlist-selected-face nil
-                        :foreground "#79740e" :weight 'bold)
+                        :foreground "#747b4d" :weight 'bold)
   ;; Browser keybindings
   (define-key emms-browser-mode-map (kbd "RET") #'emms-browser-add-tracks-and-play)
   (define-key emms-browser-mode-map (kbd "SPC") #'emms-pause)
@@ -221,13 +221,13 @@ Medium - less than 120000 bytes."
 (with-eval-after-load 'emms-browser
   (add-hook 'emms-browser-mode-hook
             (lambda ()
-              (face-remap-add-relative 'default '(:background "#ebdbb2"))
+              (face-remap-add-relative 'default '(:background "#fcfbf9"))
               (emms-center-buffer-in-frame))))
 
 (with-eval-after-load 'emms-playlist-mode
   (add-hook 'emms-playlist-mode-hook
             (lambda ()
-              (face-remap-add-relative 'default '(:background "#ebdbb2"))
+              (face-remap-add-relative 'default '(:background "#fcfbf9"))
               (emms-center-buffer-in-frame))))
 
 (with-eval-after-load 'emms

@@ -415,7 +415,7 @@
   (TeX-parse-self t)
   (TeX-master nil)
   (TeX-command-default "LatexMk")
-  (TeX-source-correlate-mode t)
+  (TeX-source-correlate-mode nil)
   (TeX-source-correlate-method 'synctex)
   (TeX-source-correlate-start-server t)
   (TeX-view-program-selection '((output-pdf "PDF Tools")))

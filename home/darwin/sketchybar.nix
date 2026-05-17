@@ -1,15 +1,15 @@
 {pkgs, ...}: let
   colors = {
     ## Everforest
-    "SK_BAR" = "0xffebdbb2";
-    "SK_TEXT" = "0xff3c3836";
-    "SK_SPACE_HL_BG" = "0xff83a598";
+    "SK_BAR" = "0xfff7f3ee";
+    "SK_TEXT" = "0xff605a52";
+    "SK_SPACE_HL_BG" = "0xffc0a9bb";
     "SK_SPACE_HL_FG" = "0xff261c13";
     "SK_SPACE_OCCUPIED_FG" = "0xff887d4f";
     "SK_ITEM_BG" = "0xff261c13";
-    "SK_BATTERY_CHARGING" = "0xff79740e";
+    "SK_BATTERY_CHARGING" = "0xff747b4d";
     "SK_SUBTEXT" = "0xffb8c0e0";
-    "SK_BATTERY_LOW" = "0xff9d0006";
+    "SK_BATTERY_LOW" = "0xff8f5652";
   };
 
   aerospacePlugin = pkgs.writeShellScript "aerospace.sh" ''

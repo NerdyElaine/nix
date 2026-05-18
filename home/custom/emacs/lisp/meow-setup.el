@@ -21,6 +21,7 @@
    '("/" . consult-ripgrep)
    '("f r" . consult-recent-file)
    '("f y" . my/yank-buffer-path)
+   '("f d" . dired-jump)
    
       ;; Workspaces
    '("<TAB> s" . easysession-save)
@@ -74,10 +75,7 @@
    '("e e" . elfeed)
    '("s l" . link-hint-open-link)
    '("B" . my/scratch-popup)
-
-   ;; Workspaces
-
-   
+   '("I d" . wdired-change-to-wdired-mode)
 
    ;; Testing
    '("m t a" . my/test-all)

@@ -153,7 +153,7 @@
           buf
           '((display-buffer-reuse-window
              display-buffer-in-side-window)
-            (side . right)
+            (side . bottom)
             (window-height . 0.3)))))
     (message "vterm not available (build module?)")))
 

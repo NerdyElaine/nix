@@ -8,5 +8,5 @@ window-padding-x = 10
 window-padding-y = 10
 adjust-cell-width = 2
 adjust-cell-height = 0
-theme = everforest-dark-hard.conf
+theme = earl-grey.conf
 cursor-style = block

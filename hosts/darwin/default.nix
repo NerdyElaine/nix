@@ -51,12 +51,9 @@
     yams
     texliveFull
     gh
-    iosevka
-    gnumake
-    python3
-    cmake
     meson
     texlab
+    ghostty-bin
     gnupg
     lazygit
     vesktop
@@ -82,6 +79,7 @@
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka
     nerd-fonts.jetbrains-mono
+    iosevka
   ];
 
   # macOS system defaults
@@ -148,12 +146,13 @@
       "sf-symbols"
       "keycastr"
       "vesktop"
-      "flux"
+      "flux-app"
       "tunnelblick"
       "protonvpn"
       "helium-browser"
       "anki"
       "syncthing-app"
+      "c0re100-qbittorrent"
       "docker-desktop"
       "beeper"
       "telegram"

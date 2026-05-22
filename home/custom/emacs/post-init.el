@@ -17,4 +17,6 @@
 (require 'elfeed)
 (require 'pdf)
 (require 'snippet)
+(require 'flash)
+(require 'emment)
 ;;; post-init.el ends here

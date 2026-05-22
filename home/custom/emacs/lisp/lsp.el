@@ -20,6 +20,7 @@
         '((go-mode         . go-ts-mode)
           (python-mode     . python-ts-mode)
           (javascript-mode . js-ts-mode)
+          (java-mode       . java-ts-mode)
           (css-mode        . css-ts-mode)
           (html-mode       . html-ts-mode)
           (nix-mode        . nix-ts-mode)
@@ -30,7 +31,8 @@
           (python     "https://github.com/tree-sitter/tree-sitter-python")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src") 
-          (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")        
+          (tsx        "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+          (java       "https://github.com/tree-sitter/tree-sitter-java")
           (css        "https://github.com/tree-sitter/tree-sitter-css")
           (c          "https://github.com/tree-sitter/tree-sitter-c")
           (cpp        "https://github.com/tree-sitter/tree-sitter-cpp")      
@@ -48,7 +50,9 @@
                  ("\\.h\\'"   . c-ts-mode)
                  ("\\.cpp\\'" . c++-ts-mode)
                  ("\\.cc\\'"  . c++-ts-mode)
-                 ("\\.hpp\\'" . c++-ts-mode)))  
+                 ("\\.hpp\\'" . c++-ts-mode)
+                 ("\\.jar\\'" . java-ts-mode)))  
+
   (add-to-list 'auto-mode-alist entry))
 
 (defun my/treesit-install-all-grammars ()
@@ -400,7 +404,36 @@
 (use-package typescript-mode
   :ensure t
   :after flyspell)
- 
+
+;; Lean
+(use-package nael
+  :straight ( :host nil
+              :repo "https://codeberg.org/mekeor/nael.git"
+              :files ("nael/*.el"))
+  :defer t
+  :init
+  (add-hook 'nael-mode-hook #'abbrev-mode)
+  (add-hook 'nael-mode-hook #'eglot-ensure)
+  (with-eval-after-load 'org-src
+    (add-to-list 'org-src-lang-modes '("lean" . nael)))
+  (with-eval-after-load 'markdown-mode
+    (add-to-list 'markdown-code-lang-modes '("lean" . nael-mode)))
+  :config
+  (with-eval-after-load 'smartparens
+    (sp-with-modes 'nael-mode
+      (sp-local-pair "/-" "-/")
+      (sp-local-pair "`" "`")
+      (sp-local-pair "{" "}")
+      (sp-local-pair "«" "»")
+      (sp-local-pair "⟨" "⟩")
+      (sp-local-pair "⟪" "⟫")))
+  (with-eval-after-load 'meow
+  (meow-leader-define-key
+   '("l a" . nael-abbrev-help)
+   '("l b" . project-compile)
+   '("l e" . eldoc-doc-buffer))))
+
+
 ;; AUCTeX 
 (use-package auctex
   :defer t

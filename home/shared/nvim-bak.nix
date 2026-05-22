@@ -39,11 +39,10 @@ vim.o.undofile = true
 
 --Plugins
 vim.pack.add({
-    { src = 'https://github.com/neanias/everforest-nvim' },
+    { src = 'https://github.com/jacksonludwig/vim-earl-grey' },
     { src = 'https://github.com/stevearc/oil.nvim' },
     { src = 'https://github.com/christoomey/vim-tmux-navigator' },
     { src = 'https://github.com/lervag/vimtex' },
-    { src = "https://github.com/chentoast/marks.nvim" },
     { src = 'https://github.com/folke/snacks.nvim' },
     { src = 'https://github.com/nvim-mini/mini.nvim' },
     { src = 'https://github.com/y3owk1n/warp.nvim' },
@@ -51,41 +50,8 @@ vim.pack.add({
     { src = 'https://github.com/saghen/blink.cmp' },
     { src = 'https://github.com/folke/which-key.nvim' },
     { src = 'https://github.com/neovim/nvim-lspconfig' },
-    { src = 'https://github.com/MeanderingProgrammer/render-markdown.nvim' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter',          version = "main" },
-    { src = 'https://github.com/mason-org/mason.nvim' },
     { src = 'https://github.com/folke/flash.nvim' },
-    { src = "https://github.com/mfussenegger/nvim-dap" },
-    { src = "https://github.com/rcarriga/nvim-dap-ui" },
-    { src = "https://github.com/theHamsta/nvim-dap-virtual-text" },
-    { src = "https://github.com/julianolf/nvim-dap-lldb" },
-    { src = "https://github.com/nvim-neotest/nvim-nio" },
-    { src = 'https://github.com/norcalli/nvim-colorizer.lua' },
-})
-
-require("dap-lldb").setup()
-local dap, dapui = require("dap"), require("dapui")
-
-dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
-end
-dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
-end
-dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
-end
-
-vim.keymap.set({ 'n' }, '<Leader>d', ':DapNew<CR>')
-vim.keymap.set({ 'n', 'i' }, '<C-b>', ':DapToggleBreakpoint<CR>')
-require "marks".setup {
-    default_mappings = false,
-    builtin_marks = { "<", ">", "^" },
-}
-
-require "everforest".setup({
-    background = "hard",
-    transparent_background_level = 1,
 })
 
 local function pack_clean()
@@ -113,21 +79,7 @@ local function pack_clean()
     end
 end
 
-vim.cmd("colorscheme everforest")
-
 require "flash".setup()
-
-require("luasnip").config.setup({
-    enable_autosnippets = true,
-    store_selection_keys = "<Tab>",
-})
-
-require("luasnip.loaders.from_vscode").load {
-    exclude = { "latex" },
-}
-
-require("luasnip.loaders.from_lua").load({ paths = "~/dotfiles/.config/nvim/snippets/" })
-
 
 require("nvim-treesitter").setup({
     autotag = {
@@ -136,32 +88,6 @@ require("nvim-treesitter").setup({
 })
 
 require('nvim-treesitter').install { 'rust', 'javascript', 'typescript', 'svelte', 'python', 'c', 'cpp', 'lua' }
-
-require "render-markdown".setup({
-    completion = {
-        lsp = {
-            enabled = true,
-        }
-    }
-})
-
-require "colorizer".setup({
-    "*",
-    css = { rgb_fn = true }
-})
-
-require('nvim-ts-autotag').setup({
-    opts = {
-        enable_close = true,
-        enable_rename = true,
-        enable_close_on_slash = true
-    },
-    per_filetype = {
-        ["html"] = {
-            enable_close = false
-        }
-    }
-})
 
 require("mini.ai").setup()
 
@@ -174,14 +100,6 @@ require("mini.surround").setup()
 require("snack")
 
 require("org-mode")
-
-local tom = require("telescope-orgmode")
-tom.setup({ adapter = "snacks" })
-
-vim.g.vimtex_view_method = "sioyek"
-vim.g.vimtex_callback_progpath = "~/.local/share/bob/nvim-bin/nvim"
-
-require("warp").setup()
 
 require("oil").setup({
     default_file_explorer = true,
@@ -219,7 +137,6 @@ require("oil").setup({
         padding = 4,
     },
 })
-
 
 local group = vim.api.nvim_create_augroup("BlinkCmpLazyLoad", { clear = true })
 
@@ -351,19 +268,6 @@ keymap('n', '<leader>sd', function() Snacks.picker.diagnostics() end)
 keymap('n', '<leader>H', function() Snacks.picker.help() end)
 keymap('n', '<leader>F', ':Oil<CR>', { silent = true })
 keymap('n', '<leader>f', ':lua require("oil").toggle_float()<CR>', { silent = true })
-keymap('n', '<leader>ha', '<cmd>WarpAddFile<cr>')
-keymap('n', '<leader>hA', '<cmd>WarpAddOnScreenFiler<cr>')
-keymap('n', '<leader>hd', '<cmd>WarpDelFile<cr>')
-keymap('n', '<leader>he', '<cmd>WarpShowList<cr>')
-keymap('n', '<leader>1', '<cmd>WarpGoToIndex 1<cr>')
-keymap('n', '<leader>2', '<cmd>WarpGoToIndex 2<cr>')
-keymap('n', '<leader>3', '<cmd>WarpGoToIndex 3<cr>')
-keymap('n', '<leader>4', '<cmd>WarpGoToIndex 4<cr>')
-keymap('n', '<leader>5', '<cmd>WarpGoToIndex 5<cr>')
-keymap('n', '<leader>6', '<cmd>WarpGoToIndex 6<cr>')
-keymap('n', '<leader>7', '<cmd>WarpGoToIndex 7<cr>')
-keymap('n', '<leader>8', '<cmd>WarpGoToIndex 8<cr>')
-keymap('n', '<leader>9', '<cmd>WarpGoToIndex 9<cr>')
 
 --Navigation keymaps
 keymap('n', '<C-d>', '<C-d>zz')

@@ -52,6 +52,7 @@
     texliveFull
     gh
     meson
+    elan
     texlab
     ghostty-bin
     gnupg
@@ -80,6 +81,7 @@
     nerd-fonts.iosevka
     nerd-fonts.jetbrains-mono
     iosevka
+    garamond-libre
   ];
 
   # macOS system defaults

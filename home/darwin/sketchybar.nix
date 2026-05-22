@@ -3,10 +3,11 @@
     ## Everforest
     "SK_BAR" = "0xfff7f3ee";
     "SK_TEXT" = "0xff605a52";
-    "SK_SPACE_HL_BG" = "0xffc0a9bb";
-    "SK_SPACE_HL_FG" = "0xff261c13";
+    "SK_SPACE_HL_BG" = "0xff83577D";
+    "SK_SPACE_HL_FG" = "0xffFCFBF9";
     "SK_SPACE_OCCUPIED_FG" = "0xff887d4f";
-    "SK_ITEM_BG" = "0xff261c13";
+    "SK_INACTIVE" = "0xff9E9A95";
+    "SK_ITEM" = "0xff477A7B";
     "SK_BATTERY_CHARGING" = "0xff747b4d";
     "SK_SUBTEXT" = "0xffb8c0e0";
     "SK_BATTERY_LOW" = "0xff8f5652";
@@ -26,7 +27,7 @@
     if [ "$SID" = "$FOCUSED" ]; then
       sketchybar --set "$NAME" \
         background.color=${colors.SK_SPACE_HL_BG} \
-        icon.color=${colors.SK_TEXT}
+        icon.color=${colors.SK_SPACE_HL_FG}
         background.height=50 \
         background.width=50
     else
@@ -42,7 +43,7 @@
           background.color=${colors.SK_BAR} \
           background.height=50 \
           background.width=50 \
-          icon.color=${colors.SK_TEXT}
+          icon.color=${colors.SK_INACTIVE}
       fi
     fi
   '';
@@ -74,7 +75,7 @@
 
     CPU_PERCENT="$(echo "$CPU_SYS $CPU_USER" | awk '{printf "%.0f\n", ($1 + $2)*100}')"
 
-    sketchybar --set $NAME label="$CPU_PERCENT% |"
+    sketchybar --set $NAME label="$CPU_PERCENT%"
   '';
 
   # Memory plugin script
@@ -171,7 +172,8 @@
     SK_SPACE_HL_BG="${colors.SK_SPACE_HL_BG}"
     SK_SPACE_HL_FG="${colors.SK_SPACE_HL_FG}"
     SK_SPACE_OCCUPIED_FG="${colors.SK_SPACE_OCCUPIED_FG}"
-    SK_ITEM_BG="${colors.SK_ITEM_BG}"
+    SK_INACTIVE="${colors.SK_INACTIVE}"
+    SK_ITEM="${colors.SK_ITEM}"
     SK_BATTERY_CHARGING="${colors.SK_BATTERY_CHARGING}"
     SK_SUBTEXT="${colors.SK_SUBTEXT}"
     SK_BATTERY_LOW="${colors.SK_BATTERY_LOW}"
@@ -252,6 +254,7 @@
             icon.padding_right=4 \
             icon.drawing=off \
             label.font="$MONOSPACE_FONT:Regular:13.0" \
+            label.color="$SK_TEXT" \
             --subscribe front_app front_app_switched
 
     #
@@ -265,6 +268,7 @@
       label.padding_left=2 \
       label.padding_right=12 \
       label.font="$MONOSPACE_FONT:Regular:14.0" \
+      label.color = "$SK_INACTIVE" \
       script="${timePlugin}" \
       background.padding_right=0 \
       \
@@ -272,29 +276,38 @@
       --add item keyboard right \
       --set keyboard script="${keyboardPlugin}" \
       label.font="$MONOSPACE_FONT:Regular:14.5" \
+      label.color="$SK_ITEM" \
       --subscribe keyboard input_change \
       \
       --add item battery right \
       --set battery script="BATTERY_LOW=$SK_BATTERY_LOW BATTERY_CHARGING=$SK_BATTERY_CHARGING ${batteryPlugin}" \
       label.font="$MONOSPACE_FONT:Regular:14.0" \
+      label.color="$SK_ITEM" \
       update_freq=30 \
       --subscribe battery system_woke power_source_change \
       \
+       --add item separator right \
+      --set separator icon="|" \
+      icon.color="$SK_TEXT" \
+       icon.padding_right=1 \
       --add item cpu right \
       --set cpu update_freq=2 \
       label.font="$MONOSPACE_FONT:Regular:14.0" \
+      label.color="$SK_ITEM" \
       icon="| 􀧓 "\
       script="${cpuPlugin}"\
       \
     	--add item ram right \
     	--set ram update_freq=15 \
     	label.font="$MONOSPACE_FONT:Regular:14.0" \
+        label.color="$SK_ITEM" \
     	icon="|  "\
     	script="${memoryPlugin}" \
     	\
     	--add item disk right \
     	--set disk update_freq=50 \
     	label.font="$MONOSPACE_FONT:Regular:14.0" \
+        label.color="$SK_ITEM" \
     	icon="| 󰋊 "\
     	script="${diskPlugin}" \
     	\
@@ -302,6 +315,7 @@
       --set mpd update_freq=2 \
       --set mpd script="${mpdPlugin}" \
       label.font="$MONOSPACE_FONT:Regular:14.0" \
+      label.color="$SK_ITEM" \
       --set mpd click_script="mpc toggle" \
       \
 

@@ -4,7 +4,7 @@
   xdg.configFile."aerospace/aerospace.toml".text = ''
     start-at-login = true
     after-startup-command = [
-      "exec-and-forget borders active_color=0xff8F8059 inactive_color=0xff3c3836 style=square width=8.0",
+      "exec-and-forget borders active_color=0xff7686A9 inactive_color=0xffDDDBD8 style=square width=8.0",
         "exec-and-forget sketchybar",
     ]
     enable-normalization-flatten-containers = true

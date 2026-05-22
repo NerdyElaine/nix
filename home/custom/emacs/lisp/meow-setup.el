@@ -14,6 +14,7 @@
    '("?" . meow-cheatsheet)
 
    ;; Files and Consult
+   '("n r" . nil)  
    '("." . find-file)
    '("SPC" . my/project-find-file)
    '("p a" . my/project-add)
@@ -59,9 +60,9 @@
    '("o b" . browse-url-of-file)
 
    ;; Org
-   '("C" . org-capture)
-   '("n r i" . org-roam-capture)
-   '("n r f" . org-roam-node-find)
+   '("n c" . org-roam-capture)
+   '("n C" . org-capture)
+   '("n f" . org-roam-node-find)
    '("n j" . org-roam-dailies-capture-today)
    '("n g" . org-roam-ui-open)
 
@@ -75,7 +76,7 @@
    '("e e" . elfeed)
    '("s l" . link-hint-open-link)
    '("B" . my/scratch-popup)
-   '("I d" . wdired-change-to-wdired-mode)
+   '("i d" . wdired-change-to-wdired-mode)
 
    ;; Testing
    '("m t a" . my/test-all)
@@ -157,7 +158,7 @@
    '("*" . meow-visit)
    '("%" . meow-block)
    '("^" . back-to-indentation)
-   '("a" . meow-append)
+   '("a" . my/meow-append)
    '("A" . (lambda () (interactive) (end-of-line) (meow-insert)))
    '("b" . meow-back-word)
    '("c" . meow-change)
@@ -172,7 +173,7 @@
    '("M" . meow-left-expand)
    '("i" . meow-right)
    '("I" . meow-right-expand)
-   '("s" . meow-insert)
+   '("s" . meow-append)
    '("S" . (lambda () (interactive) (beginning-of-line) (meow-insert)))
    '("j" . meow-join)
    '("l" . meow-line)
@@ -274,9 +275,14 @@
   (kill-region (point) (1+ (point))))
 
 ;; Tab behaviour
-(setq tab-always-indent 'complete)
+(setq tab-always-indent t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+
+(defun my/meow-append ()
+  (interactive)
+  (forward-char 1)
+  (meow-append))
 
 (defun my/meow-paste-below ()
   (interactive)

@@ -19,4 +19,5 @@
 (require 'snippet)
 (require 'flash)
 (require 'emment)
+(require 'move-text-config)
 ;;; post-init.el ends here

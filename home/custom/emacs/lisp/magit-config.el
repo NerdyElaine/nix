@@ -1,12 +1,11 @@
-;;; magit.el --- Description -*- lexical-binding: t; -*-
-(use-package magit-section
-  :straight t
-  :demand t)
+;;; magit-config.el --- Description -*- lexical-binding: t; -*-
 (use-package magit
+  :straight t
   :defer t
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
         magit-bury-buffer-function #'magit-restore-window-configuration
+        straight-git-executable "/run/current-system/sw/bin/git"
         magit-git-executable "/run/current-system/sw/bin/git"))
 
 (defun my/magit-git-version (&optional error)
@@ -29,5 +28,9 @@
   (define-key magit-status-mode-map (kbd "SPC") nil)
   (define-key magit-log-mode-map (kbd "SPC") nil)
   (define-key magit-diff-mode-map (kbd "SPC") nil))
+
+(use-package magit-section
+  :straight t
+  :demand t)
 
 (provide 'magit-config)

@@ -182,7 +182,7 @@ Medium - less than 120000 bytes."
     (let* ((track (emms-playlist-current-selected-track))
            (path (emms-track-get track 'name))
            (dir (file-name-directory path))
-           (standard-files '("cover.jpg" "cover.png" "folder.jpg" "folder.png"
+           (standard-files '( "cover-small.jpg" "cover-small.png" "cover.jpg" "cover.png" "folder.jpg" "folder.png"
                              "album.jpg" "album.png" "front.jpg" "front.png"))
            (standard-cover (cl-find-if
                             (lambda (file)

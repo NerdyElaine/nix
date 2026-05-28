@@ -8,6 +8,7 @@
 (require 'tabs)
 (require 'emms-config)
 (require 'modeline)
+(require 'snippet)
 (require 'lsp)
 (require 'dired-config)
 (require 'magit-config)
@@ -16,8 +17,8 @@
 (require 'workspaces)
 (require 'elfeed)
 (require 'pdf)
-(require 'snippet)
 (require 'flash)
 (require 'emment)
 (require 'move-text-config)
+(require 'erc-config)
 ;;; post-init.el ends here

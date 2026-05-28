@@ -21,9 +21,11 @@
 (use-package bufferlo
   :ensure t
   :demand t
+  :init
+  (setq bufferlo-advise-calls nil)
   :config
   (bufferlo-mode 1)
-  (bufferlo-anywhere-mode 1))
+  (bufferlo-anywhere-mode -1))
 
 ;;; Helpers
 (defun +workspace--current-name ()

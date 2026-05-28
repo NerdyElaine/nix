@@ -217,15 +217,17 @@
 (add-hook 'LaTeX-mode-hook #'my/latex-eglot-config)
  
 ;;; Completion
+
 (use-package vertico
   :straight t
   :ensure t
-  :init
-  (vertico-mode 1)
   :custom
   (vertico-cycle t)
   (vertico-count 20)
-  (vertico-preselect 'first))
+  (vertico-preselect 'first)
+  :config
+  (vertico-mode 1)
+  (vertico-multiform-mode 1))
 
 (use-package marginalia
   :straight t
@@ -234,14 +236,41 @@
   (marginalia-mode 1))
 
 (use-package orderless
-  :straight t
   :ensure t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles basic partial-completion)))))
+  (completion-category-overrides '((file (styles partial-completion)))))
 
-(setq consult-async-min-input 0)
+(use-package corfu
+  :straight t
+  :ensure t
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0.3)
+  (corfu-auto-prefix 2)
+  (corfu-cycle t)
+  (corfu-quit-no-match t)
+  (corfu-confirm-commit nil)
+  :config
+  (require 'corfu-popupinfo)
+  (add-hook 'corfu-mode-hook #'corfu-popupinfo-mode)
+  (setq corfu-popupinfo-delay '(0.5 . 0.3))
+  (with-eval-after-load 'corfu
+    (keymap-unset corfu-map "RET"))
+  (add-hook 'LaTeX-mode-hook
+            (lambda ()
+              (setq-local corfu-auto t)
+              (add-to-list 'completion-at-point-functions
+                           #'TeX--completion-at-point)))
+  :bind
+  (:map corfu-map
+        ("RET"   . nil)
+        ("<ret>" . nil)
+        ("TAB"   . corfu-insert)
+        ("<tab>" . corfu-insert))
+  :init
+  (global-corfu-mode))
 
 (use-package consult
   :straight t
@@ -269,65 +298,6 @@
   :after (embark consult)
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
-
-(use-package corfu
-  :straight t
-  :ensure t
-  :custom
-  (corfu-auto t)              
-  (corfu-auto-delay 0.1)
-  (corfu-auto-prefix 2)       
-  (corfu-cycle t)             
-  (corfu-quit-no-match t)
-  (corfu-confirm-commit nil)
-  :config
-  (require 'corfu-popupinfo)
-  (add-hook 'corfu-mode-hook #'corfu-popupinfo-mode)
-  (setq corfu-popupinfo-delay '(0.5 . 0.3))
-  (setq corfu-confirm-completion nil) 
-(with-eval-after-load 'corfu
-  (keymap-unset corfu-map "RET"))
- (add-hook 'LaTeX-mode-hook
-            (lambda ()
-              (setq-local corfu-auto t)
-              ;; Make sure AUCTeX's own capf is present
-              (add-to-list 'completion-at-point-functions
-                           #'TeX--completion-at-point)))
- :bind
- (:map corfu-map
-        ("RET"   . nil)        ; disable enter globally in corfu
-        ("<ret>" . nil)
-        ("TAB"   . corfu-insert)
-        ("<tab>" . corfu-insert))
-  :init
-(global-corfu-mode))
-
-(use-package cape
-  :init
-  (add-hook 'LaTeX-mode-hook
-            (lambda ()
-              (setq-local corfu-auto-prefix 1)
-              (setq-local completion-at-point-functions
-                          (list
-                           #'yasnippet-capf              ; first, always checked
-                           #'eglot-completion-at-point   ; then LSP
-                           (cape-capf-super
-                            #'yasnippet-capf
-                            #'TeX--completion-at-point
-                            #'cape-tex
-                            #'cape-dabbrev
-                            #'cape-file))))))
-
-    (use-package yasnippet-capf
-      :after (yasnippet corfu)
-      :config
-      (setq yasnippet-capf-lookup-by 'key)
-      ;; Make TAB expand the selected snippet candidate
-      (advice-add 'corfu-insert :after
-                  (lambda (&rest _)
-                    (when (and (bound-and-true-p yas-minor-mode)
-                               (looking-back "\\w" 1))
-                      (yas-expand)))))
 
 (use-package kind-icon
   :after corfu

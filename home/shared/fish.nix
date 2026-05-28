@@ -22,6 +22,7 @@
       set -gx NSAppleSharpenerEnabled 0
 
       fzf --fish | source
+      fnm env --use-on-cd --shell fish | source
 
       function starship_transient_prompt_funr
         starship module character

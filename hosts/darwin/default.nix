@@ -42,6 +42,7 @@
     ghostscript
     rmpc
     mpd
+    fnm
     gcc
     zotero
     coreutils-prefixed
@@ -50,9 +51,11 @@
     cinny-desktop
     yams
     texliveFull
+    basedpyright
     gh
     meson
     elan
+    ffmpeg
     texlab
     ghostty-bin
     gnupg
@@ -78,6 +81,7 @@
   ];
 
   fonts.packages = with pkgs; [
+    nerd-fonts.iosevka-term
     nerd-fonts.iosevka
     nerd-fonts.jetbrains-mono
     iosevka
@@ -154,6 +158,7 @@
       "helium-browser"
       "anki"
       "syncthing-app"
+      "colemak-dh"
       "c0re100-qbittorrent"
       "docker-desktop"
       "beeper"

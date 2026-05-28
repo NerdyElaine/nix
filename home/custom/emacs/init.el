@@ -361,11 +361,11 @@
 (setq delete-pair-blink-delay 0.03)
 
 (set-face-attribute 'default nil
-                    :family "Iosevka Nerd Font Mono"
+                    :family "IosevkaTerm Nerd Font Mono"
                     :height 140)
 
-(set-face-attribute 'bold nil :family "Iosevka Nerd Font Mono" :weight 'extrabold)
-(set-face-attribute 'italic nil :family "Iosevka Nerd Font Mono" :slant 'italic)
+(set-face-attribute 'bold nil :family "IosevkaTerm Nerd Font Mono" :weight 'extrabold)
+(set-face-attribute 'italic nil :family "IosevkaTerm Nerd Font Mono" :slant 'italic)
 
 ;; Continue wrapped lines at whitespace rather than breaking in the
 ;; middle of a word.
@@ -625,6 +625,8 @@
 (setq scroll-margin 8)
 
 (use-package exec-path-from-shell
+  :ensure t
+  :demand t                        ; load immediately, don't defer
   :config
   (exec-path-from-shell-initialize))
 

@@ -18,15 +18,13 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # required for fish to work as login shell
-  programs.fish.enable = true;
 
   # required for user-scoped options like dock, defaults, launchd agents
   system.primaryUser = username;
 
   users.users.elaine = {
     home = "/Users/elaine";
-    shell = pkgs.fish;
+    ignoreShellProgramCheck = true;
   };
 
   time.timeZone = "Asia/Phnom_Penh";

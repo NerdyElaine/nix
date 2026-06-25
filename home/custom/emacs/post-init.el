@@ -18,7 +18,7 @@
 (require 'elfeed)
 (require 'pdf)
 (require 'flash)
-(require 'emment)
 (require 'move-text-config)
 (require 'erc-config)
+(require 'writing)
 ;;; post-init.el ends here

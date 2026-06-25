@@ -25,7 +25,11 @@
   (setq bufferlo-advise-calls nil)
   :config
   (bufferlo-mode 1)
-  (bufferlo-anywhere-mode -1))
+  (bufferlo-anywhere-mode 1))
+
+;; Clear bloat
+(setq bufferlo-kill-buffers-on-delete t)
+(run-with-idle-timer 300 t #'bufferlo-kill-orphan-buffers)
 
 ;;; Helpers
 (defun +workspace--current-name ()

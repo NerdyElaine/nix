@@ -17,6 +17,8 @@
 (add-hook 'elfeed-show-mode-hook
   (lambda ()
     (setq buffer-face-mode-face '(:family "Garamond Libre" :height 160))
+    (set-face-attribute 'line-number nil :font "IosevkaTerm Nerd Font")
+    (set-face-attribute 'line-number-current-line nil :font "IosevkaTerm Nerd Font")
     (buffer-face-mode t)))
 
 (custom-set-faces

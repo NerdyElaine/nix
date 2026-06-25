@@ -482,6 +482,11 @@
 ;; Activate Eglot in cross-referenced non-project files
 (setq eglot-extend-to-xref t)
 
+;; Eglot fixes
+(setq jsonrpc-event-hook
+      (lambda (conn type message)
+        (message "JSONRPC %s: %s" type message)))
+
 ;; Eglot optimization
 (if minimal-emacs-debug
     (setq eglot-events-buffer-config '(:size 2000000 :format full))

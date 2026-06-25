@@ -1,5 +1,5 @@
 ;;; pdf.el --- Pdf config with synctex -*-lexical-binding: t; -*-
-
+(setenv "CC" "clang")
 (use-package pdf-tools
   :straight (:host github :repo "vedang/pdf-tools")
   :mode ("\\.pdf\\'" . pdf-view-mode)
@@ -10,6 +10,8 @@
                           user-emacs-directory))
   :config
   (pdf-tools-install)
+  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+  (setq large-file-warning-threshold nil)
   (setq-default pdf-view-display-size 'fit-page)
   (setq pdf-view-continuous t)
   (setq pdf-view-use-scaling t
@@ -30,7 +32,7 @@
                                      (pdf-view-midnight-minor-mode 1))))))
   (define-key pdf-view-mode-map (kbd "m") #'image-backward-hscroll)
   (define-key pdf-view-mode-map (kbd "i") #'image-forward-hscroll)
-  (define-key pdf-view-mode-map (kbd "n") #'pdf-view-next-line-or-next-page)
+  (define-key pdf-view-mode-map (kbd "n") #'pdf-view-next-line-or-next-pagqe)
   (define-key pdf-view-mode-map (kbd "e") #'pdf-view-previous-line-or-previous-page)
   (define-key pdf-view-mode-map (kbd "N") #'pdf-view-next-page)
   (define-key pdf-view-mode-map (kbd "E") #'pdf-view-previous-page)

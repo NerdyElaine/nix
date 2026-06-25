@@ -462,7 +462,8 @@ this stage of initialization."
 (add-to-list 'default-frame-alist '(internal-border-width . 0))
 (fringe-mode 0)
 (add-to-list 'default-frame-alist '(undecorated . t))
-(add-to-list 'default-frame-alist '(alpha . (96 . 96)))
+(set-frame-parameter nil 'alpha-background 100)
+(add-to-list 'default-frame-alist '(alpha-background . 100))
 (show-paren-mode 1)
 
 ;;; Security

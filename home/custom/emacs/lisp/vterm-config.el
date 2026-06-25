@@ -126,6 +126,10 @@
 
 (add-hook 'after-make-frame-functions #'my/vterm-in-new-frame)
 
+(with-eval-after-load 'vterm
+  (define-key vterm-mode-map (kbd "<escape>") nil))
+(add-to-list 'meow-mode-state-list '(vterm-mode . insert))
+
 (defun my/tag-initial-frame ()
   (set-frame-parameter nil 'main-frame t))
 (add-hook 'emacs-startup-hook #'my/tag-initial-frame)

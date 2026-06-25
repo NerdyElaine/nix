@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: blog site
+# key: <source
+# --
+#+title: $1
+#+date: `(format-time-string "%Y-%m-%d")`
+#+lastmod: `(format-time-string "%Y-%m-%d")`
+#+draft: true
+#+tags[]: $2
+#+math: false
+
+$0

@@ -73,7 +73,8 @@
    '("o t" . my/vterm)
    '("o T" . vterm)
    '("s t" . dictionary-search)
-   '("e e" . elfeed)
+   '("e f" . elfeed)
+   '("e c" . erc-tls)
    '("s l" . link-hint-open-link)
    '("B" . my/scratch-popup)
    '("i d" . wdired-change-to-wdired-mode)
@@ -117,7 +118,8 @@
    '("n" . meow-next)
    '("i" . meow-right)
    '("e" . meow-prev)
-   '("W" . meow-next-word)
+   '("w" . meow-next-word)
+   '("b" . meow-back-word)
    '("a" . meow-insert)
    '("^" . back-to-indentation)
    '("L" . (lambda () (interactive) (meow-line 1) (meow-reverse)))
@@ -234,6 +236,12 @@
           (messages-buffer-mode . motion)
           (special-mode . motion))))
 
+(defun my/vterm-meow-escape-fix ()
+  (setq-local meow--current-state 'insert)
+  (meow-insert-mode))
+
+(add-hook 'vterm-mode-hook #'my/vterm-meow-escape-fix)
+
 (use-package meow
   :straight t
   :demand t
@@ -301,15 +309,15 @@
   "Indent region or line right."
   (interactive)
   (if (use-region-p)
-      (indent-rigidly (region-beginning) (region-end) tab-width)
-    (indent-rigidly (line-beginning-position) (line-end-position) tab-width)))
+      (indent-rigidly (region-beginning) (region-end) 4)
+    (indent-rigidly (line-beginning-position) (line-end-position) 4)))
 
 (defun my/indent-left ()
   "Indent region or line left."
   (interactive)
   (if (use-region-p)
-     (indent-rigidly (region-beginning) (region-end) (- tab-width))
-    (indent-rigidly (line-beginning-position) (line-end-position) (- tab-width))))
+     (indent-rigidly (region-beginning) (region-end) -4)
+    (indent-rigidly (line-beginning-position) (line-end-position) -4)))
 
 ;;Save all buffers
 (defun my/save-all-buffers ()

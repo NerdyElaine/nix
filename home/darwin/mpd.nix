@@ -15,7 +15,7 @@
                type            "osx"
                name            "CoreAudio"
                mixer_type      "software"
-               device          "default"
+               replay_gain_handler "software"
         }
 
 

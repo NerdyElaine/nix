@@ -10,3 +10,4 @@ adjust-cell-width = 2
 adjust-cell-height = 0
 theme = earl-grey.conf
 cursor-style = block
+cursor-style-blink = false

@@ -7,10 +7,12 @@
 }: {
   imports = [
     ./aerospace.nix
-    ../shared/fish.nix
+   #../shared/fish.nix
     ../shared/git.nix
+    ../shared/zsh.nix
    # ../shared/nvim-bak.nix
-    ./firefox.nix
+   ../shared/vim.nix
+    ./firefox/firefox.nix
     ../shared/emacs.nix
     ./mpd.nix
     ../shared/tmux.nix

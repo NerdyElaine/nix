@@ -37,7 +37,6 @@
     imagemagick
     btop
     pandoc
-    ghostscript
     rmpc
     mpd
     fnm
@@ -53,22 +52,20 @@
     gh
     meson
     elan
+    hugo
     ffmpeg
     texlab
+    vscode-langservers-extracted
     ghostty-bin
     gnupg
     lazygit
     vesktop
     enchant
     aspell
-    pkg-config
     nixd
+    nixfmt
     tmux
-    autoconf
     ffmpegthumbnailer
-    poppler-utils
-    poppler
-    automake
     mediainfo
     gnutar
     bat
@@ -82,7 +79,6 @@
     nerd-fonts.iosevka-term
     nerd-fonts.iosevka
     nerd-fonts.jetbrains-mono
-    iosevka
     garamond-libre
   ];
 
@@ -128,10 +124,18 @@
       "meson"
       "mpc"
       "libiconv"
+      "autoconf"
+      "automake"
+      "pkg-config"
       "rust"
+      "ghostscript"
       "rustup"
+      "poppler"
       "libpng"
       "zlib"
+      "cmake"
+      "hunspell"
+      "wordlist"
       "sk"
       "cava"
       "bob"
@@ -153,6 +157,7 @@
       "flux-app"
       "tunnelblick"
       "protonvpn"
+      "linearmouse"
       "helium-browser"
       "anki"
       "syncthing-app"

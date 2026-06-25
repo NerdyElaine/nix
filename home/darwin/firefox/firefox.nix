@@ -3,7 +3,8 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.textfox.homeManagerModules.default
     inputs.arkenfox.hmModules.arkenfox
@@ -11,8 +12,12 @@
 
   programs.firefox = {
     enable = true;
+    package = pkgs.firefox.override {
+      nativeMessagingHosts = [ pkgs.tridactyl-native ];
+    };
     profiles.elaine = {
       isDefault = true;
+      userChrome = builtins.readFile ./userChrome.css;
       extraConfig = ''
         user_pref("_user.js.parrot", "START: Oh yes, the Norwegian Blue... what's wrong with it?");
 
@@ -494,36 +499,38 @@
           user_pref("general.smoothScroll", true);
           user_pref("apz.overscroll.enabled", true);
 
-          // Required for textfox chrome to work
-          user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-          user_pref("svg.context-properties.content.enabled", true);
-          user_pref("layout.css.has-selector.enabled", true);
+        // Required for themes to work
+        user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+        user_pref("svg.context-properties.content.enabled", true);
+        user_pref("layout.css.has-selector.enabled", true);
+        user_pref("browser.compactmode.show", true);
+        user_pref("browser.uidensity", 1);
 
-            // DNS over https
-            user_pref("network.trr.mode", 3);
-            user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
-            user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
+        // DNS over https
+        user_pref("network.trr.mode", 3);
+        user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
+        user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
       '';
 
-        extensions = {
-          packages = with inputs.firefox-addons.packages."aarch64-darwin"; [
-            ublock-origin
-            keepassxc-browser
-            sponsorblock
-            darkreader
-            sidebery
-            stylus
-            vimium-c
-            multi-account-containers
-            mtab
-            violentmonkey
-            zotero-connector
-            dearrow
-            skip-redirect
-            firefox-color
-            h264ify
-          ];
-        };
+      extensions = {
+        packages = with inputs.firefox-addons.packages."aarch64-darwin"; [
+          ublock-origin
+          keepassxc-browser
+          sponsorblock
+          darkreader
+          sidebery
+          stylus
+          tridactyl
+          multi-account-containers
+          mtab
+          violentmonkey
+          zotero-connector
+          dearrow
+          skip-redirect
+          firefox-color
+          h264ify
+        ];
+      };
 
       search = {
         force = true;
@@ -542,7 +549,7 @@
               }
             ];
             updateInterval = 24 * 60 * 60 * 1000; # update icon every 24h
-            definedAliases = ["@s"];
+            definedAliases = [ "@s" ];
           };
           "Nix Packages" = {
             urls = [
@@ -561,7 +568,7 @@
               }
             ];
             icon = "https://nixos.org/favicon.png";
-            definedAliases = ["@np"];
+            definedAliases = [ "@np" ];
           };
           "NixOS Options" = {
             urls = [
@@ -576,33 +583,206 @@
               }
             ];
             icon = "https://nixos.org/favicon.png";
-            definedAliases = ["@no"];
+            definedAliases = [ "@no" ];
           };
         };
       };
     };
   };
-  textfox = {
-    enable = true;
-    profiles = ["elaine"];
-    config = {
-      displayWindowControls = false;
-      displayNavButtons = false;
-      displayUrlbarIcons = false;
-      displaySidebarTools = false;
-      font = {
-        family = "Iosevka Nerd Font Mono";
-        size = "14px";
-      };
-      tabs = {
-        horizontal.enable = false;
-        vertical.enable = true;
-      };
-      extraConfig = ''
-    .buttons-wrapper::before {
-      content: "tabs" !important;
-    }
+  home.file.".config/tridactyl/tridactylrc".text = ''
+    sanitise tridactyllocal tridactylsync
+        
+    bind m scrollpx -50
+    bind n scrollline 5
+    bind e scrollline -5
+    bind i scrollpx 50
+
+    unbind h
+    unbind j
+    unbind k
+    unbind K
+    unbind l
+    
+    bind k findnext 1
+    bind K findnext -1
+
+    bind M back
+    bind I forward
+
+    bind N tabprev
+    bind E tabnext
+
+    set hintfiltermode vimperator
+    set hintchars astneriogmdh
+    set newtab about:blank
+    jsb tri.styling.setPageCSS(`.TridactylHintElem { background: unset !important; outline: none !important; border: none !important; color: unset !important; } .TridactylHint { background: #F7F3EE !important; color: #605A52 !important; border: 1px solid #9E9A95 !important; border-radius: 3px !important; font-family: "IosevkaTerm Nerd Font", monospace !important; font-size: 11px !important; font-weight: bold !important; padding: 1px 4px !important; } .TridactylHintActive { background: #83577D !important; color: #FCFBF9 !important; border-color: #83577D !important; }`)
+    colourscheme earl-grey
   '';
-    };
-  };
+  home.file.".config/tridactyl/themes/earl-grey.css".text = ''
+         :root {
+    --tridactyl-fg: #605A52;
+    --tridactyl-bg: #FCFBF9;
+    --tridactyl-url-fg: #556995;
+    --tridactyl-url-bg: #FCFBF9;
+    --tridactyl-highlight-box-bg: #83577D;
+    --tridactyl-highlight-box-fg: #FCFBF9;
+    --tridactyl-hintspan-fg: #605A52 !important;
+    --tridactyl-hintspan-bg: #F7F3EE !important;
+    --tridactyl-hint-active-fg: none;
+    --tridactyl-hint-active-bg: none;
+    --tridactyl-hint-active-outline: none;
+    --tridactyl-hint-bg: none !important;
+    --tridactyl-hint-outline: none !important;
+    --option-height: 1.4em;
+    --tridactyl-font-family: "IosevkaTerm Nerd Font", monospace;
+    --tridactyl-font-size: 12px;
+}
+
+#cmdline_iframe
+{
+    position: fixed !important;
+    bottom: 0 !important;
+    top: unset !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 2147483647 !important;
+    box-shadow: 0px -2px 8px rgba(96, 90, 82, 0.12) !important;
+}
+
+#command-line-holder
+{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    border: none !important;
+    border-top: 1px solid #ECEBE8 !important;
+    background: #FCFBF9 !important;
+    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    font-size: 12px !important;
+}
+
+#tridactyl-colon
+{
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    padding: 0.2rem 0 0.2rem 0.6rem !important;
+    color: #9E9A95 !important;
+    flex-shrink: 0 !important;
+    font-family: "IosevkaTerm Nerd Font", monospace !important;
+}
+
+#tridactyl-input
+{
+    color: #605A52 !important;
+    background: #FCFBF9 !important;
+    font-size: 12px !important;
+    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    line-height: 1.4 !important;
+    padding: 0.2rem 0.4rem !important;
+    flex: 1 !important;
+    border: none !important;
+    outline: none !important;
+}
+
+#completions
+{
+    color: #605A52;
+    background: #FCFBF9;
+    overflow: hidden;
+    width: 100%;
+    order: -1;
+    max-height: calc(10 * var(--option-height));
+    font-family: "IosevkaTerm Nerd Font", monospace;
+    font-size: 12px;
+}
+
+#completions > div
+{
+    max-height: calc(10 * var(--option-height));
+    min-height: unset;
+}
+
+#completions table
+{
+    font-size: 12px;
+    border-spacing: 0;
+    table-layout: fixed;
+    width: 100%;
+    padding: 0;
+}
+
+#completions .sectionHeader
+{
+    background: #F7F3EE;
+    color: #9E9A95;
+    border-bottom: 1px solid #ECEBE8;
+    padding: 0.1rem 0.6rem;
+    font-size: 11px;
+}
+
+#completions table tr td
+{
+    padding: 0.1rem 0.6rem;
+}
+
+#completions table tr td.prefix,
+#completions table tr td.privatewindow,
+#completions table tr td.container,
+#completions table tr td.icon
+{
+    display: none;
+}
+
+#completions table tr .title
+{
+    width: 50%;
+}
+
+#completions table tr
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#completions .focused
+{
+    background: #83577D;
+    color: #FCFBF9;
+}
+
+#completions .focused .url
+{
+    background: #83577D;
+    color: #FCFBF9;
+}
+
+.TridactylStatusIndicator {
+    position: fixed !important;
+    bottom: 0 !important;
+    background: #FCFBF9 !important;
+    border: 1px solid #9E9A95 !important;
+    color: #605A52 !important;
+    font-size: 11px !important;
+    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    padding: 0.2ex 0.5ex !important;
+}
+
+.TridactylHint {
+    background: #F7F3EE !important;
+    color: #605A52 !important;
+    border: 1px solid #9E9A95 !important;
+    border-radius: 3px !important;
+    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+    padding: 1px 4px !important;
+}
+
+.TridactylHintActive {
+    background: #83577D !important;
+    color: #FCFBF9 !important;
+    border-color: #83577D !important;
+}
+  '';
 }

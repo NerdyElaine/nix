@@ -7,42 +7,43 @@
     ./hardware-configuration.nix
   ];
 
-  #  Bootloader 
+  #  bootloader 
   boot.loader.systemd-boot.enable      = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
 
-  # Kernel 
+  # kernel 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   nixpkgs.config.allowUnfree = true;
 
-  # NVIDIA
+  # nvidia slop
   hardware.nvidia = {
     modesetting.enable    = true;
     powerManagement.enable = false;
-    open                  = false;   # proprietary closed-source kernel module
+    open                  = false;  
     nvidiaSettings        = true;
     package               = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   hardware.graphics = {
     enable      = true;
-    enable32Bit = true;             # needed for Steam / 32-bit GL
+    enable32Bit = true;             
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  #tty display manager 
   services.displayManager.ly.enable = true;
 
-  # Required env vars for Wayland + NVIDIA + mango
+  # env vars for nvidiaslop + mangowm
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME    = "nvidia";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS   = "1";   # fixes cursor on NVIDIA under wlroots
+    WLR_NO_HARDWARE_CURSORS   = "1";  
     GBM_BACKEND          = "nvidia-drm";
     MOZ_ENABLE_WAYLAND   = "1";
-    NIXOS_OZONE_WL       = "1";        # Electron / Chromium Wayland
+    NIXOS_OZONE_WL       = "1";       
   };
 
   # Mangowc 

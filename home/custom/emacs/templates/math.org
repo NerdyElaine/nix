@@ -1,10 +1,8 @@
 #+date: %<%Y-%m-%d>
 #+filetags: :math:
 
-* Statement
+* Concept
 %?
-
-* Intuition
 
 
 * Key Idea
@@ -13,7 +11,4 @@
 * Connections
 
 
-* Examples
 
-
-* References

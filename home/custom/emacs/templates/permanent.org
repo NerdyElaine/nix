@@ -1,10 +1,10 @@
 #+date: %<%Y-%m-%d>
 #+filetags: :permanent:
 
-* Idea:
+* The Concept:
  %?
  
-* Details:
+* Evidence / Formulation / Code Block:
 
 
 * Connections:

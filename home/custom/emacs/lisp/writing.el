@@ -32,7 +32,7 @@
 
 (use-package olivetti
   :straight t
-  :bind (("C-c o" . olivetti-mode))
+  :bind (("C-c v" . olivetti-mode))
   :init
   (setq olivetti-body-width 80)
   
@@ -48,6 +48,7 @@
                 (display-line-numbers-mode 1))))
                 
   ;; Hook into text, org, and ONLY individual elfeed articles
-  (add-hook 'text-mode-hook #'olivetti-mode)
   (add-hook 'elfeed-show-mode-hook #'olivetti-mode))
+
+(provide 'writing)
 ;;; writing.el ends here

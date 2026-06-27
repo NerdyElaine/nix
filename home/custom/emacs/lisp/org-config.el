@@ -91,12 +91,20 @@
          :target (file+head "notes/math/%<%Y%m%d%H%M%S>-${slug}.org"
                             "#+title: ${title}\n")
          :unnarrowed t)
-
+        
+        ("p" "programming" plain
+         (file "~/nix/home/custom/emacs/templates/programming.org")
+         :target (file+head "notes/programming/${slug}.org"
+                            "#+title: ${title}\n")
+         :unnarrowed t)
+        
         ("i" "index / topic" plain
          (file "~/nix/home/custom/emacs/templates/index.org")
          :target (file+head "notes/index/${slug}.org"
                             "#+title: ${title}\n")
          :unnarrowed t)
+        
+
 
         ("f" "fleeting note" plain
          (file "~/nix/home/custom/emacs/templates/fleeting.org")

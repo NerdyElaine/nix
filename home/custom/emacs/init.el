@@ -361,11 +361,11 @@
 (setq delete-pair-blink-delay 0.03)
 
 (set-face-attribute 'default nil
-                    :family "IosevkaTerm Nerd Font Mono"
+                    :family "AporeticSansMonoNerdFont"
                     :height 140)
 
-(set-face-attribute 'bold nil :family "IosevkaTerm Nerd Font Mono" :weight 'extrabold)
-(set-face-attribute 'italic nil :family "IosevkaTerm Nerd Font Mono" :slant 'italic)
+(set-face-attribute 'bold nil :family "AporeticSansMonoNerdFont" :weight 'extrabold)
+(set-face-attribute 'italic nil :family "AporeticSansMonoNerdFont" :slant 'italic)
 
 ;; Continue wrapped lines at whitespace rather than breaking in the
 ;; middle of a word.

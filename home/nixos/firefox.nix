@@ -557,22 +557,4 @@
       };
     };
   };
-  textfox = {
-    enable = true;
-    profiles = [ "elaine" ];
-    config = {
-      displayWindowControls = false;
-      displayNavButtons = false;
-      displayUrlbarIcons = false;
-      displaySidebarTools = false;
-      font = {
-          family = "Iosevka Nerd Font Mono";
-          size = "14px";
-        };
-      tabs = {
-        horizontal.enable = false;
-        vertical.enable = true;
-      };
-    };
-  };
 }

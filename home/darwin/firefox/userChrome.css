@@ -26,8 +26,8 @@
 	--urlbar-focused-bg-color: var(--eg-grey1);
 	--urlbar-not-focused-bg-color: var(--eg-bg);
 	--toolbar-bgcolor: var(--eg-bg-alt) !important;
-	--tab-font: 'IosevkaTerm Nerd Font';
-	--urlbar-font: 'IosevkaTerm Nerd Font';
+	--tab-font: 'Aporetic Sans';
+	--urlbar-font: 'Aporetic Sans';
 
 	/* try increasing if you encounter problems */
 	--urlbar-height-setting: 22px;

@@ -16,14 +16,14 @@
 
 (add-hook 'elfeed-show-mode-hook
   (lambda ()
-    (setq buffer-face-mode-face '(:family "Garamond Libre" :height 160))
-    (set-face-attribute 'line-number nil :font "IosevkaTerm Nerd Font")
-    (set-face-attribute 'line-number-current-line nil :font "IosevkaTerm Nerd Font")
+    (setq buffer-face-mode-face '(:family "Crimson Pro" :height 160))
+    (set-face-attribute 'line-number nil :font "AporeticSansMonoNerdFont")
+    (set-face-attribute 'line-number-current-line nil :font "AporeticSansMonoNerdFont")
     (buffer-face-mode t)))
 
 (custom-set-faces
- '(shr-text ((t (:family "Garamond Libre" :height 160))))
- '(shr-code ((t (:family "Iosevka" :height 140)))))
+ '(shr-text ((t (:family "Crimson Pro" :height 160))))
+ '(shr-code ((t (:family "AporeticSansMonoNerdFont" :height 140)))))
 
 
 ;; elfeed.el ends here

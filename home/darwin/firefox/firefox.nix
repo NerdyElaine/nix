@@ -510,6 +510,7 @@
         user_pref("network.trr.mode", 3);
         user_pref("network.trr.uri", "https://dns.quad9.net/dns-query");
         user_pref("network.trr.custom_uri", "https://dns.quad9.net/dns-query");
+        user_pref("privacy.fingerprintingProtection.overrides", "-FontVisibilityBaseSystem,-FontVisibilityLangPack");
       '';
 
       extensions = {
@@ -635,7 +636,7 @@
     --tridactyl-hint-outline: none !important;
     --option-height: 1.4em;
     --tridactyl-font-family: "IosevkaTerm Nerd Font", monospace;
-    --tridactyl-font-size: 12px;
+    --tridactyl-font-size: 14px;
 }
 
 #cmdline_iframe
@@ -657,7 +658,7 @@
     border: none !important;
     border-top: 1px solid #ECEBE8 !important;
     background: #FCFBF9 !important;
-    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    font-family: "Aporetic Sans", monospace !important;
     font-size: 12px !important;
 }
 
@@ -668,7 +669,7 @@
     padding: 0.2rem 0 0.2rem 0.6rem !important;
     color: #9E9A95 !important;
     flex-shrink: 0 !important;
-    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    font-family: "Aporetic Sans", monospace !important;
 }
 
 #tridactyl-input
@@ -676,7 +677,7 @@
     color: #605A52 !important;
     background: #FCFBF9 !important;
     font-size: 12px !important;
-    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    font-family: "Aporetic Sans", monospace !important;
     line-height: 1.4 !important;
     padding: 0.2rem 0.4rem !important;
     flex: 1 !important;
@@ -692,7 +693,7 @@
     width: 100%;
     order: -1;
     max-height: calc(10 * var(--option-height));
-    font-family: "IosevkaTerm Nerd Font", monospace;
+    font-family: "Aporetic Sans", monospace;
     font-size: 12px;
 }
 
@@ -764,7 +765,7 @@
     border: 1px solid #9E9A95 !important;
     color: #605A52 !important;
     font-size: 11px !important;
-    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    font-family: "Aporetic Sans", monospace !important;
     padding: 0.2ex 0.5ex !important;
 }
 
@@ -773,7 +774,7 @@
     color: #605A52 !important;
     border: 1px solid #9E9A95 !important;
     border-radius: 3px !important;
-    font-family: "IosevkaTerm Nerd Font", monospace !important;
+    font-family: "Aporetic Sans", monospace !important;
     font-size: 11px !important;
     font-weight: bold !important;
     padding: 1px 4px !important;

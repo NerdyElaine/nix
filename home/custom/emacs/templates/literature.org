@@ -1,5 +1,6 @@
 #+date: %<%Y-%m-%d>
 #+filetags: :literature:
+#+author: %?
 
 * Summary
 

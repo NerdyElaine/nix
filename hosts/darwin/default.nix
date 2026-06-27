@@ -77,9 +77,10 @@
 
   fonts.packages = with pkgs; [
     nerd-fonts.iosevka-term
-    nerd-fonts.iosevka
     nerd-fonts.jetbrains-mono
-    garamond-libre
+    inputs.aporetic-nerd-font.packages.${pkgs.system}.default
+    aporetic
+    crimson-pro
   ];
 
   # macOS system defaults
@@ -135,26 +136,27 @@
       "zlib"
       "cmake"
       "hunspell"
-      "wordlist"
       "sk"
       "cava"
       "bob"
       "libvterm"
       "fd"
-      "felixkratz/formulae/borders"
-      "felixkratz/formulae/sketchybar"
+      "FelixKratz/formulae/sketchybar"
+      "FelixKratz/formulae/borders"
       "pipx"
     ];
 
     casks = [
       "lulu"
       "shottr"
+      "steam"
       "hot"
       "simpletex"
       "sf-symbols"
       "keycastr"
       "vesktop"
       "flux-app"
+      "prismlauncher"
       "tunnelblick"
       "protonvpn"
       "linearmouse"

@@ -1,216 +1,159 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 {
   programs.waybar = {
     enable = true;
 
-    settings = [{
-      layer    = "top";
-      position = "top";
-      height   = 32;
-      spacing  = 4;
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 24;
+        spacing = 0;
+        margin = "0";
 
-      modules-left   = [ "wlr/taskbar" "wlr/workspaces" ];
-      modules-center = [ "clock" ];
-      modules-right  = [
-        "pulseaudio"
-        "bluetooth"
-        "network"
-        "cpu"
-        "memory"
-        "temperature"
-        "tray"
-      ];
+        modules-left = [
+          "wlr/workspaces"
+          "custom/layout"
+          "river/window"
+        ];
+        modules-center = [];
+        modules-right = [
+          "pulseaudio"
+          "battery"
+          "clock"
+        ];
 
-      "wlr/workspaces" = {
-        format      = "{name}";
-        on-click    = "activate";
-        sort-by-name = true;
+        "wlr/workspaces" = {
+          format = "{id}";
+          on-click = "activate";
+          sort-by-number = true;
+        };
+
+        "river/window" = {
+          format = "{}";
+        };
+
+        "custom/layout" = {
+          format = "[]=";
+          tooltip = false;
+        };
+
+        pulseaudio = {
+          format = "vol {volume}%";
+          format-muted = "vol muted";
+          on-click = "pavucontrol";
+        };
+
+        battery = {
+          format = "bat {capacity}%";
+          format-charging = "bat {capacity}% +";
+          format-plugged = "bat {capacity}% =";
+          states = {
+            warning = 30;
+            critical = 15;
+          };
+        };
+
+        clock = {
+          format = "{:%H:%M}";
+          tooltip-format = "{:%A, %d %B %Y}";
+        };
       };
-
-      "wlr/taskbar" = {
-        format          = "{icon}";
-        icon-size       = 16;
-        tooltip-format  = "{title}";
-        on-click        = "activate";
-        on-click-middle = "close";
-      };
-
-      clock = {
-        timezone  = "Asia/Tokyo";
-        format    = " {:%a %d %b  %H:%M}";
-        tooltip-format = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-      };
-
-      cpu = {
-        format   = " {usage}%";
-        tooltip  = true;
-        interval = 5;
-      };
-
-      memory = {
-        format   = " {percentage}%";
-        tooltip-format = "{used:0.1f}G / {total:0.1f}G";
-        interval = 10;
-      };
-
-      temperature = {
-        critical-threshold = 80;
-        format             = " {temperatureC}°C";
-        format-critical    = " {temperatureC}°C";
-      };
-
-      pulseaudio = {
-        format         = "{icon} {volume}%";
-        format-muted   = " muted";
-        format-icons   = { default = [ "" "" "" ]; };
-        on-click       = "pavucontrol";
-        scroll-step    = 5;
-      };
-
-      bluetooth = {
-        format          = " {status}";
-        format-connected = " {device_alias}";
-        format-off      = "";
-        tooltip-format  = "{controller_alias}\t{controller_address}\n\n{num_connections} connected";
-        tooltip-format-connected = "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}";
-        tooltip-format-enumerate-connected = "{device_alias}\t{device_address}";
-        on-click        = "blueman-manager";
-      };
-
-      network = {
-        format-wifi         = " {essid} ({signalStrength}%)";
-        format-ethernet     = " {ipaddr}";
-        format-disconnected = "⚠ Disconnected";
-        tooltip-format      = "{ifname}: {ipaddr}/{cidr}";
-        on-click            = "nm-connection-editor";
-      };
-
-      tray = {
-        spacing = 8;
-      };
-    }];
+    };
 
     style = ''
       * {
-        font-family: "JetBrainsMono Nerd Font", monospace;
-        font-size:   13px;
-        min-height:  0;
+        font-family: IosevkaTerm Nerd Font;
+        font-size: 12px;
+        border: none;
+        border-radius: 0;
+        min-height: 24px;
+        margin: 0;
+        padding: 0;
       }
 
       window#waybar {
-        background-color: rgba(30, 30, 46, 0.90);  /* Catppuccin Mocha base */
-        color:            #cdd6f4;
-        border-bottom:    2px solid #313244;
+        background: #F7F3EE;
+        color: #605A52;
       }
 
-      .modules-left,
-      .modules-center,
-      .modules-right {
-        padding: 0 8px;
-      }
+      /* workspaces */
 
       #workspaces button {
-        padding:     0 6px;
-        color:       #6c7086;
-        background:  transparent;
-        border:      none;
-        border-radius: 4px;
+        background: #F7F3EE;
+        color: #9E9A95;
+        padding: 0 10px;
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+        min-width: 28px;
       }
 
       #workspaces button:hover {
-        background: #313244;
-        color:      #cdd6f4;
+        background: #ECEBE8;
+        color: #605A52;
+        box-shadow: none;
       }
 
-      #workspaces button.active {
-        background: #89b4fa;
-        color:      #1e1e2e;
+      #workspaces button.active,
+      #workspaces button.focused {
+        background: #83577D;
+        color: #FCFBF9;
       }
 
-      #taskbar button {
-        padding:      0 4px;
-        background:   transparent;
-        border:       none;
-        border-radius: 4px;
-        color:        #cdd6f4;
+      #workspaces button.urgent {
+        background: #8F5652;
+        color: #FCFBF9;
       }
 
-      #taskbar button:hover,
-      #taskbar button.active {
-        background: #313244;
+      #workspaces button.occupied,
+      #workspaces button.visible {
+        color: #605A52;
       }
 
-      #clock,
-      #cpu,
-      #memory,
-      #temperature,
+      /* layout indicator */
+
+      #custom-layout {
+        color: #9E9A95;
+        padding: 0 10px;
+        border-right: 1px solid #DDDBD8;
+        background: #F7F3EE;
+      }
+
+      /* window title */
+
+      #window {
+        color: #605A52;
+        padding: 0 12px;
+        background: #F7F3EE;
+      }
+
+      /* right modules */
+
       #pulseaudio,
-      #bluetooth,
-      #network,
-      #tray {
-        padding:      0 10px;
-        color:        #cdd6f4;
+      #battery,
+      #clock {
+        color: #477A7B;
+        padding: 0 12px;
+        background: #F7F3EE;
+        border-left: 1px solid #DDDBD8;
       }
 
       #clock {
-        color: #cba6f7;
-      }
-
-      #cpu {
-        color: #a6e3a1;
-      }
-
-      #memory {
-        color: #89b4fa;
-      }
-
-      #temperature {
-        color: #fab387;
-      }
-
-      #temperature.critical {
-        color:            #f38ba8;
-        animation:        blink 1s linear infinite;
-      }
-
-      @keyframes blink {
-        to { color: #1e1e2e; background-color: #f38ba8; }
-      }
-
-      #pulseaudio {
-        color: #f9e2af;
+        color: #9E9A95;
       }
 
       #pulseaudio.muted {
-        color: #6c7086;
+        color: #9E9A95;
       }
 
-      #bluetooth {
-        color: #89dceb;
+      #battery.warning {
+        color: #886A44;
       }
 
-      #bluetooth.off {
-        color: #6c7086;
-      }
-
-      #network {
-        color: #94e2d5;
-      }
-
-      #network.disconnected {
-        color: #f38ba8;
-      }
-
-      #tray {
-        color: #cdd6f4;
-      }
-
-      tooltip {
-        background:   rgba(30, 30, 46, 0.95);
-        border:       1px solid #313244;
-        border-radius: 6px;
-        color:        #cdd6f4;
+      #battery.critical {
+        color: #8F5652;
       }
     '';
   };

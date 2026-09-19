@@ -620,13 +620,13 @@
     colourscheme earl-grey
   '';
   home.file.".config/tridactyl/themes/earl-grey.css".text = ''
-         :root {
+  :root {
     --tridactyl-fg: #605A52;
     --tridactyl-bg: #FCFBF9;
     --tridactyl-url-fg: #556995;
     --tridactyl-url-bg: #FCFBF9;
-    --tridactyl-highlight-box-bg: #83577D;
-    --tridactyl-highlight-box-fg: #FCFBF9;
+    --tridactyl-highlight-box-bg: transparent;
+    --tridactyl-highlight-box-fg: transparent;
     --tridactyl-hintspan-fg: #605A52 !important;
     --tridactyl-hintspan-bg: #F7F3EE !important;
     --tridactyl-hint-active-fg: none;
@@ -637,6 +637,13 @@
     --option-height: 1.4em;
     --tridactyl-font-family: "IosevkaTerm Nerd Font", monospace;
     --tridactyl-font-size: 14px;
+}
+
+.TridactylHighlight,
+.TridactylHighlightBox {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
 }
 
 #cmdline_iframe
@@ -659,7 +666,7 @@
     border-top: 1px solid #ECEBE8 !important;
     background: #FCFBF9 !important;
     font-family: "Aporetic Sans", monospace !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
 }
 
 #tridactyl-colon
@@ -676,7 +683,7 @@
 {
     color: #605A52 !important;
     background: #FCFBF9 !important;
-    font-size: 12px !important;
+    font-size: 14px !important;
     font-family: "Aporetic Sans", monospace !important;
     line-height: 1.4 !important;
     padding: 0.2rem 0.4rem !important;
@@ -694,7 +701,7 @@
     order: -1;
     max-height: calc(10 * var(--option-height));
     font-family: "Aporetic Sans", monospace;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #completions > div
@@ -764,7 +771,7 @@
     background: #FCFBF9 !important;
     border: 1px solid #9E9A95 !important;
     color: #605A52 !important;
-    font-size: 11px !important;
+    font-size: 14px !important;
     font-family: "Aporetic Sans", monospace !important;
     padding: 0.2ex 0.5ex !important;
 }
@@ -775,7 +782,7 @@
     border: 1px solid #9E9A95 !important;
     border-radius: 3px !important;
     font-family: "Aporetic Sans", monospace !important;
-    font-size: 11px !important;
+    font-size: 14px !important;
     font-weight: bold !important;
     padding: 1px 4px !important;
 }

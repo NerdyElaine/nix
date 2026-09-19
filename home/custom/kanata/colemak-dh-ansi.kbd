@@ -18,6 +18,11 @@
   process-unmapped-keys   yes
   concurrent-tap-hold     yes
   allow-hardware-repeat   no
+  macos-dev-names-include (
+    "Apple Internal Keyboard / Trackpad"
+    "Keychron V1 Ultra 8K"
+    ;; add your external keyboard name here if you use one
+  )
 )
 
 ;; Source layer - defines which keys are intercepted
@@ -34,20 +39,20 @@ esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
 (deflayer colemak-dh
 esc   🔅    🔆    f3    f4    f5    f6    f7    f8    f9    🔇    🔉    🔊
   grv      1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab      q    w    f    p    b    j    l    u    y    ;    [    ]    \
-  esc     @a    @r    @s    @t    g    m    @n    @e    @i    @o    '    ret
-  lsft        x    c    d    v    z    k    h    ,    .    /    rsft
+  tab      q    w    e    r    t    y    u    i    o    p    [    ]    \
+  esc     @a    @r    @s    @t    g    h    @n    @e    @i    @o    '    ret
+  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
   @ext	   lmet lalt           spc            @lm rmet _    _
 )
 
 ;; QWERTY layer for comparison/fallback
 (deflayer qwerty
-esc   🔅    🔆   f3    f4    f5    f6    f7    f8    f9    🔇    🔉    🔊
+ esc   🔅    🔆    f3    f4    f5    f6    f7    f8    f9    🔇    🔉    🔊
   grv      1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab      q    w    e    r    t    y    u    i    o    p    [    ]    \
-  lctl     a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft        z    x    c    v    b    n    m    ,    .    /    rsft
-  @ext    lmet lalt           spc            @lm  rmet _    _
+  tab      q    w    k    s    f   j    u    l   y    ;    [    ]    \
+  esc     a    r    s    t    g    m    n    e    i    o    '    ret
+  lsft        x    c    d    v    z    k    h    ,    .    /    rsft
+  @ext	   lmet lalt           spc            @lm rmet _    _
 	
 )
 
@@ -84,13 +89,13 @@ esc   🔅    🔆   f3    f4    f5    f6    f7    f8    f9    🔇    🔉    �
     ;; hold e or i for hyper key
     ext  (tap-hold 50 50 lctl (layer-toggle extend))
      a (switch ((key-timing 1 less-than $tt)) a break () (tap-hold $tt $ht a @ext) break)
-  r (switch ((key-timing 1 less-than $tt)) r break () (tap-hold-press $tt $ht r lmet) break)
-  s (switch ((key-timing 1 less-than $tt)) s break () (tap-hold-release $tt $ht s lalt) break)
-  t (switch ((key-timing 1 less-than $tt)) t break () (tap-hold-release $tt $ht t lctl) break)
-  n (switch ((key-timing 1 less-than $tt)) n break () (tap-hold-release $tt $ht n rctl ) break)
-  e (switch ((key-timing 1 less-than $tt)) e break () (tap-hold-release $tt $ht e ralt ) break)
-  i (switch ((key-timing 1 less-than $tt)) i break () (tap-hold-release $tt $ht i rmet) break)
-  o (switch ((key-timing 1 less-than $tt)) o break () (tap-hold-release $tt $ht o @ext) break)   
+     r (switch ((key-timing 1 less-than $tt)) s break () (tap-hold-press $tt $ht s lmet) break)
+     s (switch ((key-timing 1 less-than $tt)) d break () (tap-hold-release $tt $ht d lalt) break)
+     t (switch ((key-timing 1 less-than $tt)) f break () (tap-hold-release $tt $ht f lctl) break)
+     n (switch ((key-timing 1 less-than $tt)) j break () (tap-hold-release $tt $ht j rctl ) break)
+     e (switch ((key-timing 1 less-than $tt)) k break () (tap-hold-release $tt $ht k ralt ) break)
+     i (switch ((key-timing 1 less-than $tt)) l break () (tap-hold-release $tt $ht l rmet) break)
+     o (switch ((key-timing 1 less-than $tt)) ; break () (tap-hold-release $tt $ht ; @ext) break)   
     lq   (layer-switch qwerty)    ;; Switch to QWERTY
     lh   (layer-switch colemak-dh) ;; Switch to Colemak-DH
 	lm 	 (layer-while-held mouse) ;; switch to mouse

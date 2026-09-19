@@ -3,6 +3,7 @@
 
   xdg.configFile."aerospace/aerospace.toml".text = ''
     start-at-login = true
+    config-version = 2
     after-startup-command = [
       "exec-and-forget borders active_color=0xff7686A9 inactive_color=0xffAEABA6 style=square width=8.0",
         "exec-and-forget sketchybar",
@@ -19,7 +20,7 @@
         "-c",
         "sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$(/run/current-system/sw/bin/aerospace list-workspaces --focused)"
     ]
-
+    
     [gaps]
     inner.horizontal = 10
     inner.vertical = 10
@@ -31,23 +32,23 @@
     [mode.main.binding]
     alt-slash = "layout tiles horizontal vertical"
     alt-comma = "layout tiles horizontal horizontal"
-    alt-shift-h = "move-mouse monitor-force-center"
-    alt-shift-f = "fullscreen"
+    alt-shift-m = "move-mouse monitor-force-center"
+    alt-shift-e = "fullscreen"
 
-    alt-m = "focus left"
-    alt-n = "focus down"
-    alt-e = "focus up"
-    alt-i = "focus right"
+    alt-h = "focus left"
+    alt-j = "focus down"
+    alt-k = "focus up"
+    alt-l = "focus right"
 
-    ctrl-shift-m = "resize width -50"
-    ctrl-shift-n = "resize height +50"
-    ctrl-shift-e = "resize height -50"
-    ctrl-shift-i = "resize width +50"
+    ctrl-shift-h = "resize width -50"
+    ctrl-shift-j = "resize height +50"
+    ctrl-shift-k = "resize height -50"
+    ctrl-shift-l = "resize width +50"
 
-    alt-shift-m = "move left"
-    alt-shift-n = "move down"
-    alt-shift-e = "move up"
-    alt-shift-i = "move right"
+    alt-shift-h = "move left"
+    alt-shift-j = "move down"
+    alt-shift-k = "move up"
+    alt-shift-l = "move right"
 
     ctrl-1 = "workspace 1"
     ctrl-2 = "workspace 2"
@@ -87,7 +88,7 @@
     run = 'move-node-to-workspace 1'
 
     [[on-window-detected]]
-    if.app-id = 'net.ankiweb.launcher'
+    if.app-id = 'md.Obsidian'
     run = 'move-node-to-workspace 2'
 
     [[on-window-detected]]
@@ -117,6 +118,14 @@
     [[on-window-detected]]
     if.app-id = 'org.keepassxc.keepassxc'
     run = 'move-node-to-workspace 7'
+
+    [[on-window-detected]]
+    if.app-id = 'net.kovidgoyal.calibre'
+    run = 'move-node-to-workspace 8'
+
+    [[on-window-detected]]
+    if.app-id = 'net.ankiweb.launcher'
+    run = 'move-node-to-workspace 9'
 
     [[on-window-detected]]
     if.app-id = 'ch.protonvpn.mac'
